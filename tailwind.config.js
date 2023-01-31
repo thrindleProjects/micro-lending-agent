@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       fontFamily: {
         primary: ['Inter', ...fontFamily.sans],
+        poppins: ['Poppins', 'sans-serif'],
       },
       colors: {
         primary: {
@@ -24,6 +25,14 @@ module.exports = {
           900: 'rgb(var(--tw-color-primary-900) / <alpha-value>)',
         },
         dark: '#222222',
+        'amali-green': '#008636',
+        'amali-steel-blue': '#001A0A',
+        'amali-blue': '#00CFE8',
+        'amali-grey': '#637381',
+        'amali-bg': '#FAFBFE',
+      },
+      gridTemplateRows: {
+        layout: 'auto 50px auto 50px auto',
       },
       keyframes: {
         flicker: {

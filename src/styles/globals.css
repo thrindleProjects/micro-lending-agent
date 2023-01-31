@@ -28,6 +28,12 @@
   /* #endregion  /**======== Primary Color =========== */
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+:root {
+  --primary: #ffffff;
+  --secondary: #637381;
+}
+
 @layer base {
   /* inter var - latin */
   @font-face {
@@ -114,5 +120,133 @@
   .animated-underline:hover,
   .animated-underline:focus-visible {
     background-size: 0 2px, 100% 2px;
+  }
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary) var(--primary);
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 0.25rem;
+  height: 0.25rem;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--primary);
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--secondary);
+  border-radius: 14px;
+}
+
+html,
+body,
+#__next {
+  @apply h-full w-full;
+  @apply bg-amali-bg;
+}
+
+body {
+  @apply font-poppins;
+}
+
+.wrapper {
+  @apply h-full bg-amali-bg py-24 px-8 md:py-28 lg:pl-[18rem];
+}
+.main-wrapper {
+  @apply h-full w-[100%];
+}
+
+input,
+label {
+  display: block;
+}
+
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td,
+#customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04aa6d;
+  color: white;
+}
+
+.layout_wrapper {
+  @apply h-full w-full max-w-[1560px];
+  @apply mx-auto;
+  @apply grid;
+  grid-template-columns: 1fr;
+}
+
+.main_wrapper {
+  @apply h-screen w-full overflow-hidden;
+  @apply relative;
+  @apply col-start-1 grid grid-cols-1;
+  grid-template-rows: auto 1fr;
+}
+
+.layout__side_bar__wrapper {
+  @apply hidden lg:block;
+}
+
+.layout__side_bar {
+  @apply h-screen;
+  @apply overflow-y-auto;
+  @apply sticky inset-x-0 top-0;
+  /* @apply pb-28; */
+  @apply shadow-xl;
+  @apply bg-white;
+  /* @apply col-span-1 */
+}
+
+.layout__top_nav {
+  @apply shadow-sm;
+  @apply bg-white;
+  @apply sticky inset-x-0 right-0;
+  @apply h-full w-full;
+  @apply row-span-1 row-start-1;
+  @apply relative z-[60];
+}
+
+.main_container {
+  @apply row-span-1 row-start-2;
+  @apply h-full w-full;
+  @apply relative;
+}
+
+@media (min-width: 1024px) {
+  .layout_wrapper {
+    grid-template-columns: minmax(10rem, 22%) 1fr;
+  }
+  .layout__side_bar__wrapper {
+    @apply relative;
+    @apply bg-black;
+    @apply col-span-1 col-start-1;
+  }
+  .main_wrapper {
+    @apply col-span-1 col-start-2;
+  }
+}
+
+@media (min-width: 1280px) {
+  .layout_wrapper {
+    grid-template-columns: minmax(14rem, 15%) 1fr;
   }
 }

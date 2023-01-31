@@ -36,7 +36,7 @@ export default function NextImage({
   const widthIsSet = className?.includes('w-') ?? false;
 
   return (
-    <figure
+    <div
       style={!widthIsSet ? { width: `${width}px` } : undefined}
       className={className}
     >
@@ -52,6 +52,6 @@ export default function NextImage({
         onLoadingComplete={() => setStatus('complete')}
         {...rest}
       />
-    </figure>
+    </div>
   );
 }
