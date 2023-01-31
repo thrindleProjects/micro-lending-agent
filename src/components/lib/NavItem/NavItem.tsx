@@ -5,6 +5,8 @@ import React, { useState } from 'react';
 
 import { sideBarData } from '@/data/navLinks';
 
+import { NavItemWrapper } from '@/components/lib/NavItem/styled';
+
 const variants = {
   rotate: {
     rotate: 90,
@@ -20,14 +22,14 @@ const NavItem = () => {
   const [expanded, setExpanded] = useState<number | boolean>(1);
 
   return (
-    <div className='nav-item bg-white px-4 pb-20 lg:pb-6'>
+    <div className='nav-item bg-white pb-20 lg:pb-6'>
       {sideBarData.map((item, index) => (
-        <div key={index}>
+        <NavItemWrapper key={index}>
           <div key={index} className='mt-4 overflow-hidden text-amali-grey'>
             {item.link && item.link.length ? (
               <Link
                 href={`${item.link}`}
-                className='mx-auto flex items-center justify-between rounded-md p-2 px-3 ease-in-out hover:bg-amali-steel-blue hover:text-white'
+                className='mx-auto flex items-center justify-between p-2 px-7 ease-in-out hover:bg-amali-green hover:text-white'
               >
                 <div className='flex items-center gap-3 '>
                   <Icon icon={item.icon} className='font-bold' />
@@ -39,7 +41,7 @@ const NavItem = () => {
                 onClick={() =>
                   setExpanded(item.id === expanded ? false : item.id)
                 }
-                className='mx-auto flex w-full items-center justify-between rounded-md p-2 px-3 ease-in-out hover:bg-amali-steel-blue hover:text-white'
+                className='mx-auto flex w-full items-center justify-between rounded-r-md p-2 pl-7 pr-3 ease-in-out hover:bg-amali-green hover:text-white'
               >
                 <div className='flex items-center gap-3 '>
                   <Icon icon={item.icon} className='font-bold' />
@@ -90,7 +92,7 @@ const NavItem = () => {
               )}
             </AnimatePresence>
           </div>
-        </div>
+        </NavItemWrapper>
       ))}
     </div>
   );

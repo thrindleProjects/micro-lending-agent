@@ -8,10 +8,10 @@ const SideNav = () => {
   return (
     <aside className='layout__side_bar'>
       <div className='my-auto flex h-20 w-full items-center bg-white px-4 py-4'>
-        <Link href='/' className='relative h-full w-full'>
+        <Link href='/' className='relative flex h-full w-full items-center'>
           <Image
             style={{
-              height: '100%',
+              height: '75%',
               width: 'auto',
             }}
             src='/assets/amali-logo.png'
@@ -21,7 +21,7 @@ const SideNav = () => {
           />
         </Link>
       </div>
-      <div className='w-full'>
+      <div className='w-full pt-12'>
         <NavItem />
       </div>
     </aside>
