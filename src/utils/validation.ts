@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 
 import * as CONSTANTS from '@/constant/constants';
 
-const getExtension = (filename: string) => {
+export const getExtension = (filename: string) => {
   return (
     (filename &&
       filename.substring(filename.lastIndexOf('.') + 1, filename.length)) ||

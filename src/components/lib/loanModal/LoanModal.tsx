@@ -2,22 +2,25 @@ import { useFormik } from 'formik';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
+import * as Yup from 'yup';
 
 import Button from '@/components/buttons/Button';
 import { LoanModalProps } from '@/components/lib/loanModal/LoanModal.props';
+import UploadImage from '@/components/lib/uploadImage/UploadImage';
 import Input from '@/components/shared/Input';
 
-import * as CONSTANTS from '@/constant/constants';
 import { TEXT } from '@/constant/constants';
-
-import { initialValues, validationSchema } from '../../../utils/validation';
 
 const LoanModal: React.FC<LoanModalProps> = ({ setLoanModal }) => {
   const [uploadImage, setUploadImage] = useState(false);
 
   const formik = useFormik({
-    initialValues,
-    validationSchema,
+    initialValues: {
+      bvn: '',
+    },
+    validationSchema: Yup.object({
+      bvn: Yup.string().required('Bvn is required'),
+    }),
     onSubmit: () => {
       setUploadImage(true);
     },
@@ -43,18 +46,16 @@ const LoanModal: React.FC<LoanModalProps> = ({ setLoanModal }) => {
           <form>
             <div className='  mb-10 w-full '>
               <Input
-                id={CONSTANTS.BVN}
-                name={CONSTANTS.BVN}
+                id='bvn'
+                name='bvn'
                 type={TEXT}
-                value={formik.values[CONSTANTS.BVN]}
+                value={formik.values.bvn}
                 placeholder='XXXXXXXXXX'
                 label='BVN '
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={
-                  formik.errors[CONSTANTS.BVN] && formik.touched[CONSTANTS.BVN]
-                }
-                errorText={formik.errors[CONSTANTS.BVN]}
+                error={formik.errors.bvn && formik.touched.bvn}
+                errorText={formik.errors.bvn}
                 required={true}
               />
               <div className='flex h-[32px] items-center justify-between gap-2 rounded-sm bg-amali-light-green px-4 md:hidden'>
@@ -81,7 +82,7 @@ const LoanModal: React.FC<LoanModalProps> = ({ setLoanModal }) => {
               onSubmit={formik.handleSubmit}
               variant='primary'
               size='base'
-              className=' mt-[20rem] w-full md:mt-0'
+              className=' mt-[17rem] w-full md:mt-0'
             >
               <p>Verify</p>
             </Button>
@@ -89,7 +90,11 @@ const LoanModal: React.FC<LoanModalProps> = ({ setLoanModal }) => {
         </section>
       )}
 
-      {uploadImage && <section></section>}
+      {uploadImage && (
+        <section>
+          <UploadImage />
+        </section>
+      )}
     </div>
   );
 };
