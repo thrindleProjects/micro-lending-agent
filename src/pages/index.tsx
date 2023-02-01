@@ -21,7 +21,7 @@ import MainContentLayout from '@/components/shared/MainContentLayout';
 
 export default function HomePage() {
   return (
-    <MainContentLayout show_action_button>
+    <MainContentLayout>
       {/* <Seo templateTitle='Home' /> */}
       <Seo />
 
