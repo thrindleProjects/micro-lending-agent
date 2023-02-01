@@ -16,7 +16,10 @@ module.exports = {
         'amali-steel-blue': '#001A0A',
         'amali-blue': '#00CFE8',
         'amali-grey': '#637381',
-        'amali-bg': '#FAFBFE',
+        'amali-bg': '#FFFFFF',
+        'amali-black': '#1E1E1E',
+        'amali-light-green': '#e9f5ef',
+        'amali-light-yellow': '#fff8ea',
       },
       gridTemplateRows: {
         layout: 'auto 50px auto 50px auto',

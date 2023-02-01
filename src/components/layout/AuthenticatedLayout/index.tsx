@@ -16,7 +16,7 @@ const AuthenticatedLayout: React.FC<PropsWithChildren> = ({ children }) => {
   };
 
   return (
-    <div className='layout_wrapper'>
+    <div className='layout_wrapper '>
       {largeScreen && (
         <div className='layout__side_bar__wrapper'>
           <SideNav />

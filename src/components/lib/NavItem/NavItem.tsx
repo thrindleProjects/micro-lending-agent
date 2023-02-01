@@ -43,7 +43,7 @@ const NavItem = () => {
                 onClick={() =>
                   setExpanded(item.id === expanded ? false : item.id)
                 }
-                className='mx-auto flex w-full items-center justify-between rounded-r-md p-2 pl-7 pr-3 ease-in-out hover:bg-amali-green hover:text-white'
+                className='mx-auto flex w-full items-center justify-between rounded-md p-2 px-5 ease-in-out hover:bg-amali-green hover:text-white'
               >
                 <div className='flex items-center gap-3 '>
                   <Icon icon={item.icon} className='font-bold' />
