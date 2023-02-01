@@ -14,6 +14,6 @@ export const EMAIL = 'email';
 export const DATE = 'date';
 export const FILE = 'file';
 
-// REGISTER FROM TYPES
-export const NAME = 'name';
-export const PHONE_NUMBER = 'number';
+export const ID_CARD = 'id_card';
+export const REGISTRATION_IMAGE = 'registration_image';
+export const LOAN_IMAGE = 'loan_IMAGE';
