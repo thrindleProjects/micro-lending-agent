@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import Layout from '@/components/layout/Layout';
 import ArrowLink from '@/components/links/ArrowLink';
 import ButtonLink from '@/components/links/ButtonLink';
 import UnderlineLink from '@/components/links/UnderlineLink';
 import UnstyledLink from '@/components/links/UnstyledLink';
 import Seo from '@/components/Seo';
+import MainContentLayout from '@/components/shared/MainContentLayout';
 
 /**
  * SVGR Support
@@ -21,7 +21,7 @@ import Seo from '@/components/Seo';
 
 export default function HomePage() {
   return (
-    <Layout>
+    <MainContentLayout show_action_button>
       {/* <Seo templateTitle='Home' /> */}
       <Seo />
 
@@ -67,6 +67,6 @@ export default function HomePage() {
           </div>
         </section>
       </main>
-    </Layout>
+    </MainContentLayout>
   );
 }

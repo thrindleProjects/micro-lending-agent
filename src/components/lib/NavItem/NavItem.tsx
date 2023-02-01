@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import { sideBarData } from '@/data/navLinks';
 
 import { NavItemWrapper } from '@/components/lib/NavItem/styled';
+import ActiveLink from '@/components/links/ActiveLink';
 
 const variants = {
   rotate: {
@@ -27,15 +28,16 @@ const NavItem = () => {
         <NavItemWrapper key={index}>
           <div key={index} className='mt-4 overflow-hidden text-amali-grey'>
             {item.link && item.link.length ? (
-              <Link
+              <ActiveLink
                 href={`${item.link}`}
                 className='mx-auto flex items-center justify-between p-2 px-7 ease-in-out hover:bg-amali-green hover:text-white'
+                activeClassName='bg-amali-green text-white'
               >
                 <div className='flex items-center gap-3 '>
                   <Icon icon={item.icon} className='font-bold' />
                   <p className='text-md '>{item.name}</p>
                 </div>
-              </Link>
+              </ActiveLink>
             ) : (
               <button
                 onClick={() =>
