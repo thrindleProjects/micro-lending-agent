@@ -8,22 +8,21 @@ module.exports = {
     extend: {
       fontFamily: {
         primary: ['Inter', ...fontFamily.sans],
+        poppins: ['Poppins', 'sans-serif'],
       },
       colors: {
-        primary: {
-          // Customize it on globals.css :root
-          50: 'rgb(var(--tw-color-primary-50) / <alpha-value>)',
-          100: 'rgb(var(--tw-color-primary-100) / <alpha-value>)',
-          200: 'rgb(var(--tw-color-primary-200) / <alpha-value>)',
-          300: 'rgb(var(--tw-color-primary-300) / <alpha-value>)',
-          400: 'rgb(var(--tw-color-primary-400) / <alpha-value>)',
-          500: 'rgb(var(--tw-color-primary-500) / <alpha-value>)',
-          600: 'rgb(var(--tw-color-primary-600) / <alpha-value>)',
-          700: 'rgb(var(--tw-color-primary-700) / <alpha-value>)',
-          800: 'rgb(var(--tw-color-primary-800) / <alpha-value>)',
-          900: 'rgb(var(--tw-color-primary-900) / <alpha-value>)',
-        },
         dark: '#222222',
+        'amali-green': '#008636',
+        'amali-steel-blue': '#001A0A',
+        'amali-blue': '#00CFE8',
+        'amali-grey': '#637381',
+        'amali-bg': '#FFFFFF',
+        'amali-black': '#1E1E1E',
+        'amali-light-green': '#e9f5ef',
+        'amali-light-yellow': '#fff8ea',
+      },
+      gridTemplateRows: {
+        layout: 'auto 50px auto 50px auto',
       },
       keyframes: {
         flicker: {
