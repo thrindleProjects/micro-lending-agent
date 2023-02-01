@@ -1,7 +1,6 @@
 import { useFormik } from 'formik';
 import React from 'react';
 import { IoMdClose } from 'react-icons/io';
-import * as Yup from 'yup';
 
 import { IDType } from '@/data/data';
 
@@ -13,37 +12,23 @@ import Select from '@/components/shared/Select';
 
 import * as CONSTANTS from '@/constant/constants';
 import { TEXT } from '@/constant/constants';
+import { initialValues, validationSchema } from '@/utils/validation';
+
 const AddMemberForm: React.FC<AddMemberFormProps> = ({
   setShowAddMemberModal,
+  setShowGroupMembers,
 }) => {
   const formik = useFormik({
-    initialValues: {
-      firstName: '',
-      lastName: '',
-      IdType: '',
-      idImage: '',
-      registrationImage: '',
-      loanImage: '',
-      bvn: '',
-    },
-    validationSchema: Yup.object({
-      firstName: Yup.string().required('First Name  is required'),
-      lastName: Yup.string().required('Last Name is required'),
-      IdType: Yup.string().required('Identification Type  is required'),
-      idImage: Yup.string().required('Id Image is required'),
-      registrationImage: Yup.string().required(
-        'Registration Image is required'
-      ),
-      loanImage: Yup.string().required('Loan Image is required'),
-      bvn: Yup.string().required('BVN is required'),
-    }),
-    onSubmit: (values) => {
-      sessionStorage.setItem('values', JSON.stringify(values));
+    initialValues,
+    validationSchema,
+    onSubmit: () => {
+      setShowGroupMembers(true);
+      setShowAddMemberModal(false);
     },
   });
   return (
-    <form>
-      <div className='mb-8 flex items-center justify-between  text-2xl'>
+    <form className=''>
+      <div className='mb-8  flex items-center justify-between  text-2xl'>
         <h1 className='font-bold'>Add Member</h1>
         <IoMdClose
           className='cursor-pointer '
@@ -52,52 +37,67 @@ const AddMemberForm: React.FC<AddMemberFormProps> = ({
       </div>
       <div className='mb-6 gap-6 md:flex'>
         <Input
-          id='firstName'
+          id={CONSTANTS.FIRST_NAME}
+          name={CONSTANTS.FIRST_NAME}
           type={TEXT}
-          value={formik.values.firstName}
+          value={formik.values[CONSTANTS.FIRST_NAME]}
           placeholder='Makinde'
           label='First Name '
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          error={formik.errors.firstName && formik.touched.firstName}
-          errorText={formik.errors.firstName}
+          error={
+            formik.errors[CONSTANTS.FIRST_NAME] &&
+            formik.touched[CONSTANTS.FIRST_NAME]
+          }
+          errorText={formik.errors[CONSTANTS.FIRST_NAME]}
           required={true}
         />
         <Input
-          id='lastName'
+          id={CONSTANTS.LAST_NAME}
+          name={CONSTANTS.LAST_NAME}
           type={TEXT}
-          value={formik.values.lastName}
+          value={formik.values[CONSTANTS.LAST_NAME]}
           placeholder='John'
           label='Last Name '
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          error={formik.errors.lastName && formik.touched.lastName}
-          errorText={formik.errors.lastName}
+          error={
+            formik.errors[CONSTANTS.LAST_NAME] &&
+            formik.touched[CONSTANTS.LAST_NAME]
+          }
+          errorText={formik.errors[CONSTANTS.LAST_NAME]}
           required={true}
         />
       </div>
       <div className='mb-6 gap-6 md:flex'>
         <Select
           label='Type'
-          id='type'
+          id={CONSTANTS.IDTYPE}
+          name={CONSTANTS.IDTYPE}
           onChange={formik.handleChange}
+          value={formik.values[CONSTANTS.IDTYPE]}
           onBlur={formik.handleBlur}
-          error={formik.errors.IdType && formik.touched.IdType}
-          errorText={formik.errors.IdType}
+          error={
+            formik.errors[CONSTANTS.IDTYPE] && formik.touched[CONSTANTS.IDTYPE]
+          }
+          errorText={formik.errors[CONSTANTS.IDTYPE]}
           required={true}
           options={IDType}
         />
         <InputFile
           label='Upload ID Image'
-          id={CONSTANTS.ID_CARD}
-          name={CONSTANTS.ID_CARD}
+          id={CONSTANTS.IDIMAGE}
+          name={CONSTANTS.IDIMAGE}
           type='file'
           placeholder='Choose file'
           onChange={formik.setFieldValue}
           onBlur={formik.handleBlur}
-          // value={formik.values[CONSTANTS.ID_CARD]}
-          error={formik.errors.idImage && formik.touched.idImage}
-          errorText={formik.errors.idImage}
+          value={formik.values[CONSTANTS.IDIMAGE]}
+          error={
+            formik.errors[CONSTANTS.IDIMAGE] &&
+            formik.touched[CONSTANTS.IDIMAGE]
+          }
+          errorText={formik.errors[CONSTANTS.IDIMAGE]}
           required={true}
           extensions='image/*, .doc, .docx, .pdf'
         />
@@ -111,11 +111,12 @@ const AddMemberForm: React.FC<AddMemberFormProps> = ({
           placeholder='Choose file'
           onChange={formik.setFieldValue}
           onBlur={formik.handleBlur}
-          // value={formik.values[CONSTANTS.ID_CARD]}
+          value={formik.values[CONSTANTS.REGISTRATION_IMAGE]}
           error={
-            formik.errors.registrationImage && formik.touched.registrationImage
+            formik.errors[CONSTANTS.REGISTRATION_IMAGE] &&
+            formik.touched[CONSTANTS.REGISTRATION_IMAGE]
           }
-          errorText={formik.errors.registrationImage}
+          errorText={formik.errors[CONSTANTS.REGISTRATION_IMAGE]}
           required={true}
           extensions='image/*, .doc, .docx, .pdf'
         />
@@ -127,24 +128,28 @@ const AddMemberForm: React.FC<AddMemberFormProps> = ({
           placeholder='Choose file'
           onChange={formik.setFieldValue}
           onBlur={formik.handleBlur}
-          // value={formik.values[CONSTANTS.ID_CARD]}
-          error={formik.errors.loanImage && formik.touched.loanImage}
-          errorText={formik.errors.loanImage}
+          value={formik.values[CONSTANTS.LOAN_IMAGE]}
+          error={
+            formik.errors[CONSTANTS.LOAN_IMAGE] &&
+            formik.touched[CONSTANTS.LOAN_IMAGE]
+          }
+          errorText={formik.errors[CONSTANTS.LOAN_IMAGE]}
           required={true}
           extensions='image/*, .doc, .docx, .pdf'
         />
       </div>
       <div className=' w-full md:w-[50%]'>
         <Input
-          id='bvn'
+          id={CONSTANTS.BVN}
+          name={CONSTANTS.BVN}
           type={TEXT}
-          value={formik.values.bvn}
+          value={formik.values[CONSTANTS.BVN]}
           placeholder='XXXXXXXXXX'
           label='BVN '
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          error={formik.errors.bvn && formik.touched.bvn}
-          errorText={formik.errors.bvn}
+          error={formik.errors[CONSTANTS.BVN] && formik.touched[CONSTANTS.BVN]}
+          errorText={formik.errors[CONSTANTS.BVN]}
           required={true}
         />
       </div>

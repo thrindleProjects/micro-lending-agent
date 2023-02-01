@@ -12,3 +12,21 @@ export const IDType = [
     value: 'International Passport',
   },
 ];
+
+export const groupMembers = [
+  {
+    id: 1,
+    name: 'Makinde Johnson',
+    status: '-',
+  },
+  {
+    id: 2,
+    name: ' Adelwale Phillips',
+    status: '-',
+  },
+  {
+    id: 3,
+    name: 'Olalekan Alao',
+    status: '-',
+  },
+];

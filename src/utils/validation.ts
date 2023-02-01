@@ -11,10 +11,36 @@ const getExtension = (filename: string) => {
 };
 
 export const validationSchema = Yup.object({
-  [CONSTANTS.ID_CARD]: Yup.mixed().test({
+  [CONSTANTS.FIRST_NAME]: Yup.string().required('First Name is required'),
+  [CONSTANTS.LAST_NAME]: Yup.string().required('Last Name is required'),
+  [CONSTANTS.BVN]: Yup.string().required('Bvn Name is required'),
+  [CONSTANTS.IDTYPE]: Yup.string().required('Identification type  is required'),
+  [CONSTANTS.REGISTRATION_IMAGE]: Yup.mixed().test({
     message: 'Please provide a supported file type',
     test: (file, context) => {
-      const isValid = ['doc', 'docx', 'pdf'].includes(getExtension(file?.name));
+      const isValid = ['doc', 'docx', 'pdf', 'png', 'jpeg', 'jpg'].includes(
+        getExtension(file?.name)
+      );
+      if (!isValid) context?.createError();
+      return isValid;
+    },
+  }),
+  [CONSTANTS.LOAN_IMAGE]: Yup.mixed().test({
+    message: 'Please provide a supported file type',
+    test: (file, context) => {
+      const isValid = ['doc', 'docx', 'pdf', 'png', 'jpeg', 'jpg'].includes(
+        getExtension(file?.name)
+      );
+      if (!isValid) context?.createError();
+      return isValid;
+    },
+  }),
+  [CONSTANTS.IDIMAGE]: Yup.mixed().test({
+    message: 'Please provide a supported file type',
+    test: (file, context) => {
+      const isValid = ['doc', 'docx', 'pdf', 'png', 'jpeg', 'jpg'].includes(
+        getExtension(file?.name)
+      );
       if (!isValid) context?.createError();
       return isValid;
     },
@@ -22,7 +48,21 @@ export const validationSchema = Yup.object({
 });
 
 export const initialValues: {
-  [CONSTANTS.ID_CARD]?: File | string;
+  [CONSTANTS.FIRST_NAME]: '';
+  [CONSTANTS.LAST_NAME]: '';
+  [CONSTANTS.IDTYPE]: '';
+
+  [CONSTANTS.BVN]: '';
+  [CONSTANTS.IDIMAGE]?: File | string;
+  [CONSTANTS.REGISTRATION_IMAGE]?: File | string;
+  [CONSTANTS.LOAN_IMAGE]?: File | string;
 } = {
-  [CONSTANTS.ID_CARD]: '',
+  [CONSTANTS.FIRST_NAME]: '',
+  [CONSTANTS.LAST_NAME]: '',
+
+  [CONSTANTS.BVN]: '',
+  [CONSTANTS.REGISTRATION_IMAGE]: '',
+  [CONSTANTS.LOAN_IMAGE]: '',
+  [CONSTANTS.IDIMAGE]: '',
+  [CONSTANTS.IDTYPE]: '',
 };
