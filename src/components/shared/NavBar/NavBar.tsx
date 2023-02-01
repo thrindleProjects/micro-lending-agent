@@ -48,14 +48,14 @@ const NavBar: React.FC<NavBarProps> = () => {
       )}
 
       {!largeScreen && (
-        <ul className='fixed inset-x-0 bottom-0 flex w-full justify-around bg-white py-4 lg:hidden'>
+        <ul className='fixed inset-x-0 bottom-0 flex w-full justify-around bg-white lg:hidden'>
           {sideBarData.map((item, index) => {
             return (
               <li key={index} title={item.name}>
                 <ActiveLink
                   href={item.link}
-                  className='flex flex-col items-center gap-px'
-                  activeClassName='text-amali-green'
+                  className='flex flex-col items-center gap-px border-t-2 border-transparent py-4'
+                  activeClassName='text-amali-green border-amali-green'
                 >
                   <span className='text-lg'>
                     <Icon icon={item.icon} className='font-bold' />
