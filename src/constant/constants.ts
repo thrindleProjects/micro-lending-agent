@@ -1,11 +1,12 @@
 // PROFILE DROPDOWN
-export const MY_PROFILE = 'My Profile';
+export const HELP = 'Help';
 export const LOGOUT = 'Logout';
-export const SETTINGS = 'Settings';
+export const NOTIFICATIONS = 'Notifications';
 
 // SIDEBAR LINKS
 export const HOME = 'Home';
 export const GROUPS = 'Groups';
+export const SETTINGS = 'Settings';
 
 // Input Types
 export const PASSWORD = 'password';
