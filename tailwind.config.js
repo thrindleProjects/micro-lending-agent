@@ -20,6 +20,7 @@ module.exports = {
         'amali-black': '#1E1E1E',
         'amali-light-green': '#e9f5ef',
         'amali-light-yellow': '#fff8ea',
+        'amali-notif-red': '#F24B55',
       },
       gridTemplateRows: {
         layout: 'auto 50px auto 50px auto',

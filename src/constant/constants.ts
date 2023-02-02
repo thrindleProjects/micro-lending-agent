@@ -1,11 +1,16 @@
 // PROFILE DROPDOWN
-export const MY_PROFILE = 'My Profile';
+export const HELP = 'Help';
 export const LOGOUT = 'Logout';
-export const SETTINGS = 'Settings';
+export const NOTIFICATIONS = 'Notifications';
 
 // SIDEBAR LINKS
 export const HOME = 'Home';
 export const GROUPS = 'Groups';
+export const SETTINGS = 'Settings';
+
+// REGISTER FORM TYPES
+export const NAME = 'name';
+export const PHONE_NUMBER = 'number';
 
 // Input Types
 export const PASSWORD = 'password';
@@ -17,7 +22,6 @@ export const FILE = 'file';
 export const ID_CARD = 'id_card';
 
 // Add member values
-
 export const FIRST_NAME = 'First Name';
 export const LAST_NAME = 'Last Name';
 export const IDIMAGE = 'id_image';
