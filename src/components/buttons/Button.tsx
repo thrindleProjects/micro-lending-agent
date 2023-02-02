@@ -34,6 +34,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       leftIconClassName,
       rightIconClassName,
       onSubmit,
+      type,
       ...rest
     },
     ref
@@ -44,7 +45,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         onClick={onSubmit}
-        type='button'
+        type={type ?? 'button'}
         disabled={disabled}
         className={clsxm(
           ' items-center rounded-[8px] text-center font-medium',

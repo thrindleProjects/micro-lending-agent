@@ -5,8 +5,9 @@ import React, { useState } from 'react';
 
 import { sideBarData } from '@/data/navLinks';
 
-import { NavItemWrapper } from '@/components/lib/NavItem/styled';
 import ActiveLink from '@/components/links/ActiveLink';
+
+import { NavItemWrapper } from './styled';
 
 const variants = {
   rotate: {

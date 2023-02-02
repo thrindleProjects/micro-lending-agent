@@ -36,7 +36,7 @@ const buttonVariant: Variants = {
 
 const actionVariants: Variants = {
   initial_1: {
-    y: 20,
+    y: 10,
     opacity: 1,
     transition: {
       duration: 0.5,
@@ -44,11 +44,11 @@ const actionVariants: Variants = {
     },
   },
   initial_2: {
-    x: 20,
+    x: 10,
     opacity: 1,
   },
   exit_1: {
-    y: 20,
+    y: 10,
     opacity: 0,
     transition: {
       duration: 0.5,
@@ -56,7 +56,7 @@ const actionVariants: Variants = {
     },
   },
   exit_2: {
-    x: 20,
+    x: 10,
     opacity: 0,
     transition: {
       duration: 0.5,
@@ -139,8 +139,8 @@ const ActionButton: React.FC<ActionButtonProps> = ({ actions }) => {
           actions &&
           actions.map((action, index) => {
             const classes = index
-              ? '-left-10 top-1/2 transform -translate-y-1/2'
-              : '-top-10 right-0';
+              ? 'right-full mr-6 bottom-0'
+              : 'bottom-full mb-6 right-0';
             return (
               <motion.div
                 key={index}

@@ -3,13 +3,17 @@ import React, { useState } from 'react';
 import { MdOutlineArrowBack } from 'react-icons/md';
 import * as Yup from 'yup';
 
+import { useMediaQuery } from '@/hooks';
+
 import Button from '@/components/buttons/Button';
+import SlidingModal from '@/components/lib/slidingModal/SlidingModal';
 import InputFile from '@/components/shared/InputFile';
 
 import LoanSuccess from '../loanSuccess/LoanSuccess';
 
 const UploadImage = () => {
   const [success, setSuccess] = useState(false);
+  const tabScreen = useMediaQuery('(min-width: 768px)');
 
   const SUPPORTED_FORMATS = [
     'image/jpg',
@@ -91,11 +95,7 @@ const UploadImage = () => {
         </section>
       )}
 
-      {success && (
-        <div>
-          <LoanSuccess />
-        </div>
-      )}
+      {success && <div>{tabScreen ? <LoanSuccess /> : <SlidingModal />}</div>}
     </>
   );
 };
