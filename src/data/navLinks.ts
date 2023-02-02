@@ -1,25 +1,26 @@
 import {
   GROUPS,
+  HELP,
   HOME,
   LOGOUT,
-  MY_PROFILE,
+  NOTIFICATIONS,
   SETTINGS,
 } from '@/constant/constants';
 
 export const profileDropdown = [
   {
     id: 1,
-    icon: 'material-symbols:person-outline-rounded',
-    name: MY_PROFILE,
+    icon: 'clarity:help-line',
+    name: HELP,
   },
   {
     id: 2,
-    icon: 'material-symbols:settings',
-    name: SETTINGS,
+    icon: 'ri:notification-2-line',
+    name: NOTIFICATIONS,
   },
   {
     id: 3,
-    icon: 'ri:logout-circle-line',
+    icon: 'material-symbols:logout',
     name: LOGOUT,
   },
 ];

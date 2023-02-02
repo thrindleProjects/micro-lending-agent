@@ -40,7 +40,7 @@ const LoanModal: React.FC<LoanModalProps> = ({ setLoanModal }) => {
             />
             <p className=' font-bold '>Loan Application</p>
           </div>
-          <form>
+          <form onSubmit={formik.handleSubmit}>
             <div className='  mb-10 w-full '>
               <Input
                 id={CONSTANTS.BVN}
@@ -76,9 +76,7 @@ const LoanModal: React.FC<LoanModalProps> = ({ setLoanModal }) => {
               </div>
             </div>
             <Button
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              //@ts-ignore
-              onSubmit={formik.handleSubmit}
+              type='submit'
               variant='primary'
               size='base'
               className=' mt-[20rem] w-full md:mt-0'

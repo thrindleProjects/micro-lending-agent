@@ -27,7 +27,7 @@ const AddMemberForm: React.FC<AddMemberFormProps> = ({
     },
   });
   return (
-    <form className=''>
+    <form className='' onSubmit={formik.handleSubmit}>
       <div className='mb-8  flex items-center justify-between  text-2xl'>
         <h1 className='font-bold'>Add Member</h1>
         <IoMdClose
@@ -154,12 +154,10 @@ const AddMemberForm: React.FC<AddMemberFormProps> = ({
         />
       </div>
       <Button
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore
-        onSubmit={formik.handleSubmit}
         variant='primary'
         size='base'
-        className=' w-full md:w-[150px] '
+        className=' w-full md:w-[150px]'
+        type='submit'
       >
         <p>Proceed</p>
       </Button>
