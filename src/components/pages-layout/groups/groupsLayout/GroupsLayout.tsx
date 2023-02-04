@@ -14,43 +14,34 @@ import MainContentLayout from '@/components/shared/MainContentLayout';
 
 const GroupsLayout = () => {
   const [groups] = useState<typeof groupsList>(groupsList);
-  const [isOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const router = useRouter();
-  // console.log({ routeModal });
-
+  // const { m } = router.query;
   const handleModal = () => {
-    if (router.query.m && router.query.m === 'open') {
-      router.replace(
-        { pathname: router.pathname },
-        { pathname: router.pathname, query: { m: '' } },
-        { shallow: true }
-      );
-      return;
-    }
-
-    if (!router.query.m) {
-      router.replace(
-        { pathname: router.pathname },
-        { pathname: router.pathname, query: { m: undefined } },
-        { shallow: true }
-      );
-    }
-    router.replace(
-      router.pathname,
-      {
-        pathname: router.pathname,
-        query: {
-          ...router.query,
-          m: router.query.m === 'open' ? 'close' : 'open',
-        },
-      },
-      {
-        shallow: true,
-      }
-    );
+    setIsOpen((old) => !old);
+    // if (m === 'open') {
+    //   router.replace(
+    //     { pathname: router.pathname },
+    //     { pathname: router.pathname, query: { ...router.query, m: 'close' } },
+    //     { shallow: true }
+    //   );
+    //   return;
+    // }
+    // if (!m || (m && m === 'close')) {
+    //   router.replace(
+    //     { pathname: router.pathname },
+    //     { pathname: router.pathname, query: { ...router.query, m: 'open' } },
+    //     { shallow: true }
+    //   );
+    //   return;
+    // }
   };
 
-  // useEffect(() => {}, [routeModal]);
+  // useEffect(() => {
+  //   if (!router.isReady) return;
+
+  //   console.log({ query: router.query });
+  // }, [router]);
 
   return (
     <>
