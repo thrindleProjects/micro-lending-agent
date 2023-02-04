@@ -21,6 +21,7 @@ module.exports = {
         'amali-light-green': '#e9f5ef',
         'amali-light-yellow': '#fff8ea',
         'amali-notif-red': '#F24B55',
+        'amali-table-head': 'rgba(0, 26, 10, 0.4)',
       },
       gridTemplateRows: {
         layout: 'auto 50px auto 50px auto',
