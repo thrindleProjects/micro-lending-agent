@@ -1,4 +1,5 @@
 import { Icon } from '@iconify/react';
+import Link from 'next/link';
 import React from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { CiBank } from 'react-icons/ci';
@@ -21,15 +22,17 @@ const HomePageLayout = () => {
             Welcome Agent 👋🏾
           </h1>
           <div className='hidden lg:flex lg:items-center lg:gap-3'>
-            <Button
-              type='button'
-              variant='primary'
-              size='base'
-              leftIcon={AiOutlinePlus}
-              className='inline-flex'
-            >
-              <span className='font-semibold'>Create New Group</span>
-            </Button>
+            <Link href='/groups'>
+              <Button
+                type='button'
+                variant='primary'
+                size='base'
+                leftIcon={AiOutlinePlus}
+                className='inline-flex'
+              >
+                <span className='font-semibold'>Create New Group</span>
+              </Button>
+            </Link>
             <Button
               variant='outline'
               size='base'
