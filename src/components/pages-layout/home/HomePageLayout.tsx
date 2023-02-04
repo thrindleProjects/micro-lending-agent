@@ -45,7 +45,7 @@ const HomePageLayout = () => {
           </div>
         </section>
         <div className='mt-8'>
-          <InputSearch />
+          <InputSearch placeholder='Search group name' />
         </div>
       </MainContentLayout>
       <ActionButton

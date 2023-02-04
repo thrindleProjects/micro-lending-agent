@@ -6,7 +6,7 @@ export const InputSearchBar = styled.input.attrs({ type: 'text' })`
       left 1rem,
     linear-gradient(0deg, rgba(0, 134, 54, 0.08), rgba(0, 134, 54, 0.08)),
     #ffffff;
-  border: 1px solid #63738120;
+  /* border: 1px solid #63738120; */
   padding-left: 2.5rem;
 
   @media (min-width: 640px) {
