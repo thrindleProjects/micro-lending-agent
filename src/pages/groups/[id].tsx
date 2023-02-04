@@ -18,16 +18,16 @@ import Modal from '@/components/shared/modal/Modal';
 const Groups = () => {
   const [addMemberModal, setShowAddMemberModal] = useState(false);
   const [showGroupMembers, setShowGroupMembers] = useState(false);
-  const [loanModal, setLoanModal] = useState(true);
+  const [loanModal, setLoanModal] = useState(false);
   return (
     <MainContentLayout>
-      <div className='px-4 md:p-16'>
+      <div className=''>
         <section className='hidden md:block'>
           <p className='font-bold text-amali-green'>
             <span className='mr-2 font-light text-amali-grey'>Groups /</span>
             Alpha{' '}
           </p>
-          <div className='mt-6 flex items-center justify-between'>
+          <div className=' flex items-center justify-between'>
             <h1 className='text-2xl'>Alpha Group</h1>
             {!showGroupMembers && (
               <div className='flex items-center gap-3'>
@@ -52,7 +52,7 @@ const Groups = () => {
             )}
           </div>
         </section>
-        <div className='mt-10 text-2xl md:hidden '>
+        <div className=' text-2xl md:hidden '>
           <BsArrowLeft className='mb-6' />
           <h1 className='font-bold'>Alpha Group</h1>
         </div>
@@ -113,7 +113,25 @@ const Groups = () => {
           </Modal>
         )}
       </div>
-      {groupMembers.length === 3 ? (
+      <ActionButton
+        actions={[
+          <button
+            onClick={() => setShowAddMemberModal(true)}
+            key={0}
+            className='flex w-max flex-col items-center gap-1'
+          >
+            <Icon icon='material-symbols:add' className='text-xl' />
+            <span className='text-sm'>Add Members</span>
+          </button>,
+          <button key={1} className='flex w-max flex-col items-center gap-1'>
+            <Icon icon='material-symbols:download' className='text-xl' />
+            <span className='text-sm'>
+              Download <br /> registration form
+            </span>
+          </button>,
+        ]}
+      />
+      {/* {groupMembers.length === 3 ? (
         ''
       ) : (
         <ActionButton
@@ -134,7 +152,7 @@ const Groups = () => {
             </button>,
           ]}
         />
-      )}
+      )} */}
     </MainContentLayout>
   );
 };

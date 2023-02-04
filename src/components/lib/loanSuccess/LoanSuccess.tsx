@@ -16,8 +16,8 @@ const LoanSuccess = () => {
       <div className='my-6 text-center '>
         <h1 className='mb-6 text-2xl font-bold'>Loan Application Sent</h1>
         <p>
-          Your application for 50,000 naira loan has been accepted and will be
-          confirmed soon, check back later for update
+          Loan application successful, you will get notified when we have update
+          on the application
         </p>
       </div>
       <Button
