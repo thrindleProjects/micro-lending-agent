@@ -77,7 +77,7 @@ const NavBar: React.FC<NavBarProps> = () => {
       )}
 
       {!largeScreen && (
-        <ul className='fixed inset-x-0 bottom-0 flex w-full justify-around bg-white lg:hidden'>
+        <ul className='fixed inset-x-0 bottom-0 flex w-full justify-around border-t border-amali-grey border-opacity-50 bg-white lg:hidden'>
           {sideBarData.map((item, index) => {
             return (
               <li key={index} title={item.name}>

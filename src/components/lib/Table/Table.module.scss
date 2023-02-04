@@ -1,0 +1,30 @@
+.table {
+  @apply relative w-full;
+  @apply w-full min-w-full text-left text-sm;
+  @apply border-x border-t border-amali-grey/50;
+  thead {
+    background: linear-gradient(
+        0deg,
+        rgba(255, 165, 0, 0.08),
+        rgba(255, 165, 0, 0.08)
+      ),
+      #ffffff;
+    tr {
+      @apply border-b border-amali-grey/50 font-semibold;
+    }
+
+    td {
+      @apply whitespace-nowrap p-4 text-amali-table-head;
+    }
+  }
+
+  tbody {
+    tr {
+      @apply border-b border-amali-grey/50 bg-transparent;
+      @apply cursor-pointer;
+    }
+    td {
+      @apply whitespace-nowrap p-4 font-semibold text-amali-grey/80;
+    }
+  }
+}
