@@ -1,3 +1,4 @@
+import { Icon } from '@iconify/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
 
@@ -43,18 +44,18 @@ const InputFile: React.FC<InputFileProps<HTMLInputElement>> = ({
           name={name}
           id={id}
           onBlur={onBlur}
-          className='absolute h-full w-full opacity-0'
+          className='absolute left-0 top-0 h-full w-full opacity-0'
           required={required}
           onChange={handleFileUpload}
           multiple={Boolean(multiple)}
           accept={`${extensions ? extensions : '.doc, .docx, .pdf'}`}
         />
-        <div className='grid grid-cols-4 divide-x-2 divide-amali-grey'>
-          <span className='col-span-1 py-3 text-center lg:py-4 xl:py-5'>
-            {placeholder}
+        <div className='grid grid-cols-7'>
+          <span className='col-span-1 grid place-items-center text-xl'>
+            <Icon icon='material-symbols:photo-camera-outline' />
           </span>
-          <span className='col-span-3 flex items-center py-3 pl-2 lg:py-4 xl:py-5'>
-            {value && typeof value !== 'string' ? value.name : 'No file chosen'}
+          <span className='col-span-5 flex items-center py-3 pl-2 lg:py-4 xl:py-5'>
+            {value && typeof value !== 'string' ? value.name : placeholder}
           </span>
         </div>
       </FileInput>

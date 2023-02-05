@@ -12,7 +12,7 @@ module.exports = {
       },
       colors: {
         dark: '#222222',
-        'amali-green': '#008636',
+        'amali-green': '#42B0A8',
         'amali-steel-blue': '#001A0A',
         'amali-blue': '#00CFE8',
         'amali-grey': '#637381',

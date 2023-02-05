@@ -11,7 +11,7 @@ const SideNav = () => {
         <Link href='/' className='relative flex h-full w-full items-center'>
           <Image
             style={{
-              height: '75%',
+              height: '100%',
               width: 'auto',
             }}
             src='/assets/amali-logo.png'
