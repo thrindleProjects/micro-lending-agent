@@ -90,7 +90,7 @@ const LoanModal: React.FC<LoanModalProps> = ({ setLoanModal }) => {
 
       {uploadImage && (
         <section>
-          <UploadImage />
+          <UploadImage onClick={() => setUploadImage(false)} />
         </section>
       )}
     </div>
