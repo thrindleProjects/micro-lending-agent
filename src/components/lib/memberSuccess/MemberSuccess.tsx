@@ -31,7 +31,7 @@ const MemberSuccess: React.FC<MemberSuccessProps> = ({
           setMemberSuccess(false);
         }}
       >
-        <p>Proceed</p>
+        <p>Add New Member</p>
       </Button>
       <Button
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
