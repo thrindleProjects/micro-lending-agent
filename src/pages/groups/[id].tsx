@@ -38,7 +38,7 @@ const Groups = () => {
                   leftIcon={AiOutlinePlus}
                   className='inline-flex'
                 >
-                  Add Members
+                  <span className='font-semibold'> Add Members</span>
                 </Button>
                 <Button
                   variant='outline'
@@ -46,7 +46,10 @@ const Groups = () => {
                   className='inline-flex'
                   leftIcon={GrDownload}
                 >
-                  Download Registration Form
+                  <span className='font-semibold'>
+                    {' '}
+                    Download Registration Form
+                  </span>
                 </Button>
               </div>
             )}

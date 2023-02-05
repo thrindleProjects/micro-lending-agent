@@ -7,11 +7,12 @@ import { useMediaQuery } from '@/hooks';
 
 import Button from '@/components/buttons/Button';
 import SlidingModal from '@/components/lib/slidingModal/SlidingModal';
+import { UploadImageProps } from '@/components/lib/uploadImage/UploadImage.props';
 import InputFile from '@/components/shared/InputFile';
 
 import LoanSuccess from '../loanSuccess/LoanSuccess';
 
-const UploadImage = () => {
+const UploadImage: React.FC<UploadImageProps> = ({ onClick }) => {
   const [success, setSuccess] = useState(false);
   const tabScreen = useMediaQuery('(min-width: 768px)');
 
@@ -47,7 +48,7 @@ const UploadImage = () => {
           <div className='ml-auto   hidden text-sm md:block '>
             <MdOutlineArrowBack
               className='mb-10 cursor-pointer text-2xl '
-              // onClick={() => setLoanModal(false)}
+              onClick={onClick}
             />
             <p className=' mb-3 font-bold '>Upload Completed Loan form Image</p>
             <p className='mb-8 text-xs font-light text-amali-grey'>
