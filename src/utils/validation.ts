@@ -13,7 +13,9 @@ export const getExtension = (filename: string) => {
 export const validationSchema = Yup.object({
   [CONSTANTS.FIRST_NAME]: Yup.string().required('First Name is required'),
   [CONSTANTS.LAST_NAME]: Yup.string().required('Last Name is required'),
-  [CONSTANTS.BVN]: Yup.string().required('Bvn Name is required'),
+  [CONSTANTS.BVN]: Yup.number()
+    .required('BVN is required')
+    .typeError('BVN must only contain numbers'),
   [CONSTANTS.IDTYPE]: Yup.string().required('Identification type  is required'),
   [CONSTANTS.REGISTRATION_IMAGE]: Yup.mixed().test({
     message: 'Please provide a supported file type',
