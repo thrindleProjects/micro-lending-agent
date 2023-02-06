@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 
 import { sideBarData } from '@/data/navLinks';
 
+import NavItemContent from '@/components/lib/NavItemContent';
 import ActiveLink from '@/components/links/ActiveLink';
 
 import { NavItemWrapper } from './styled';
@@ -31,14 +32,11 @@ const NavItem = () => {
             {item.link && item.link.length ? (
               <ActiveLink
                 href={`${item.link}`}
-                className='mx-auto flex items-center justify-between py-4 px-7 ease-in-out hover:bg-amali-green hover:text-white'
+                className='mx-auto flex items-center justify-between py-4 px-7 ease-in-out hover:bg-amali-grey hover:bg-opacity-40 hover:text-white'
                 activeClassName='bg-amali-green text-white'
                 as={item.link}
               >
-                <div className='flex items-center gap-3 '>
-                  <Icon icon={item.icon} className='font-bold' />
-                  <p className='text-md '>{item.name}</p>
-                </div>
+                <NavItemContent {...item} />
               </ActiveLink>
             ) : (
               <button
