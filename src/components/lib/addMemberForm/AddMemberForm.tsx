@@ -18,6 +18,7 @@ import { initialValues, validationSchema } from '@/utils/validation';
 const AddMemberForm: React.FC<AddMemberFormProps> = ({
   setShowAddMemberModal,
   setShowGroupMembers,
+  setCount,
 }) => {
   const [memberSuccess, setMemberSuccess] = useState(false);
 
@@ -27,6 +28,9 @@ const AddMemberForm: React.FC<AddMemberFormProps> = ({
     onSubmit: (values) => {
       if (setShowGroupMembers) {
         setShowGroupMembers(true);
+      }
+      if (setCount) {
+        setCount((prev) => prev + 1);
       }
       setMemberSuccess(true);
       formik.handleReset(values);

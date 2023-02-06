@@ -90,7 +90,7 @@ const UploadImage: React.FC<UploadImageProps> = ({ onClick }) => {
               size='base'
               className=' mt-[17rem] w-full md:mt-0'
             >
-              <p>Verify</p>
+              <p>Apply Now</p>
             </Button>
           </form>
         </section>
