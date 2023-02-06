@@ -1,4 +1,3 @@
-import { Icon } from '@iconify/react';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
@@ -12,6 +11,7 @@ import ActionButton from '@/components/lib/ActionButton';
 import AddMemberForm from '@/components/lib/addMemberForm/AddMemberForm';
 import LoanModal from '@/components/lib/loanModal/LoanModal';
 import Member from '@/components/lib/member/Member';
+import ActionButtonItem from '@/components/shared/ActionButtonItem';
 import MainContentLayout from '@/components/shared/MainContentLayout';
 import Modal from '@/components/shared/modal/Modal';
 
@@ -22,10 +22,10 @@ const Groups = () => {
   return (
     <MainContentLayout>
       <div className=''>
-        <section className='hidden md:block'>
+        <section className='hidden lg:block'>
           <p className='font-bold text-amali-green'>
             <span className='mr-2 font-light text-amali-grey'>Groups /</span>
-            Alpha{' '}
+            Alpha
           </p>
           <div className=' flex items-center justify-between'>
             <h1 className='text-2xl'>Alpha Group</h1>
@@ -55,7 +55,7 @@ const Groups = () => {
             )}
           </div>
         </section>
-        <div className=' text-2xl md:hidden '>
+        <div className='text-2xl lg:hidden'>
           <BsArrowLeft className='mb-6' />
           <h1 className='font-bold'>Alpha Group</h1>
         </div>
@@ -118,44 +118,19 @@ const Groups = () => {
       </div>
       <ActionButton
         actions={[
-          <button
-            onClick={() => setShowAddMemberModal(true)}
+          <ActionButtonItem
+            icon='material-symbols:add'
+            text='Add Members'
             key={0}
-            className='flex w-max flex-col items-center gap-1'
-          >
-            <Icon icon='material-symbols:add' className='text-xl' />
-            <span className='text-sm'>Add Members</span>
-          </button>,
-          <button key={1} className='flex w-max flex-col items-center gap-1'>
-            <Icon icon='material-symbols:download' className='text-xl' />
-            <span className='text-sm'>
-              Download <br /> registration form
-            </span>
-          </button>,
+            onClick={() => setShowAddMemberModal(true)}
+          />,
+          <ActionButtonItem
+            icon='material-symbols:download'
+            text={`Download\nRegistration Form`}
+            key={1}
+          />,
         ]}
       />
-      {/* {groupMembers.length === 3 ? (
-        ''
-      ) : (
-        <ActionButton
-          actions={[
-            <button
-              onClick={() => setShowAddMemberModal(true)}
-              key={0}
-              className='flex w-max flex-col items-center gap-1'
-            >
-              <Icon icon='material-symbols:add' className='text-xl' />
-              <span className='text-sm'>Add Members</span>
-            </button>,
-            <button key={1} className='flex w-max flex-col items-center gap-1'>
-              <Icon icon='material-symbols:download' className='text-xl' />
-              <span className='text-sm'>
-                Download <br /> registration form
-              </span>
-            </button>,
-          ]}
-        />
-      )} */}
     </MainContentLayout>
   );
 };
