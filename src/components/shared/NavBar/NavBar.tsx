@@ -8,6 +8,7 @@ import { useMediaQuery, useOnClickOutside } from '@/hooks';
 import { sideBarData } from '@/data/navLinks';
 
 import AccountDropdown from '@/components/lib/AccountDropdown';
+import NavItemContent from '@/components/lib/NavItemContent';
 import ActiveLink from '@/components/links/ActiveLink';
 import NotificationBell from '@/components/shared/NotificationBell';
 
@@ -87,10 +88,7 @@ const NavBar: React.FC<NavBarProps> = () => {
                   activeClassName='text-amali-green border-amali-green'
                   as={item.link}
                 >
-                  <span className='text-lg'>
-                    <Icon icon={item.icon} className='font-bold' />
-                  </span>
-                  <span className='text-xs font-semibold'>{item.name}</span>
+                  <NavItemContent {...item} />
                 </ActiveLink>
               </li>
             );

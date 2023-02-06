@@ -29,6 +29,7 @@ export const sideBarData: {
   id: number;
   name: string;
   icon: string;
+  active_icon: string;
   link: string;
   subLinks: {
     id: number;
@@ -42,6 +43,7 @@ export const sideBarData: {
     link: '/home',
     subLinks: [],
     icon: 'akar-icons:home',
+    active_icon: 'ph:house-simple-fill',
   },
   {
     id: 1,
@@ -49,6 +51,7 @@ export const sideBarData: {
     link: '/groups',
     subLinks: [],
     icon: 'ph:users-three-light',
+    active_icon: 'ph:users-three-fill',
   },
   {
     id: 1,
@@ -56,5 +59,6 @@ export const sideBarData: {
     link: '/settings',
     subLinks: [],
     icon: 'ph:gear',
+    active_icon: 'ph:gear-fill',
   },
 ];

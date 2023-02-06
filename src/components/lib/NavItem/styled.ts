@@ -4,7 +4,7 @@ export const NavItemWrapper = styled.div`
   :hover {
     svg,
     path {
-      fill: white;
+      /* fill: white; */
     }
   }
 `;
