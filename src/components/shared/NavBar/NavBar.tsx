@@ -85,6 +85,7 @@ const NavBar: React.FC<NavBarProps> = () => {
                   href={item.link}
                   className='flex flex-col items-center gap-px border-t-2 border-transparent py-4'
                   activeClassName='text-amali-green border-amali-green'
+                  as={item.link}
                 >
                   <span className='text-lg'>
                     <Icon icon={item.icon} className='font-bold' />
