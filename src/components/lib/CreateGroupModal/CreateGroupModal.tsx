@@ -1,6 +1,7 @@
 import { Icon } from '@iconify/react';
 import { useFormik } from 'formik';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import Modal from 'react-modal';
 
 import Button from '@/components/buttons/Button';
@@ -14,6 +15,7 @@ import { initialValues, validationSchema } from './validation';
 
 const CreateGroupModal: CreateGroupModalProps = ({ isOpen, handleModal }) => {
   const [openAddMemberModal, setOpenAddMemberModal] = useState(false);
+  const [count, setCount] = useState(0);
 
   const formik = useFormik({
     initialValues,
@@ -24,6 +26,13 @@ const CreateGroupModal: CreateGroupModalProps = ({ isOpen, handleModal }) => {
       setOpenAddMemberModal(true);
     },
   });
+
+  useEffect(() => {
+    if (count === 3) {
+      setOpenAddMemberModal(false);
+      toast.success('Group created successfully');
+    }
+  }, [count]);
 
   return (
     <>
@@ -92,7 +101,11 @@ const CreateGroupModal: CreateGroupModalProps = ({ isOpen, handleModal }) => {
       </Modal>
       {openAddMemberModal && (
         <Container className='w-[full] md:w-[650px]'>
-          <AddMemberForm setShowAddMemberModal={setOpenAddMemberModal} />
+          <AddMemberForm
+            setShowAddMemberModal={setOpenAddMemberModal}
+            setCount={setCount}
+            count={count}
+          />
         </Container>
       )}
     </>
