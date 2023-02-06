@@ -101,7 +101,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({ actions }) => {
 
   return (
     <div
-      className='fixed bottom-24 right-7 z-30 block aspect-square w-max lg:hidden'
+      className='fixed bottom-24 right-7 z-30 block aspect-square w-max drop-shadow-lg lg:hidden'
       ref={buttonRef}
     >
       <button

@@ -27,12 +27,13 @@ const NavItem = () => {
     <div className='nav-item bg-white pb-20 lg:pb-6'>
       {sideBarData.map((item, index) => (
         <NavItemWrapper key={index}>
-          <div key={index} className='mt-4 overflow-hidden text-amali-grey'>
+          <div key={index} className='overflow-hidden text-amali-grey'>
             {item.link && item.link.length ? (
               <ActiveLink
                 href={`${item.link}`}
-                className='mx-auto flex items-center justify-between p-2 px-7 ease-in-out hover:bg-amali-green hover:text-white'
+                className='mx-auto flex items-center justify-between py-4 px-7 ease-in-out hover:bg-amali-green hover:text-white'
                 activeClassName='bg-amali-green text-white'
+                as={item.link}
               >
                 <div className='flex items-center gap-3 '>
                   <Icon icon={item.icon} className='font-bold' />

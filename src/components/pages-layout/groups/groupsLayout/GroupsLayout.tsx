@@ -1,4 +1,3 @@
-import { Icon } from '@iconify/react';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
@@ -9,6 +8,7 @@ import Button from '@/components/buttons/Button';
 import ActionButton from '@/components/lib/ActionButton';
 import CreateGroupModal from '@/components/lib/CreateGroupModal';
 import Table from '@/components/lib/Table';
+import ActionButtonItem from '@/components/shared/ActionButtonItem';
 import InputSearch from '@/components/shared/InputSearch';
 import MainContentLayout from '@/components/shared/MainContentLayout';
 
@@ -77,7 +77,7 @@ const GroupsLayout = () => {
             </thead>
             <tbody>
               {groups.map((group) => {
-                const isActiveGroup = group.members < 3;
+                const isActiveGroup = group.members === 3;
                 return (
                   <tr
                     key={group._id}
@@ -94,7 +94,7 @@ const GroupsLayout = () => {
                             : 'text-amali-notif-red'
                         }`}
                       >
-                        {isActiveGroup ? 'Inactive' : 'Active'}
+                        {isActiveGroup ? 'Active' : 'Inactive'}
                       </span>
                     </td>
                   </tr>
@@ -106,18 +106,17 @@ const GroupsLayout = () => {
       </MainContentLayout>
       <ActionButton
         actions={[
-          <button key={0} className='flex w-max flex-col items-center gap-1'>
-            <Icon icon='ph:bank-thin' className='text-xl' />
-            <span className='text-sm'>Apply for loan</span>
-          </button>,
-          <button
+          <ActionButtonItem
+            icon='ph:bank-thin'
+            text='Apply for loan'
+            key={0}
+          />,
+          <ActionButtonItem
+            icon='ph:users-three-light'
+            text='Create Group'
             key={1}
-            className='flex w-max flex-col items-center gap-1'
             onClick={handleModal}
-          >
-            <Icon icon='ph:users-three-light' className='text-xl' />
-            <span className='text-sm'>Create Group</span>
-          </button>,
+          />,
         ]}
       />
       <CreateGroupModal isOpen={isOpen} handleModal={handleModal} />
