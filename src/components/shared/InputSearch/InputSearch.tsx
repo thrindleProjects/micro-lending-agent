@@ -1,5 +1,4 @@
 import { useFormik } from 'formik';
-import React from 'react';
 
 import { InputSearchBar } from '@/components/shared/InputSearch/styled';
 import { InputSearchType } from '@/components/shared/InputSearch/types';

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Button from '@/components/buttons/Button';
 import { MemberProps } from '@/components/lib/member/Member.props';
 

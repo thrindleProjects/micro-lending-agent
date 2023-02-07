@@ -1,6 +1,5 @@
 import { Icon } from '@iconify/react';
 import { useFormik } from 'formik';
-import React from 'react';
 
 import Input from '@/components/shared/Input';
 

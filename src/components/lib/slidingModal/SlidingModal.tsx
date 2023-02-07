@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import React from 'react';
 import { IoMdClose } from 'react-icons/io';
 
 import Button from '@/components/buttons/Button';

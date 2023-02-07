@@ -1,5 +1,4 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import React from 'react';
 
 import { SelectInput } from './styled';
 import { SelectProps } from './types';
@@ -25,7 +24,7 @@ const Select: React.FC<SelectProps> = ({
       {label && !!label.length && <InputLabel id={id} label={label} />}
       <SelectInput
         error={error}
-        className='flex w-full flex-row items-center border-b-2 py-3 px-2 text-xs shadow-inner outline-none transition-all duration-300 ease-in placeholder:text-xs focus:outline-none md:px-4 lg:py-4 xl:py-5 xl:text-sm xl:placeholder:text-sm'
+        className='flex w-full flex-row items-center border-b-2 py-4 px-2 text-xs shadow-inner outline-none transition-all duration-300 ease-in placeholder:text-xs focus:outline-none md:px-4 lg:py-4 xl:py-5 xl:text-sm xl:placeholder:text-sm'
         value={value}
         onChange={onChange}
         onFocus={onFocus}

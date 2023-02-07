@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { TableHeadWrapper } from '@/components/lib/TableHead/styled';
 import { TableHeadProp } from '@/components/lib/TableHead/types';
 

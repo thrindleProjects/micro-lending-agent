@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { CiBank } from 'react-icons/ci';
 import { GrDownload } from 'react-icons/gr';
@@ -22,22 +22,6 @@ const HomePageLayout = () => {
 
   const handleModal = () => {
     setIsOpen((old) => !old);
-    // if (m === 'open') {
-    //   router.replace(
-    //     { pathname: router.pathname },
-    //     { pathname: router.pathname, query: { ...router.query, m: 'close' } },
-    //     { shallow: true }
-    //   );
-    //   return;
-    // }
-    // if (!m || (m && m === 'close')) {
-    //   router.replace(
-    //     { pathname: router.pathname },
-    //     { pathname: router.pathname, query: { ...router.query, m: 'open' } },
-    //     { shallow: true }
-    //   );
-    //   return;
-    // }
   };
   return (
     <>

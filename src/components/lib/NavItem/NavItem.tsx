@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { sideBarData } from '@/data/navLinks';
 
@@ -32,7 +32,7 @@ const NavItem = () => {
             {item.link && item.link.length ? (
               <ActiveLink
                 href={`${item.link}`}
-                className='mx-auto flex items-center justify-between py-4 px-7 ease-in-out hover:bg-amali-grey hover:bg-opacity-40 hover:text-white'
+                className='mx-auto flex items-center justify-between py-4 px-7 ease-in-out hover:bg-amali-grey hover:bg-opacity-30 hover:text-white'
                 activeClassName='bg-amali-green text-white'
                 as={item.link}
               >

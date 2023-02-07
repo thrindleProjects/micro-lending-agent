@@ -1,6 +1,5 @@
 import { Icon } from '@iconify/react';
 import { AnimatePresence, motion } from 'framer-motion';
-import React from 'react';
 
 import { FileInput } from './styled';
 import { InputFileProps } from './types';
@@ -54,7 +53,7 @@ const InputFile: React.FC<InputFileProps<HTMLInputElement>> = ({
           <span className='col-span-1 grid place-items-center text-xl'>
             <Icon icon='material-symbols:photo-camera-outline' />
           </span>
-          <span className='col-span-5 flex items-center py-3 pl-2 lg:py-4 xl:py-5'>
+          <span className='col-span-5 flex items-center py-4 pl-2 lg:py-4 xl:py-5'>
             {value && typeof value !== 'string' ? value.name : placeholder}
           </span>
         </div>

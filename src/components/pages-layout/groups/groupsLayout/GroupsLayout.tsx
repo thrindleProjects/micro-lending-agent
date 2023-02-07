@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 
 import { groupsList } from '@/data/data';
@@ -16,33 +16,10 @@ const GroupsLayout = () => {
   const [groups] = useState<typeof groupsList>(groupsList);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const router = useRouter();
-  // const { m } = router.query;
+
   const handleModal = () => {
     setIsOpen((old) => !old);
-    // if (m === 'open') {
-    //   router.replace(
-    //     { pathname: router.pathname },
-    //     { pathname: router.pathname, query: { ...router.query, m: 'close' } },
-    //     { shallow: true }
-    //   );
-    //   return;
-    // }
-    // if (!m || (m && m === 'close')) {
-    //   router.replace(
-    //     { pathname: router.pathname },
-    //     { pathname: router.pathname, query: { ...router.query, m: 'open' } },
-    //     { shallow: true }
-    //   );
-    //   return;
-    // }
   };
-
-  // useEffect(() => {
-  //   if (!router.isReady) return;
-
-  //   console.log({ query: router.query });
-  // }, [router]);
-
   return (
     <>
       <MainContentLayout>
