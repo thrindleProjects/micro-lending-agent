@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import React from 'react';
 
 import Button from '@/components/buttons/Button';
 import { MemberSuccessProps } from '@/components/lib/memberSuccess/MemberSuccess.props';

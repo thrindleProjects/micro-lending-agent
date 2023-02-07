@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import React from 'react';
 
 import LoginForm from '@/components/lib/LoginForm';
 import ImageComponent from '@/components/shared/ImageComponent';

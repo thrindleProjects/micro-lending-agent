@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { BsArrowLeft } from 'react-icons/bs';
 import { GrDownload } from 'react-icons/gr';

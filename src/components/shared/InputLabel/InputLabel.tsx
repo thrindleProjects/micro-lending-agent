@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { InputLabelProps } from './types';
 
 const InputLabel: React.FC<InputLabelProps> = ({ id = '', label }) => {
