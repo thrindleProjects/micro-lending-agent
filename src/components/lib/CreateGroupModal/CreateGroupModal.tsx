@@ -8,6 +8,7 @@ import Button from '@/components/buttons/Button';
 import AddMemberForm from '@/components/lib/addMemberForm/AddMemberForm';
 import { ModalWrapper } from '@/components/lib/CreateGroupModal/styled';
 import { CreateGroupModalProps } from '@/components/lib/CreateGroupModal/types';
+import LoanModal from '@/components/lib/loanModal/LoanModal';
 import Input from '@/components/shared/Input';
 import Container from '@/components/shared/modal/Modal';
 
@@ -15,6 +16,7 @@ import { initialValues, validationSchema } from './validation';
 
 const CreateGroupModal: CreateGroupModalProps = ({ isOpen, handleModal }) => {
   const [openAddMemberModal, setOpenAddMemberModal] = useState(false);
+  const [bnvModal, setBvnModal] = useState(false);
   const [count, setCount] = useState(0);
 
   const formik = useFormik({
@@ -23,7 +25,8 @@ const CreateGroupModal: CreateGroupModalProps = ({ isOpen, handleModal }) => {
     onSubmit: () => {
       handleModal();
 
-      setOpenAddMemberModal(true);
+      // setOpenAddMemberModal(true);
+      setBvnModal(true);
     },
   });
 
@@ -105,6 +108,14 @@ const CreateGroupModal: CreateGroupModalProps = ({ isOpen, handleModal }) => {
             setShowAddMemberModal={setOpenAddMemberModal}
             setCount={setCount}
             count={count}
+          />
+        </Container>
+      )}
+      {bnvModal && (
+        <Container className='w-[full] md:w-[500px]'>
+          <LoanModal
+            setLoanModal={setBvnModal}
+            setShowAddMemberModal={setOpenAddMemberModal}
           />
         </Container>
       )}

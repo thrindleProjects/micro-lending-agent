@@ -157,7 +157,7 @@ const AddMemberForm: React.FC<AddMemberFormProps> = ({
                 extensions='image/*, .doc, .docx, .pdf'
               />
             </div>
-            <div className=' w-full md:w-[50%]'>
+            {/* <div className=' w-full md:w-[50%]'>
               <Input
                 id={CONSTANTS.BVN}
                 name={CONSTANTS.BVN}
@@ -173,11 +173,11 @@ const AddMemberForm: React.FC<AddMemberFormProps> = ({
                 errorText={formik.errors[CONSTANTS.BVN]}
                 required={true}
               />
-            </div>
+            </div> */}
             <Button
               variant='primary'
               size='base'
-              className=' w-full md:w-[150px]'
+              className=' w-full '
               type='submit'
             >
               <p>Proceed</p>

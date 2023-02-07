@@ -11,7 +11,10 @@ import Input from '@/components/shared/Input';
 
 import { TEXT } from '@/constant/constants';
 
-const LoanModal: React.FC<LoanModalProps> = ({ setLoanModal }) => {
+const LoanModal: React.FC<LoanModalProps> = ({
+  setLoanModal,
+  setShowAddMemberModal,
+}) => {
   const [uploadImage, setUploadImage] = useState(false);
 
   const formik = useFormik({
@@ -22,7 +25,12 @@ const LoanModal: React.FC<LoanModalProps> = ({ setLoanModal }) => {
       bvn: Yup.string().required('Bvn is required'),
     }),
     onSubmit: () => {
-      setUploadImage(true);
+      if (setShowAddMemberModal) {
+        setShowAddMemberModal(true);
+        setLoanModal(false);
+      } else {
+        setUploadImage(true);
+      }
     },
   });
   return (

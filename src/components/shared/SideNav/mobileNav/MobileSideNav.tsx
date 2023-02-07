@@ -18,7 +18,7 @@ const MobileSideNav: React.FC<SideNavProps> = ({ toggleSidebar }) => {
   useOnClickOutside(divRef, () => toggleSidebar(false));
 
   return (
-    <div className='main-wrapper absolute right-0 left-0 top-0 bottom-0 z-50 bg-[rgba(0,0,0,0.6)]'>
+    <div className='main-wrapper absolute right-0 left-0 top-0 bottom-0 z-50 bg-[#00000020]'>
       <div className='w-[50%] opacity-100'>
         <Image
           width={150}
