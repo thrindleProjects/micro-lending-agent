@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { settingMobileNav } from '@/data/navLinks';
 
 import LogoutModal from '@/components/lib/LogoutModal';
-import MobileSettingsLink from '@/components/lib/MobileSettingsLink/MobileSettingsLink';
+import MobileSettingsLink from '@/components/lib/MobileSettingsLink';
 import ImageComponent from '@/components/shared/ImageComponent';
 import MainContentLayout from '@/components/shared/MainContentLayout';
 
