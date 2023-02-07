@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { DATE, EMAIL, PASSWORD, TEXT } from '@/constant/constants';
 
@@ -49,7 +49,7 @@ const Input: React.FC<InputProps> = ({
             placeholder={placeholder}
             id={id}
             name={name}
-            className={`h-full w-11/12 border-none bg-transparent px-0 py-3 text-xs shadow-none outline-none placeholder:text-xs focus:outline-none lg:py-4 xl:py-5 xl:text-sm xl:placeholder:text-sm ${
+            className={`h-full w-11/12 border-none bg-transparent px-0 py-4 text-xs shadow-none outline-none placeholder:text-xs focus:outline-none lg:py-4 xl:py-5 xl:text-sm xl:placeholder:text-sm ${
               className ? className : ''
             }`}
             {...rest}
@@ -111,7 +111,7 @@ const Input: React.FC<InputProps> = ({
           maxLength={maxLength}
           id={id}
           name={name}
-          className={`w-full border-x-0 border-b-2 border-t-0 px-2 py-3 text-xs shadow-inner outline-none transition-all duration-300 ease-in placeholder:text-xs md:px-4 lg:py-4 xl:py-5 xl:text-sm xl:placeholder:text-sm ${
+          className={`w-full border-x-0 border-b-2 border-t-0 px-2 py-4 text-xs shadow-inner outline-none transition-all duration-300 ease-in placeholder:text-xs md:px-4 lg:py-4 xl:py-5 xl:text-sm xl:placeholder:text-sm ${
             className ? className : ''
           }`}
           {...rest}

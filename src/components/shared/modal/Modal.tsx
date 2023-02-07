@@ -1,5 +1,3 @@
-import React from 'react';
-
 import MainContentLayout from '@/components/shared/MainContentLayout';
 import { MobileProps } from '@/components/shared/modal/Modal.props';
 

@@ -29,3 +29,11 @@ export const IDTYPE = 'id_type';
 export const REGISTRATION_IMAGE = 'registration_image';
 export const LOAN_IMAGE = 'loan_image';
 export const BVN = 'bvn';
+
+// Change Member Keys
+export const CURRENT_PASSWORD = 'current_password';
+export const NEW_PASSWORD = 'new_password';
+export const R_NEW_PASSWORD = 'r_new_password';
+
+// PROFILE FORM KEYS
+export const ADDRESS = 'address';
