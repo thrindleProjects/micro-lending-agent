@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { MdOutlineArrowBack } from 'react-icons/md';
 import * as Yup from 'yup';
 

@@ -1,5 +1,4 @@
 import Link, { LinkProps } from 'next/link';
-import React from 'react';
 
 import useCheckLinkActive from '@/utils/checkLinkActive';
 
@@ -11,24 +10,37 @@ import useCheckLinkActive from '@/utils/checkLinkActive';
 type ActiveLinkProps = LinkProps &
   React.PropsWithChildren<{
     activeClassName?: string;
+    inActiveClassName?: string;
     as?: string;
     className?: string;
+    index?: boolean;
   }>;
 /**
  *
  * @param param0 Link Component that can tell if it's target is active
  * @returns A React component that can tell if it's target is active
  */
+
+// const StyledLink = styled(Link)`
+
+// `
+
 const ActiveLink: React.FC<ActiveLinkProps> = ({
   href,
   children,
   as,
   activeClassName,
   className,
+  index,
+  inActiveClassName,
 }) => {
-  const isActive = useCheckLinkActive(href.toString(), as);
+  const isActive = useCheckLinkActive(href.toString(), as, index);
   const classNames = isActive
-    ? `${className} ${activeClassName}`
+    ? activeClassName
+      ? `${activeClassName} ${className}`
+      : className
+    : inActiveClassName
+    ? `${inActiveClassName} ${className}`
     : `${className}`;
 
   return (

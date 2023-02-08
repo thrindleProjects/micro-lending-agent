@@ -1,18 +1,12 @@
 import { Icon } from '@iconify/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { useMediaQuery, useOnClickOutside } from '@/hooks';
 
-import { sideBarData } from '@/data/navLinks';
-
 import AccountDropdown from '@/components/lib/AccountDropdown';
-import NavItemContent from '@/components/lib/NavItemContent';
-import ActiveLink from '@/components/links/ActiveLink';
 import NotificationBell from '@/components/shared/NotificationBell';
-
-import { NavBarProps } from './Navbar.props';
 
 const variants = {
   rotate: {
@@ -25,7 +19,7 @@ const variants = {
   },
 };
 
-const NavBar: React.FC<NavBarProps> = () => {
+const NavBar: React.FC = () => {
   const largeScreen = useMediaQuery('(min-width: 1024px)');
   const [accountDropdown, setAccountDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -75,25 +69,6 @@ const NavBar: React.FC<NavBarProps> = () => {
             </AnimatePresence>
           </div>
         </div>
-      )}
-
-      {!largeScreen && (
-        <ul className='fixed inset-x-0 bottom-0 flex w-full justify-around border-t border-amali-grey border-opacity-50 bg-white lg:hidden'>
-          {sideBarData.map((item, index) => {
-            return (
-              <li key={index} title={item.name}>
-                <ActiveLink
-                  href={item.link}
-                  className='flex flex-col items-center gap-px border-t-2 border-transparent py-4'
-                  activeClassName='text-amali-green border-amali-green'
-                  as={item.link}
-                >
-                  <NavItemContent {...item} />
-                </ActiveLink>
-              </li>
-            );
-          })}
-        </ul>
       )}
     </nav>
   );

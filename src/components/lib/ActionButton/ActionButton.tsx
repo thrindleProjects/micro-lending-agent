@@ -1,7 +1,7 @@
 // import { Icon } from '@iconify/react';
 import { Icon } from '@iconify/react';
 import { AnimatePresence, motion, Variants } from 'framer-motion';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { useOnClickOutside } from '@/hooks';
 

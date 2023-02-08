@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import Link from 'next/link';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import * as Yup from 'yup';
 
 import Input from '@/components/shared/Input';
@@ -81,7 +81,10 @@ const LoginForm = () => {
       >
         Forgot Password?
       </Link>
-      <button className='mt-4 w-full rounded-md bg-amali-green py-4 text-center font-bold text-[#EDF8F7] hover:bg-opacity-80'>
+      <button
+        className='mt-4 w-full rounded-md bg-amali-green py-4 text-center font-bold text-[#EDF8F7] hover:bg-opacity-80'
+        type='submit'
+      >
         Sign In
       </button>
     </form>

@@ -1,7 +1,6 @@
 import { Icon } from '@iconify/react';
 import { motion, Variants } from 'framer-motion';
 import { useRouter } from 'next/router';
-import React from 'react';
 
 import useMediaQuery from '@/hooks/useMediaQuery';
 

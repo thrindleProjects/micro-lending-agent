@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import * as Yup from 'yup';
 

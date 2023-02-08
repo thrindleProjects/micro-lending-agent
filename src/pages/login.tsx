@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 
 import LoginLayout from '@/components/pages-layout/login';
 

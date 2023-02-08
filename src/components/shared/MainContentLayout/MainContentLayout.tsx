@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { MainContentLayoutProps } from './types';
 
 const MainContentLayout: React.FC<MainContentLayoutProps> = (props) => {
