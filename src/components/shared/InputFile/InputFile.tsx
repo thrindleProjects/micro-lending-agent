@@ -31,7 +31,7 @@ const InputFile: React.FC<InputFileProps<HTMLInputElement>> = ({
   };
 
   return (
-    <div className='mb-5 w-full'>
+    <div className='flex w-full flex-col gap-2'>
       {label && !!label.length && <InputLabel id={id} label={label} />}
       <FileInput
         className={`relative w-full border-b-2 px-2 text-xs shadow-inner outline-none transition-all duration-300 ease-in placeholder:text-xs md:px-4 xl:text-sm xl:placeholder:text-sm ${

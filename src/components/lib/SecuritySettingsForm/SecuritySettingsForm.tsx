@@ -23,7 +23,7 @@ const SecuritySettingsForm = () => {
   return (
     <form
       onSubmit={formik.handleSubmit}
-      className='mt-8 flex w-full flex-col gap-4 md:w-9/12 lg:w-3/5'
+      className='mt-8 flex w-full flex-col gap-5 md:w-9/12 lg:w-3/5'
     >
       <Input
         id={CURRENT_PASSWORD}
@@ -40,7 +40,7 @@ const SecuritySettingsForm = () => {
         required={true}
         autoComplete={CURRENT_PASSWORD}
       />
-      <div>
+      <div className='flex flex-col gap-4'>
         <Input
           id={NEW_PASSWORD}
           type='password'

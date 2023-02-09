@@ -21,36 +21,12 @@ const LoginForm = () => {
       password: Yup.string().required('Password is required'),
     }),
     onSubmit: () => {
-      // if (values.phone === '08161112404' && values.password === '12345678') {
-      //   router.push('/master-agent');
-      //   toast.success('Login Successful');
-      // } else if (
-      //   values.phone === '08011111111' &&
-      //   values.password === '12345678'
-      // ) {
-      //   router.push('/admin');
-      //   localStorage.setItem('userRole', 'admin');
-      //   toast.success('Login Successful');
-      // } else if (
-      //   values.phone === '08166939100' &&
-      //   values.password === '12345678'
-      // ) {
-      //   router.push('/sub-agent');
-      //   toast.success('Login Successful');
-      //   localStorage.setItem('userRole', 'sub-agent');
-      // } else if (
-      //   values.phone === '08022222222' &&
-      //   values.password === '12345678'
-      // ) {
-      //   router.push('/agent');
-      //   localStorage.setItem('userRole', 'agent');
-      //   toast.success('Login Successful');
-      // }
+      // logic here
     },
   });
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={formik.handleSubmit} className='flex flex-col gap-5'>
       <Input
         id='phone'
         type={TEXT}
