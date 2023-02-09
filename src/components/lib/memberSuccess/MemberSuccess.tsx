@@ -8,7 +8,7 @@ const MemberSuccess: React.FC<MemberSuccessProps> = ({
   setShowAddMemberModal,
 }) => {
   return (
-    <div className='h-screen w-full md:h-auto  '>
+    <div className='flex h-full w-full flex-col md:h-max'>
       <Image
         src='/assets/svg/profile.svg'
         alt='mailbox'
@@ -20,17 +20,18 @@ const MemberSuccess: React.FC<MemberSuccessProps> = ({
         <h1 className='mb-6 text-2xl font-bold'>Member Added Successfully</h1>
         <p>A new member has been added to the group successfully</p>
       </div>
+
       <Button
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         //@ts-ignore
         variant='primary'
         size='base'
-        className=' mt-[17rem] w-full md:mt-0'
+        className=' mt-auto w-full md:mt-0'
         onClick={() => {
           setMemberSuccess(false);
         }}
       >
-        <p>Add New Member</p>
+        Add New Member
       </Button>
       <Button
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -40,7 +41,7 @@ const MemberSuccess: React.FC<MemberSuccessProps> = ({
         className='mt-4 w-full'
         onClick={() => setShowAddMemberModal(false)}
       >
-        <p>Back</p>
+        Back
       </Button>
     </div>
   );

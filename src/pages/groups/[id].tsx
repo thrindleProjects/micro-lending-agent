@@ -102,7 +102,7 @@ const Groups = () => {
         )}
 
         {loanModal && (
-          <Modal className='h-full w-full md:h-auto  md:w-[598px]'>
+          <Modal className='h-full w-full md:h-max md:w-[598px]'>
             <LoanModal setLoanModal={setLoanModal} />
           </Modal>
         )}
