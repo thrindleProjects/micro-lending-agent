@@ -10,10 +10,10 @@ const Modal: React.FC<MobileProps> = ({
     <MainContentLayout>
       <div
         style={{ backgroundColor: '#00000020' }}
-        className='fixed inset-0 z-[99999] overflow-y-scroll md:flex md:items-center md:justify-center'
+        className='fixed inset-0 z-[99999] overflow-y-auto md:flex md:items-center md:justify-center'
       >
         <div
-          className={`${className} rounded-md bg-white  p-10`}
+          className={`${className} rounded-md bg-white p-10`}
           style={{ width: `${contentWidth}` }}
         >
           {children}

@@ -26,7 +26,7 @@ const LoanSuccess = () => {
         size='base'
         className=' mt-[17rem] w-full md:mt-0'
       >
-        <p>Proceed</p>
+        Proceed
       </Button>
     </div>
   );

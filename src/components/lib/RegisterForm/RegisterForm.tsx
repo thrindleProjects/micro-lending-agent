@@ -17,7 +17,7 @@ const RegisterForm = () => {
   });
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={formik.handleSubmit} className='flex flex-col gap-5'>
       <Input
         id={CONSTANTS.NAME}
         type={CONSTANTS.TEXT}
