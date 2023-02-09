@@ -14,7 +14,7 @@ const SlidingModal = () => {
         initial={{ y: '100%' }}
         animate={{ y: 0 }}
         transition={{ duration: 1, ease: [0.6, 0.05, -0.01, 0.9] }}
-        className='absolute bottom-0 h-[400px] w-full rounded-t-lg bg-white p-6 shadow-sm'
+        className='absolute bottom-0 h-max w-full rounded-t-lg bg-white p-6 shadow-sm'
       >
         <div>
           <IoMdClose
@@ -42,7 +42,7 @@ const SlidingModal = () => {
             size='base'
             className='w-full md:mt-0'
           >
-            <p>Proceed</p>
+            Proceed
           </Button>
         </div>
       </motion.div>

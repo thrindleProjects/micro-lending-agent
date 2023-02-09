@@ -73,7 +73,7 @@ const CreateGroupModal: CreateGroupModalProps = ({ isOpen, handleModal }) => {
             group, this will serve as identification and future reference
           </p>
 
-          <form className='mt-6 flex flex-col justify-between'>
+          <form className='mt-6 flex flex-col justify-between gap-6'>
             <Input
               type='text'
               id='name'

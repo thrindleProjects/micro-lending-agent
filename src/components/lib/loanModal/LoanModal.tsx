@@ -52,7 +52,7 @@ const LoanModal: React.FC<LoanModalProps> = ({
             <p className=' font-bold '>Loan Application</p>
           </div>
           <form onSubmit={formik.handleSubmit}>
-            <div className='  mb-10 w-full '>
+            <div className='mb-10 flex w-full flex-col gap-6 '>
               <Input
                 id='bvn'
                 name='bvn'
@@ -66,7 +66,7 @@ const LoanModal: React.FC<LoanModalProps> = ({
                 errorText={formik.errors.bvn}
                 required={true}
               />
-              <div className='flex h-[32px] items-center justify-between gap-2 rounded-sm bg-amali-light-green px-4 md:hidden'>
+              <div className='flex w-full items-center justify-between gap-2 rounded-sm bg-amali-light-green py-1 px-4 md:hidden'>
                 <Image
                   src='/assets/svg/question-mark.svg'
                   alt='question mark'
@@ -90,7 +90,7 @@ const LoanModal: React.FC<LoanModalProps> = ({
               size='base'
               className=' mt-[17rem] w-full md:mt-0'
             >
-              <p>Verify</p>
+              Verify
             </Button>
           </form>
         </section>
