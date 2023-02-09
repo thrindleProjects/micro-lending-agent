@@ -144,32 +144,3 @@ label {
     grid-template-columns: minmax(14rem, 15%) 1fr;
   }
 }
-
-button p,
-button div,
-button section,
-button main,
-button aside,
-button ul,
-a p,
-a div,
-a section,
-a main,
-a aside,
-a ul,
-span p,
-span div,
-span section,
-span main,
-span aside,
-span ul,
-li p,
-li div,
-li section,
-li main,
-li aside,
-li ul {
-  background: purple !important;
-  display: block !important;
-  padding: 2rem !important;
-}
