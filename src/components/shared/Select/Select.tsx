@@ -20,11 +20,11 @@ const Select: React.FC<SelectProps> = ({
   name,
 }) => {
   return (
-    <div className='mb-5 w-full'>
+    <div className='flex w-full flex-col gap-2'>
       {label && !!label.length && <InputLabel id={id} label={label} />}
       <SelectInput
         error={error}
-        className='flex w-full flex-row items-center border-b-2 py-4 px-2 text-xs shadow-inner outline-none transition-all duration-300 ease-in placeholder:text-xs focus:outline-none md:px-4 lg:py-4 xl:py-5 xl:text-sm xl:placeholder:text-sm'
+        className='flex w-full flex-row items-center border-x-0 border-t-0 border-b-2 py-4 px-2 text-xs shadow-inner outline-none transition-all duration-300 ease-in placeholder:text-xs focus:outline-none md:px-4 lg:py-5 xl:text-sm xl:placeholder:text-sm'
         value={value}
         onChange={onChange}
         onFocus={onFocus}

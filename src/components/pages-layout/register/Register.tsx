@@ -7,18 +7,18 @@ import AmaliLogo from '~/assets/amali-logo.png';
 
 const Register: React.FC = () => {
   return (
-    <div className='flex h-full min-h-max w-full flex-col items-center gap-4 bg-[#FBFBFF] py-20'>
+    <div className='flex h-max min-h-max w-full flex-col items-center justify-center gap-4 overflow-y-auto bg-[#FBFBFF] py-12'>
       <div className='relative h-12 min-h-max w-full flex-shrink-0 bg-inherit lg:h-16'>
         <Link href='/' className='h-full'>
           <ImageComponent src={AmaliLogo} alt='Amali Logo' />
         </Link>
       </div>
-      <section className='mt-8 w-4/5 cursor-default md:w-2/4 lg:w-1/4 xl:w-1/3'>
+      <section className='mt-8 w-4/5 cursor-default md:w-2/4 lg:w-7/12 xl:w-1/3'>
         <h4 className='w-full text-center text-sm font-bold md:text-xl'>
           Create Account
         </h4>
       </section>
-      <div className='w-4/5 md:w-2/4 lg:w-1/4 xl:w-1/3'>
+      <div className='w-4/5 md:w-2/4 lg:w-7/12 xl:w-1/3'>
         <RegisterForm />
       </div>
       <section className='flex flex-row items-center gap-2 text-xs lg:text-sm'>

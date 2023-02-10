@@ -24,8 +24,6 @@ const CreateGroupModal: CreateGroupModalProps = ({ isOpen, handleModal }) => {
     validationSchema,
     onSubmit: () => {
       handleModal();
-
-      // setOpenAddMemberModal(true);
       setBvnModal(true);
     },
   });
@@ -75,7 +73,7 @@ const CreateGroupModal: CreateGroupModalProps = ({ isOpen, handleModal }) => {
             group, this will serve as identification and future reference
           </p>
 
-          <form className='mt-6 flex flex-col justify-between'>
+          <form className='mt-6 flex flex-col justify-between gap-6'>
             <Input
               type='text'
               id='name'
@@ -103,7 +101,7 @@ const CreateGroupModal: CreateGroupModalProps = ({ isOpen, handleModal }) => {
         </ModalWrapper>
       </Modal>
       {openAddMemberModal && (
-        <Container className='w-[full] md:w-[650px]'>
+        <Container className='w-full md:w-[650px]'>
           <AddMemberForm
             setShowAddMemberModal={setOpenAddMemberModal}
             setCount={setCount}
@@ -112,7 +110,7 @@ const CreateGroupModal: CreateGroupModalProps = ({ isOpen, handleModal }) => {
         </Container>
       )}
       {bnvModal && (
-        <Container className='w-[full] md:w-[500px]'>
+        <Container className='w-full md:w-[500px]'>
           <LoanModal
             setLoanModal={setBvnModal}
             setShowAddMemberModal={setOpenAddMemberModal}

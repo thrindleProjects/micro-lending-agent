@@ -102,13 +102,13 @@ const Groups = () => {
         )}
 
         {loanModal && (
-          <Modal className='h-full w-full md:h-auto  md:w-[598px]'>
+          <Modal className='h-full w-full md:h-max md:w-[598px]'>
             <LoanModal setLoanModal={setLoanModal} />
           </Modal>
         )}
 
         {addMemberModal && (
-          <Modal className='w-[full] md:w-[800px]'>
+          <Modal className='h-full w-full md:h-max md:w-11/12 lg:w-[50rem]'>
             <AddMemberForm
               setShowAddMemberModal={setShowAddMemberModal}
               setShowGroupMembers={setShowGroupMembers}
