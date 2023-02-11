@@ -27,11 +27,11 @@ const HomePageLayout = () => {
     <>
       <MainContentLayout>
         <section className='flex items-center justify-between gap-4'>
-          <h1 className='text-base font-semibold sm:text-lg md:text-xl lg:text-2xl'>
+          <h1 className='shrink-0 text-base font-semibold sm:text-lg md:text-xl lg:text-2xl'>
             Welcome Agent 👋🏾
           </h1>
-          <div className='hidden lg:flex lg:items-center lg:gap-3'>
-            {/* <Link href='/groups'> */}
+
+          <div className='hidden justify-end lg:flex lg:flex-wrap lg:items-center lg:gap-3'>
             <Button
               type='button'
               variant='primary'
@@ -42,7 +42,7 @@ const HomePageLayout = () => {
             >
               <span className='font-semibold'>Create New Group</span>
             </Button>
-            {/* </Link> */}
+
             <Button
               variant='outline'
               size='base'
@@ -53,6 +53,7 @@ const HomePageLayout = () => {
             >
               <span className='font-semibold'>Apply for loan</span>
             </Button>
+
             <Button
               variant='outline'
               size='base'
@@ -62,6 +63,7 @@ const HomePageLayout = () => {
               <span className='font-semibold'> Download Registration Form</span>
             </Button>
           </div>
+
           <div className='block lg:hidden'>
             <NotificationBell />
           </div>
