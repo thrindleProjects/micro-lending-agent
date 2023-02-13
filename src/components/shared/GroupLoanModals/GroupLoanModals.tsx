@@ -1,16 +1,6 @@
 import dynamic from 'next/dynamic';
 
-import LoanSuccess from '@/components/lib/LoanSuccess';
 import { GroupLoanModalsProps } from '@/components/shared/GroupLoanModals/types';
-
-const CreateGroupModal = dynamic(
-  () => import('@/components/lib/CreateGroupModal')
-);
-const CheckBVNModal = dynamic(() => import('@/components/lib/CheckBVNModal'));
-const UploadLoanFormModal = dynamic(
-  () => import('@/components/lib/UploadLoanFormModal')
-);
-const AddMemberModal = dynamic(() => import('@/components/lib/AddMemberModal'));
 
 const GroupLoanModals: GroupLoanModalsProps = ({
   stage,
@@ -20,6 +10,19 @@ const GroupLoanModals: GroupLoanModalsProps = ({
   handlePrevious,
   addMemberProps,
 }) => {
+  const CreateGroupModal = dynamic(
+    () => import('@/components/lib/CreateGroupModal')
+  );
+  const CheckBVNModal = dynamic(() => import('@/components/lib/CheckBVNModal'));
+  const UploadLoanFormModal = dynamic(
+    () => import('@/components/lib/UploadLoanFormModal')
+  );
+  const AddMemberModal = dynamic(
+    () => import('@/components/lib/AddMemberModal')
+  );
+  const LoanSuccess = dynamic(
+    () => import('@/components/lib/loanSuccessModal')
+  );
   return (
     <>
       <CreateGroupModal

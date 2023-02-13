@@ -1,6 +1,6 @@
 import { GroupLoanModalTypes } from '@/components/shared/GroupLoanModals/types';
 
-export type LoanSuccessProps = React.FC<{
+export type LoanSuccessModalProps = React.FC<{
   isOpen: boolean;
   handleModal(arg: GroupLoanModalTypes | null): void;
   handleClose(): void;
