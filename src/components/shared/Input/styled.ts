@@ -8,12 +8,11 @@ export const MainInput = styled.input<{
   border-color: transparent;
   background-color: ${(props) =>
     props.error ? 'rgba(252, 165, 165, 0.1)' : '#42B0A820'};
-  box-shadow: 3px 4px 10px
-    ${(props) => (props.error ? 'rgba(252, 165, 165, 0.25)' : '#42B0A880')};
+  box-shadow: none;
   &:focus {
     border-color: #42b0a8;
     background-color: #42b0a820;
-    box-shadow: 3px 4px 10px #42b0a850;
+    box-shadow: none;
   }
   ${(props) =>
     props.type === 'date' &&
@@ -41,13 +40,12 @@ export const PasswordInput = styled.div<{ error?: boolean | string }>`
   &:focus-within {
     border-color: #42b0a8;
     background-color: #42b0a820;
-    box-shadow: 3px 4px 10px #42b0a850;
+    box-shadow: none;
   }
   border-color: transparent;
   background-color: ${(props) =>
     props.error ? 'rgba(252, 165, 165, 0.1)' : '#42B0A820'};
-  box-shadow: 3px 4px 10px
-    ${(props) => (props.error ? 'rgba(252, 165, 165, 0.25)' : '#42B0A880')};
+  box-shadow: none;
 
   input,
   input:focus {
