@@ -18,6 +18,7 @@ const GroupLoanModals: GroupLoanModalsProps = ({
   handleClose,
   handleNext,
   handlePrevious,
+  addMemberProps,
 }) => {
   return (
     <>
@@ -48,6 +49,7 @@ const GroupLoanModals: GroupLoanModalsProps = ({
         handleClose={handleClose}
         handleNext={handleNext}
         handlePrevious={handlePrevious}
+        {...addMemberProps}
       />
 
       <LoanSuccess

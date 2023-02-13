@@ -15,13 +15,8 @@ import MainContentLayout from '@/components/shared/MainContentLayout';
 
 const GroupsLayout = () => {
   const [groups] = useState<typeof groupsList>(groupsList);
-  const [stage, handleModal] = useGroupLoanModals([
-    'create-group',
-    'check-bvn',
-    'upload-loan-image',
-    'upload-loan-image',
-    'check-bvn',
-  ]);
+  const [stage, handleModal, handleClose, handleNext, handlePrevious] =
+    useGroupLoanModals(['create-group', 'check-bvn', 'add-member']);
   const GroupLoanModals = dynamic(
     () => import('@/components/shared/GroupLoanModals')
   );
@@ -66,7 +61,15 @@ const GroupsLayout = () => {
           />,
         ]}
       />
-      {stage && <GroupLoanModals stage={stage} handleModal={handleModal} />}
+      {stage && (
+        <GroupLoanModals
+          stage={stage}
+          handleModal={handleModal}
+          handleClose={handleClose}
+          handleNext={handleNext}
+          handlePrevious={handlePrevious}
+        />
+      )}
     </>
   );
 };

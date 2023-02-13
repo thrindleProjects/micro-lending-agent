@@ -6,4 +6,6 @@ export type AddMemberModalProps = React.FC<{
   handleClose(): void;
   handleNext(): void;
   handlePrevious(): void;
+  onAdd?: () => void;
+  maxNew?: number;
 }>;

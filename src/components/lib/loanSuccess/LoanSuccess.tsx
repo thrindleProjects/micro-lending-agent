@@ -8,7 +8,6 @@ import { useMediaQuery } from '@/hooks';
 import Button from '@/components/buttons/Button';
 
 import { LoanSuccessProps } from './types';
-
 const LoanSuccess: LoanSuccessProps = ({ isOpen, handleClose, handleNext }) => {
   const tabScreen = useMediaQuery('(min-width: 768px)');
 
@@ -33,7 +32,7 @@ const LoanSuccess: LoanSuccessProps = ({ isOpen, handleClose, handleNext }) => {
       shouldCloseOnOverlayClick={true}
       shouldReturnFocusAfterClose={true}
       ariaHideApp={false}
-      className='h-full w-full flex-shrink-0 rounded-md bg-white drop-shadow-2xl md:h-max md:w-5/6 lg:w-3/5 xl:w-[35%] xl:max-w-2xl'
+      className='absolute bottom-0 h-max w-full flex-shrink-0 rounded-md bg-transparent drop-shadow-2xl md:relative md:h-max md:w-5/6 md:max-w-xl md:bg-white lg:w-3/5 xl:w-[35%]'
     >
       {tabScreen && (
         <div className='w-full py-8 px-7'>
@@ -66,7 +65,7 @@ const LoanSuccess: LoanSuccessProps = ({ isOpen, handleClose, handleNext }) => {
           initial={{ y: '100%' }}
           animate={{ y: 0 }}
           transition={{ duration: 1, ease: [0.6, 0.05, -0.01, 0.9] }}
-          className='absolute bottom-0 h-max w-full rounded-t-lg bg-white p-6 shadow-sm'
+          className='h-max w-full rounded-t-lg bg-white p-6 shadow-sm'
         >
           <div>
             <button onClick={handleClose}>

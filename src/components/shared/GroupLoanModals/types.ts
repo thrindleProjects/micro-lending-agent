@@ -3,7 +3,6 @@ export type GroupLoanModalTypes =
   | 'check-bvn'
   | 'upload-loan-image'
   | 'add-member'
-  | 'member-sucess'
   | 'loan-success';
 
 export type GroupLoanModalsProps = React.FC<{
@@ -12,4 +11,8 @@ export type GroupLoanModalsProps = React.FC<{
   handleNext(): void;
   handlePrevious(): void;
   handleClose(): void;
+  addMemberProps?: {
+    onAdd?: () => void;
+    maxNew?: number;
+  };
 }>;

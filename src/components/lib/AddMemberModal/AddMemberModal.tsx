@@ -21,6 +21,8 @@ const AddMemberModal: AddMemberModalProps = ({
   isOpen,
   handleClose,
   handleNext,
+  onAdd,
+  maxNew,
 }) => {
   const [count, setCount] = useState<number>(0);
   const [memberSuccess, setMemberSuccess] = useState<boolean>(false);
@@ -30,7 +32,11 @@ const AddMemberModal: AddMemberModalProps = ({
     validationSchema,
     onSubmit: () => {
       // logic
-      if (count === 3) {
+      const counter = typeof maxNew === 'number' ? maxNew : 3;
+      if (onAdd) {
+        onAdd();
+      }
+      if (count + 1 === counter) {
         toast.success('Group created successfully');
         handleNext();
         return;

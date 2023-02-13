@@ -11,22 +11,30 @@ import { groupMembers } from '@/data/data';
 
 import Button from '@/components/buttons/Button';
 import ActionButton from '@/components/lib/ActionButton';
-import AddMemberForm from '@/components/lib/addMemberForm/AddMemberForm';
 import Table from '@/components/lib/Table';
 import ActionButtonItem from '@/components/shared/ActionButtonItem';
 import MainContentLayout from '@/components/shared/MainContentLayout';
-import Modal from '@/components/shared/modal/Modal';
 
 const SingleGroupLayout = () => {
-  const [addMemberModal, setShowAddMemberModal] = useState(false);
   const [showGroupMembers, setShowGroupMembers] = useState(false);
 
-  const [stage, handleModal] = useGroupLoanModals();
-
+  const [stage, handleModal, handleClose, handleNext, handlePrevious] =
+    useGroupLoanModals(['check-bvn', 'upload-loan-image', 'loan-success']);
+  const [
+    addMemberStage,
+    handleAddMemberModal,
+    handleAddMemberClose,
+    handleAddMemberNext,
+    handleAddMemberPrevious,
+  ] = useGroupLoanModals(['add-member']);
   const GroupLoanModals = dynamic(
     () => import('@/components/shared/GroupLoanModals')
   );
   const Member = dynamic(() => import('@/components/lib/member'));
+
+  const handleOnAddMember = () => {
+    setShowGroupMembers(true);
+  };
 
   return (
     <>
@@ -42,7 +50,7 @@ const SingleGroupLayout = () => {
               {!showGroupMembers && (
                 <div className='flex items-center gap-3'>
                   <Button
-                    onClick={() => setShowAddMemberModal(true)}
+                    onClick={() => handleAddMemberModal('add-member')}
                     variant='primary'
                     size='base'
                     leftIcon={AiOutlinePlus}
@@ -100,7 +108,7 @@ const SingleGroupLayout = () => {
                   No member added yet
                 </p>
                 <Button
-                  onClick={() => setShowAddMemberModal(true)}
+                  onClick={() => handleAddMemberModal('add-member')}
                   variant='primary'
                   size='base'
                 >
@@ -109,15 +117,6 @@ const SingleGroupLayout = () => {
               </section>
             )}
           </div>
-
-          {addMemberModal && (
-            <Modal className='h-full w-full md:h-max md:w-11/12 lg:w-[50rem]'>
-              <AddMemberForm
-                setShowAddMemberModal={setShowAddMemberModal}
-                setShowGroupMembers={setShowGroupMembers}
-              />
-            </Modal>
-          )}
         </div>
         <ActionButton
           actions={[
@@ -125,7 +124,7 @@ const SingleGroupLayout = () => {
               icon='material-symbols:add'
               text='Add Members'
               key={0}
-              onClick={() => setShowAddMemberModal(true)}
+              onClick={() => handleAddMemberModal('add-member')}
             />,
             <ActionButtonItem
               icon='material-symbols:download'
@@ -135,7 +134,32 @@ const SingleGroupLayout = () => {
           ]}
         />
       </MainContentLayout>
-      {stage && <GroupLoanModals stage={stage} handleModal={handleModal} />}
+      {stage && (
+        <GroupLoanModals
+          stage={stage}
+          handleModal={handleModal}
+          handleClose={handleClose}
+          handleNext={handleNext}
+          handlePrevious={handlePrevious}
+          addMemberProps={{
+            onAdd: handleOnAddMember,
+            maxNew: 1,
+          }}
+        />
+      )}
+      {addMemberStage && (
+        <GroupLoanModals
+          stage={addMemberStage}
+          handleModal={handleAddMemberModal}
+          handleClose={handleAddMemberClose}
+          handleNext={handleAddMemberNext}
+          handlePrevious={handleAddMemberPrevious}
+          addMemberProps={{
+            onAdd: handleOnAddMember,
+            maxNew: 1,
+          }}
+        />
+      )}
     </>
   );
 };
