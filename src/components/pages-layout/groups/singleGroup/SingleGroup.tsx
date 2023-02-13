@@ -13,6 +13,7 @@ import Button from '@/components/buttons/Button';
 import ActionButton from '@/components/lib/ActionButton';
 import Table from '@/components/lib/Table';
 import ActionButtonItem from '@/components/shared/ActionButtonItem';
+import BreadCrumbs from '@/components/shared/BreadCrumbs';
 import MainContentLayout from '@/components/shared/MainContentLayout';
 
 const SingleGroupLayout = () => {
@@ -41,10 +42,7 @@ const SingleGroupLayout = () => {
       <MainContentLayout>
         <div className=''>
           <section className='hidden lg:block'>
-            <p className='font-bold text-amali-green'>
-              <span className='mr-2 font-light text-amali-grey'>Groups /</span>
-              Alpha
-            </p>
+            <BreadCrumbs dynamic_text='Alpha' />
             <div className=' flex items-center justify-between'>
               <h1 className='text-2xl'>Alpha Group</h1>
               {!showGroupMembers && (

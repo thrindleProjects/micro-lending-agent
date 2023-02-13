@@ -1,8 +1,6 @@
 import { Icon } from '@iconify/react';
 import dynamic from 'next/dynamic';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { CiBank } from 'react-icons/ci';
-import { GrDownload } from 'react-icons/gr';
 
 import useGroupLoanModals from '@/hooks/useGroupLoanModals';
 
@@ -55,18 +53,12 @@ const HomePageLayout = () => {
               size='base'
               className='inline-flex'
               type='button'
-              leftIcon={CiBank}
               onClick={() => handleApplyModal('check-bvn')}
             >
               <span className='font-semibold'>Apply for loan</span>
             </Button>
 
-            <Button
-              variant='outline'
-              size='base'
-              className='inline-flex'
-              leftIcon={GrDownload}
-            >
+            <Button variant='outline' size='base' className='inline-flex'>
               <span className='font-semibold'> Download Registration Form</span>
             </Button>
           </div>

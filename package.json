@@ -18,6 +18,9 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.11.8",
     "clsx": "^1.2.1",
     "csstype": "^3.0.10",
     "formik": "^2.2.9",

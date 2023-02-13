@@ -107,7 +107,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({ actions }) => {
       <button
         onClick={handleClick}
         type='button'
-        className='align-center flex aspect-square items-center rounded-full bg-amali-green p-4 text-2xl text-amali-bg'
+        className='align-center flex aspect-square w-16 items-center justify-center rounded-full bg-amali-green text-2xl text-amali-bg'
       >
         <AnimatePresence mode='popLayout' initial={false}>
           {isActive && (
