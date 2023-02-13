@@ -1,45 +1,38 @@
 import { Icon } from '@iconify/react';
 import { useFormik } from 'formik';
-import { useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
 import Modal from 'react-modal';
 
 import Button from '@/components/buttons/Button';
-import AddMemberForm from '@/components/lib/addMemberForm/AddMemberForm';
 import { ModalWrapper } from '@/components/lib/CreateGroupModal/styled';
 import { CreateGroupModalProps } from '@/components/lib/CreateGroupModal/types';
-import LoanModal from '@/components/lib/loanModal/LoanModal';
 import Input from '@/components/shared/Input';
-import Container from '@/components/shared/modal/Modal';
 
 import { initialValues, validationSchema } from './validation';
 
-const CreateGroupModal: CreateGroupModalProps = ({ isOpen, handleModal }) => {
-  const [openAddMemberModal, setOpenAddMemberModal] = useState(false);
-  const [bnvModal, setBvnModal] = useState(false);
-  const [count, setCount] = useState(0);
-
+const CreateGroupModal: CreateGroupModalProps = ({
+  isOpen,
+  handleClose,
+  handleNext,
+}) => {
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: () => {
-      handleModal();
-      setBvnModal(true);
+      handleNext();
+      // setBvnModal(true);
     },
   });
 
-  useEffect(() => {
-    if (count === 3) {
-      setOpenAddMemberModal(false);
-      toast.success('Group created successfully');
-    }
-  }, [count]);
+  const handleCloseModal = () => {
+    formik.resetForm();
+    handleClose();
+  };
 
   return (
     <>
       <Modal
         isOpen={isOpen}
-        onRequestClose={handleModal}
+        onRequestClose={handleCloseModal}
         shouldCloseOnEsc
         style={{
           overlay: {
@@ -60,11 +53,14 @@ const CreateGroupModal: CreateGroupModalProps = ({ isOpen, handleModal }) => {
         className='h-full w-full flex-shrink-0 rounded-md bg-white drop-shadow-2xl md:h-max md:w-5/6 lg:w-3/5 xl:w-[35%]'
       >
         <ModalWrapper className='w-full py-8 px-7'>
-          <section className='flex w-full items-center justify-between'>
-            <h5 className='text-xl font-semibold sm:text-2xl'>
+          <section className='flex w-full flex-col items-center justify-between gap-4 md:flex-row md:gap-0'>
+            <h5 className='w-full text-xl font-semibold sm:text-2xl md:w-max'>
               Create New Group
             </h5>
-            <button onClick={handleModal} className=' text-2xl font-semibold'>
+            <button
+              onClick={handleCloseModal}
+              className='-order-1 ml-auto text-2xl font-semibold md:order-1'
+            >
               <Icon icon='material-symbols:close' />
             </button>
           </section>
@@ -73,7 +69,10 @@ const CreateGroupModal: CreateGroupModalProps = ({ isOpen, handleModal }) => {
             group, this will serve as identification and future reference
           </p>
 
-          <form className='mt-6 flex flex-col justify-between gap-6'>
+          <form
+            className='mt-6 flex flex-col justify-between gap-6'
+            onSubmit={formik.handleSubmit}
+          >
             <Input
               type='text'
               id='name'
@@ -91,32 +90,12 @@ const CreateGroupModal: CreateGroupModalProps = ({ isOpen, handleModal }) => {
               variant='primary'
               size='base'
               className='w-full lg:mt-6'
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              onClick={formik.handleSubmit}
             >
               <span className='font-semibold'>Create Group</span>
             </Button>
           </form>
         </ModalWrapper>
       </Modal>
-      {openAddMemberModal && (
-        <Container className='w-full md:w-[650px]'>
-          <AddMemberForm
-            setShowAddMemberModal={setOpenAddMemberModal}
-            setCount={setCount}
-            count={count}
-          />
-        </Container>
-      )}
-      {bnvModal && (
-        <Container className='w-full md:w-[500px]'>
-          <LoanModal
-            setLoanModal={setBvnModal}
-            setShowAddMemberModal={setOpenAddMemberModal}
-          />
-        </Container>
-      )}
     </>
   );
 };

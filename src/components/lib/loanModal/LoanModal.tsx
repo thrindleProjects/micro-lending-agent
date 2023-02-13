@@ -8,6 +8,7 @@ import Button from '@/components/buttons/Button';
 import { LoanModalProps } from '@/components/lib/loanModal/LoanModal.props';
 import UploadImage from '@/components/lib/uploadImage/UploadImage';
 import Input from '@/components/shared/Input';
+import Modal from '@/components/shared/modal/Modal';
 
 import { TEXT } from '@/constant/constants';
 
@@ -34,7 +35,7 @@ const LoanModal: React.FC<LoanModalProps> = ({
     },
   });
   return (
-    <div className=''>
+    <Modal className='h-full w-full md:h-auto md:w-[598px]'>
       {!uploadImage && (
         <section>
           <div className='ml-auto   hidden  w-[70%] justify-between text-xl md:flex'>
@@ -101,7 +102,7 @@ const LoanModal: React.FC<LoanModalProps> = ({
           <UploadImage onClick={() => setUploadImage(false)} />
         </section>
       )}
-    </div>
+    </Modal>
   );
 };
 
