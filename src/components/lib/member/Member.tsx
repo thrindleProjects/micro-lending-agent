@@ -1,15 +1,22 @@
 import Button from '@/components/buttons/Button';
 import { MemberProps } from '@/components/lib/member/Member.props';
 
-const Member: React.FC<MemberProps> = ({ name, status, setLoanModal }) => {
+const Member: React.FC<MemberProps> = ({ name, status, onClick }) => {
   return (
-    <div className='flex items-center justify-between py-4'>
-      <p>{name}</p>
-      <p>{status}</p>
-      <Button onClick={() => setLoanModal(true)} variant='primary' size='base'>
-        Apply for loan
-      </Button>
-    </div>
+    <tr>
+      <td>{name}</td>
+      <td>{status}</td>
+      <td>
+        <Button
+          onClick={() => onClick('check-bvn')}
+          variant='primary'
+          size='base'
+          className='ml-auto block'
+        >
+          Apply for loan
+        </Button>
+      </td>
+    </tr>
   );
 };
 

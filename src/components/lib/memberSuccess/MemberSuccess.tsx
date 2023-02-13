@@ -5,7 +5,8 @@ import { MemberSuccessProps } from '@/components/lib/memberSuccess/MemberSuccess
 
 const MemberSuccess: React.FC<MemberSuccessProps> = ({
   setMemberSuccess,
-  setShowAddMemberModal,
+  // setShowAddMemberModal,
+  handleNext,
 }) => {
   return (
     <div className='flex h-full w-full flex-col md:h-max'>
@@ -22,8 +23,6 @@ const MemberSuccess: React.FC<MemberSuccessProps> = ({
       </div>
 
       <Button
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore
         variant='primary'
         size='base'
         className=' mt-auto w-full md:mt-0'
@@ -34,12 +33,10 @@ const MemberSuccess: React.FC<MemberSuccessProps> = ({
         Add New Member
       </Button>
       <Button
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore
         variant='outline'
         size='base'
         className='mt-4 w-full'
-        onClick={() => setShowAddMemberModal(false)}
+        onClick={handleNext}
       >
         Back
       </Button>

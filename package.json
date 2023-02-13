@@ -18,11 +18,13 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.11.8",
     "clsx": "^1.2.1",
     "csstype": "^3.0.10",
     "formik": "^2.2.9",
     "framer-motion": "^8.5.5",
-    "lodash": "4.17.20",
     "next": "^13.1.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -43,7 +45,6 @@
     "@tailwindcss/forms": "^0.5.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
-    "@types/lodash": "4.14.175",
     "@types/react": "^18.0.27",
     "@types/react-modal": "^3.13.1",
     "@types/sass": "^1.43.1",

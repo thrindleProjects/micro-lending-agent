@@ -8,7 +8,7 @@ export const InputSearchBar = styled.input.attrs({ type: 'text' })`
     #ffffff;
   /* border: 1px solid #63738120; */
   padding-left: 2.5rem;
-
+  box-shadow: none;
   @media (min-width: 640px) {
     background: url('https://api.iconify.design/uil/search.svg') no-repeat top
         50% left 2rem,
