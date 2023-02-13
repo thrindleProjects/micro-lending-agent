@@ -20,7 +20,9 @@ const GroupLoanModals: GroupLoanModalsProps = ({
   const AddMemberModal = dynamic(
     () => import('@/components/lib/AddMemberModal')
   );
-  const LoanSuccess = dynamic(() => import('../../lib/LoanSuccess'));
+  const LoanSuccess = dynamic(
+    () => import('@/components/lib/loanSuccessModal')
+  );
   return (
     <>
       <CreateGroupModal

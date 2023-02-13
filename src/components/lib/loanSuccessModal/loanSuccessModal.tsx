@@ -7,8 +7,12 @@ import { useMediaQuery } from '@/hooks';
 
 import Button from '@/components/buttons/Button';
 
-import { LoanSuccessProps } from './types';
-const LoanSuccess: LoanSuccessProps = ({ isOpen, handleClose, handleNext }) => {
+import { LoanSuccessModalProps } from './types';
+const LoanSuccessModal: LoanSuccessModalProps = ({
+  isOpen,
+  handleClose,
+  handleNext,
+}) => {
   const tabScreen = useMediaQuery('(min-width: 768px)');
 
   return (
@@ -100,4 +104,4 @@ const LoanSuccess: LoanSuccessProps = ({ isOpen, handleClose, handleNext }) => {
   );
 };
 
-export default LoanSuccess;
+export default LoanSuccessModal;
