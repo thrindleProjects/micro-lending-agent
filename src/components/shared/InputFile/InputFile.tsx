@@ -25,8 +25,6 @@ const InputFile: React.FC<InputFileProps<HTMLInputElement>> = ({
     if (!file) {
       return;
     }
-
-    // console.log({ file, name });
     onChange(id, file);
   };
 
