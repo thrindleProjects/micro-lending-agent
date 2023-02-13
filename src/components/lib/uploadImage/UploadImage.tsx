@@ -3,18 +3,13 @@ import { useState } from 'react';
 import { MdOutlineArrowBack } from 'react-icons/md';
 import * as Yup from 'yup';
 
-import { useMediaQuery } from '@/hooks';
-
 import Button from '@/components/buttons/Button';
-import SlidingModal from '@/components/lib/slidingModal/SlidingModal';
 import { UploadImageProps } from '@/components/lib/uploadImage/UploadImage.props';
 import InputFile from '@/components/shared/InputFile';
 
-import LoanSuccess from '../loanSuccess/LoanSuccess';
-
 const UploadImage: React.FC<UploadImageProps> = ({ onClick }) => {
   const [success, setSuccess] = useState(false);
-  const tabScreen = useMediaQuery('(min-width: 768px)');
+  // const tabScreen = useMediaQuery('(min-width: 768px)');
 
   const SUPPORTED_FORMATS = [
     'image/jpg',
@@ -45,7 +40,7 @@ const UploadImage: React.FC<UploadImageProps> = ({ onClick }) => {
     <>
       {!success && (
         <section>
-          <div className='ml-auto   hidden text-sm md:block '>
+          <div className='ml-auto hidden text-sm md:block '>
             <MdOutlineArrowBack
               className='mb-10 cursor-pointer text-2xl '
               onClick={onClick}
@@ -65,7 +60,7 @@ const UploadImage: React.FC<UploadImageProps> = ({ onClick }) => {
               Upload a clear image of the printed and filled form by the user{' '}
             </p>
           </div>
-          <form>
+          <form onSubmit={formik.handleSubmit}>
             <div className='  mb-10 w-full '>
               <InputFile
                 // label='Upload ID Image'
@@ -83,9 +78,6 @@ const UploadImage: React.FC<UploadImageProps> = ({ onClick }) => {
               />
             </div>
             <Button
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              //@ts-ignore
-              onSubmit={formik.handleSubmit}
               variant='primary'
               size='base'
               className=' mt-[17rem] w-full md:mt-0'
@@ -96,7 +88,7 @@ const UploadImage: React.FC<UploadImageProps> = ({ onClick }) => {
         </section>
       )}
 
-      {success && <div>{tabScreen ? <LoanSuccess /> : <SlidingModal />}</div>}
+      {/* {success && <div>{tabScreen ? <LoanSuccess /> : <SlidingModal />}</div>} */}
     </>
   );
 };

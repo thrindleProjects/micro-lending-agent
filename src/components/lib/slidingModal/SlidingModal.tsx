@@ -35,13 +35,7 @@ const SlidingModal = () => {
               be confirmed soon, check back later for update
             </p>
           </div>
-          <Button
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            //@ts-ignore
-            variant='primary'
-            size='base'
-            className='w-full md:mt-0'
-          >
+          <Button variant='primary' size='base' className='w-full md:mt-0'>
             Proceed
           </Button>
         </div>

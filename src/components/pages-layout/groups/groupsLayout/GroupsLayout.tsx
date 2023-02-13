@@ -1,25 +1,26 @@
-import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
+
+import useGroupLoanModals from '@/hooks/useGroupLoanModals';
 
 import { groupsList } from '@/data/data';
 
 import Button from '@/components/buttons/Button';
 import ActionButton from '@/components/lib/ActionButton';
-import CreateGroupModal from '@/components/lib/CreateGroupModal';
-import Table from '@/components/lib/Table';
+import GroupsListTable from '@/components/lib/GroupsListTable';
 import ActionButtonItem from '@/components/shared/ActionButtonItem';
 import InputSearch from '@/components/shared/InputSearch';
 import MainContentLayout from '@/components/shared/MainContentLayout';
 
 const GroupsLayout = () => {
   const [groups] = useState<typeof groupsList>(groupsList);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const router = useRouter();
+  const [stage, handleModal, handleClose, handleNext, handlePrevious] =
+    useGroupLoanModals(['create-group', 'check-bvn', 'add-member']);
+  const GroupLoanModals = dynamic(
+    () => import('@/components/shared/GroupLoanModals')
+  );
 
-  const handleModal = () => {
-    setIsOpen((old) => !old);
-  };
   return (
     <>
       <MainContentLayout>
@@ -36,50 +37,13 @@ const GroupsLayout = () => {
             size='base'
             leftIcon={AiOutlinePlus}
             className='hidden lg:inline-flex'
-            onClick={handleModal}
+            onClick={() => handleModal('create-group')}
           >
             <span className='font-semibold'>Create New Group</span>
           </Button>
         </div>
 
-        <div className='w-full overflow-x-auto'>
-          <Table className='mt-8'>
-            <thead className='py-2'>
-              <tr>
-                <td>Group Name</td>
-                <td className='hidden md:table-cell'>Group ID</td>
-                <td className='hidden lg:table-cell'>Members</td>
-                <td>Status</td>
-              </tr>
-            </thead>
-            <tbody>
-              {groups.map((group) => {
-                const isActiveGroup = group.members === 3;
-                return (
-                  <tr
-                    key={group._id}
-                    onClick={() => router.push(`/groups/${group._id}`)}
-                  >
-                    <td>{group.name}</td>
-                    <td className='hidden md:table-cell'>{group.group_id}</td>
-                    <td className='hidden lg:table-cell'>{group.members}</td>
-                    <td>
-                      <span
-                        className={`${
-                          isActiveGroup
-                            ? 'text-amali-green'
-                            : 'text-amali-notif-red'
-                        }`}
-                      >
-                        {isActiveGroup ? 'Active' : 'Inactive'}
-                      </span>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </Table>
-        </div>
+        <GroupsListTable groups={groups} />
       </MainContentLayout>
       <ActionButton
         actions={[
@@ -87,16 +51,25 @@ const GroupsLayout = () => {
             icon='ph:bank-thin'
             text='Apply for loan'
             key={0}
+            onClick={() => handleModal('check-bvn')}
           />,
           <ActionButtonItem
             icon='ph:users-three-light'
             text='Create Group'
             key={1}
-            onClick={handleModal}
+            onClick={() => handleModal('create-group')}
           />,
         ]}
       />
-      <CreateGroupModal isOpen={isOpen} handleModal={handleModal} />
+      {stage && (
+        <GroupLoanModals
+          stage={stage}
+          handleModal={handleModal}
+          handleClose={handleClose}
+          handleNext={handleNext}
+          handlePrevious={handlePrevious}
+        />
+      )}
     </>
   );
 };

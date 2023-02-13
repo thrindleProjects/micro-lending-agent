@@ -1,5 +1,16 @@
-import _ from 'lodash';
 import { useRouter } from 'next/router';
+
+function checkEqual(arr1: string[], arr2: string[]): boolean {
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr1[i] !== arr2[i]) {
+      return false;
+    }
+  }
+  return true;
+}
 
 const useCheckLinkActive = (
   href: string,
@@ -19,10 +30,12 @@ const useCheckLinkActive = (
   const asArr = as?.split('/');
   const asPathArr = asPath.split('/').splice(0, hrefArr.length);
   if (asArr) {
-    return _.isEqual(asArr, asPathArr) && _.isEqual(hrefArr, asPathArr);
+    return checkEqual(asArr, asPathArr) && checkEqual(hrefArr, asPathArr);
+    // return _.isEqual(asArr, asPathArr) && _.isEqual(hrefArr, asPathArr);
   }
 
-  return _.isEqual(hrefArr, asPathArr);
+  // return _.isEqual(hrefArr, asPathArr);
+  return checkEqual(hrefArr, asPathArr);
 };
 
 export default useCheckLinkActive;

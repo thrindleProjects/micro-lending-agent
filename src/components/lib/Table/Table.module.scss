@@ -13,7 +13,8 @@
       @apply border-b border-amali-grey/50 font-semibold;
     }
 
-    td {
+    td,
+    th {
       @apply whitespace-nowrap p-4 text-amali-steel-blue;
     }
   }

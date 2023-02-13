@@ -37,7 +37,7 @@ const Input: React.FC<InputProps> = ({
         {type === PASSWORD && (
           <PasswordInput
             error={error}
-            className='flex w-full flex-row items-center border-b-2 px-2 shadow-inner transition-all duration-300 ease-in md:px-4'
+            className='flex w-full flex-row items-center border-b-2 px-2 transition-all duration-300 ease-in md:px-4'
           >
             <input
               type={hidden ? PASSWORD : TEXT}
@@ -50,7 +50,7 @@ const Input: React.FC<InputProps> = ({
               placeholder={placeholder}
               id={id}
               name={name}
-              className={`h-full w-11/12 border-none bg-transparent px-0 py-4 text-xs shadow-none outline-none placeholder:text-xs focus:outline-none md:py-4 lg:py-5 lg:text-sm xl:placeholder:text-sm ${
+              className={`h-full w-11/12 border-none bg-transparent px-0 py-4 text-xs outline-none placeholder:text-xs focus:outline-none md:py-4 lg:py-5 lg:text-sm xl:placeholder:text-sm ${
                 className ? className : ''
               }`}
               {...rest}
@@ -112,7 +112,7 @@ const Input: React.FC<InputProps> = ({
             maxLength={maxLength}
             id={id}
             name={name}
-            className={`w-full border-x-0 border-b-2 border-t-0 px-2 py-4 text-xs shadow-inner outline-none transition-all duration-300 ease-in placeholder:text-xs md:px-4 lg:py-5 lg:text-sm xl:placeholder:text-sm ${
+            className={`w-full border-x-0 border-b-2 border-t-0 px-2 py-4 text-xs outline-none transition-all duration-300 ease-in placeholder:text-xs md:px-4 lg:py-5 lg:text-sm xl:placeholder:text-sm ${
               className ? className : ''
             }`}
             {...rest}
