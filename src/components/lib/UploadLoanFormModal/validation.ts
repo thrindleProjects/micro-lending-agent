@@ -36,7 +36,7 @@ export const validationSchema = Yup.object({
       (value: undefined | File[]) => {
         if (!value) return false;
         const isValid = value.every((file) => {
-          return SUPPORTED_FORMATS.includes(getExtension(file.name));
+          return SUPPORTED_FORMATS.includes(getExtension(file.type));
         });
         return isValid;
       }
@@ -66,7 +66,7 @@ export const validationSchema = Yup.object({
       (value: undefined | File[]) => {
         if (!value) return false;
         const isValid = value.every((file) => {
-          return SUPPORTED_FORMATS.includes(getExtension(file.name));
+          return SUPPORTED_FORMATS.includes(getExtension(file.type));
         });
         return isValid;
       }

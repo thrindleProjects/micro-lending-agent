@@ -21,7 +21,7 @@ export const FILE = 'file';
 
 export const ID_CARD = 'id_card';
 
-// Add member values
+// Add member keys
 export const FIRST_NAME = 'First Name';
 export const LAST_NAME = 'Last Name';
 export const IDIMAGE = 'id_image';
@@ -30,6 +30,8 @@ export const REGISTRATION_IMAGE = 'registration_image';
 export const LOAN_IMAGE = 'loan_image';
 export const BVN = 'bvn';
 export const OTHERIMAGE = 'other_image';
+export const ID_NUMBER = 'id_number';
+export const ID_EXPIRY = 'id_expires';
 
 // Change Member Keys
 export const CURRENT_PASSWORD = 'current_password';
