@@ -87,8 +87,8 @@ const UploadLoanFormModal: UploadLoanFormModalProps = ({
             />
             <InputFile
               label='Upload other Document (sales records / utility bills etc.)'
-              id='other-image'
-              name='image'
+              id='otherImage'
+              name='otherImage'
               type='file'
               placeholder='Choose file'
               onChange={formik.setFieldValue}

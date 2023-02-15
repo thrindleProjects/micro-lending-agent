@@ -157,6 +157,39 @@ const AddMemberModal: AddMemberModalProps = ({
                   />
                 </div>
                 <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
+                  <Input
+                    id={CONSTANTS.ID_NUMBER}
+                    name={CONSTANTS.ID_NUMBER}
+                    onChange={formik.handleChange}
+                    type='text'
+                    label='ID Number'
+                    onBlur={formik.handleBlur}
+                    error={
+                      formik.errors[CONSTANTS.ID_NUMBER] &&
+                      formik.touched[CONSTANTS.ID_NUMBER]
+                    }
+                    errorText={formik.errors[CONSTANTS.ID_NUMBER]}
+                    required={true}
+                    value={formik.values[CONSTANTS.ID_NUMBER]}
+                    placeholder='Enter ID Number'
+                  />
+                  <Input
+                    id={CONSTANTS.ID_EXPIRY}
+                    name={CONSTANTS.ID_EXPIRY}
+                    onChange={formik.handleChange}
+                    type='date'
+                    label='ID Expiry Date'
+                    onBlur={formik.handleBlur}
+                    error={
+                      formik.errors[CONSTANTS.ID_EXPIRY] &&
+                      formik.touched[CONSTANTS.ID_EXPIRY]
+                    }
+                    errorText={formik.errors[CONSTANTS.ID_EXPIRY]}
+                    required={true}
+                    value={formik.values[CONSTANTS.ID_EXPIRY]}
+                  />
+                </div>
+                <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
                   <InputFile
                     label='Upload Registration form Image'
                     id={CONSTANTS.REGISTRATION_IMAGE}
