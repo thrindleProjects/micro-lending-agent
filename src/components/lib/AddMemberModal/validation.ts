@@ -47,6 +47,16 @@ export const validationSchema = Yup.object({
       return isValid;
     },
   }),
+  [CONSTANTS.OTHERIMAGE]: Yup.mixed().test({
+    message: 'Please provide a supported file type',
+    test: (file, context) => {
+      const isValid = ['doc', 'docx', 'pdf', 'png', 'jpeg', 'jpg'].includes(
+        getExtension(file?.name)
+      );
+      if (!isValid) context?.createError();
+      return isValid;
+    },
+  }),
 });
 
 export const initialValues: {
@@ -58,6 +68,7 @@ export const initialValues: {
   [CONSTANTS.IDIMAGE]?: File | string;
   [CONSTANTS.REGISTRATION_IMAGE]?: File | string;
   [CONSTANTS.LOAN_IMAGE]?: File | string;
+  [CONSTANTS.OTHERIMAGE]?: File | string;
 } = {
   [CONSTANTS.FIRST_NAME]: '',
   [CONSTANTS.LAST_NAME]: '',
@@ -66,5 +77,6 @@ export const initialValues: {
   [CONSTANTS.REGISTRATION_IMAGE]: '',
   [CONSTANTS.LOAN_IMAGE]: '',
   [CONSTANTS.IDIMAGE]: '',
+  [CONSTANTS.OTHERIMAGE]: '',
   [CONSTANTS.IDTYPE]: '',
 };

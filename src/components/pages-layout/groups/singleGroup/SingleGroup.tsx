@@ -27,7 +27,7 @@ const SingleGroupLayout = () => {
     handleAddMemberClose,
     handleAddMemberNext,
     handleAddMemberPrevious,
-  ] = useGroupLoanModals(['add-member']);
+  ] = useGroupLoanModals(['check-bvn', 'add-member']);
   const GroupLoanModals = dynamic(
     () => import('@/components/shared/GroupLoanModals')
   );
@@ -48,7 +48,7 @@ const SingleGroupLayout = () => {
               {!showGroupMembers && (
                 <div className='flex items-center gap-3'>
                   <Button
-                    onClick={() => handleAddMemberModal('add-member')}
+                    onClick={() => handleAddMemberModal('check-bvn')}
                     variant='primary'
                     size='base'
                     leftIcon={AiOutlinePlus}
@@ -106,7 +106,7 @@ const SingleGroupLayout = () => {
                   No member added yet
                 </p>
                 <Button
-                  onClick={() => handleAddMemberModal('add-member')}
+                  onClick={() => handleAddMemberModal('check-bvn')}
                   variant='primary'
                   size='base'
                 >
