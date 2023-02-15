@@ -56,7 +56,7 @@ const CheckBVNModal: CheckBVNModalProps = ({
       <CheckBVNModalWrapper className='w-full py-8 px-7'>
         <section className='flex w-full flex-col items-center justify-between gap-4 md:flex-row md:gap-0'>
           <h5 className='w-full text-xl font-semibold sm:text-2xl md:mx-auto md:w-max'>
-            Loan Application
+            Check BVN
           </h5>
           <button
             onClick={handleCloseModal}

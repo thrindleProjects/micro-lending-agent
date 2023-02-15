@@ -1,31 +1,55 @@
 import { Icon } from '@iconify/react';
 import { AnimatePresence, motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
 
 import { FileInput } from './styled';
 import { InputFileProps } from './types';
-import InputLabel from '../InputLabel';
 
-const InputFile: React.FC<InputFileProps<HTMLInputElement>> = ({
-  error,
-  label,
-  value,
-  onChange,
-  required,
-  onBlur,
-  placeholder,
-  className,
-  errorText,
-  id,
-  name,
-  multiple,
-  extensions,
-}) => {
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files && e.target.files[0];
-    if (!file) {
+const InputFile: React.FC<InputFileProps<HTMLInputElement>> = (props) => {
+  const {
+    error,
+    label,
+    value,
+    onChange,
+    required,
+    onBlur,
+    placeholder,
+    className,
+    errorText,
+    id,
+    name,
+    multiple,
+    extensions,
+    showPreview,
+    // previewAt,
+  } = props;
+
+  const InputLabel = dynamic(() => import('@/components/shared/InputLabel'));
+  const InputFilePreview = dynamic(
+    () => import('@/components/shared/inputFilePreview')
+  );
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files && Array.from(e.target.files);
+    if (!files) {
       return;
     }
-    onChange(id, file);
+    if (value && value.length && multiple) {
+      const allFiles = value.concat(files);
+      const filenames = allFiles.map((file) => file.name);
+      const isValid = new Set(filenames).size === filenames.length;
+      if (!isValid) {
+        (await import('react-hot-toast')).toast.error(
+          'Cannot have duplicate file names'
+        );
+        return;
+      }
+      onChange(id, allFiles);
+      return;
+    }
+
+    onChange(id, files);
+    return;
   };
 
   return (
@@ -52,7 +76,11 @@ const InputFile: React.FC<InputFileProps<HTMLInputElement>> = ({
             <Icon icon='material-symbols:photo-camera-outline' />
           </span>
           <span className='col-span-5 flex items-center py-4 pl-2 lg:py-4 xl:py-5'>
-            {value && typeof value !== 'string' ? value.name : placeholder}
+            {value && value.length
+              ? value.length === 1
+                ? value[0].name
+                : 'Upload more'
+              : placeholder}
           </span>
         </div>
       </FileInput>
@@ -69,6 +97,9 @@ const InputFile: React.FC<InputFileProps<HTMLInputElement>> = ({
           </motion.div>
         )}
       </AnimatePresence>
+      {showPreview && value && !!value.length && (
+        <InputFilePreview value={value} />
+      )}
     </div>
   );
 };
