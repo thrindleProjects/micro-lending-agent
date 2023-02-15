@@ -4,7 +4,7 @@ import { FocusEventHandler } from 'react';
 import { InputFileType } from '@/types/appTypes';
 
 export interface InputFileProps<T> {
-  value?: File | string;
+  value?: File[];
   label?: string;
   id: string;
   className?: string;
@@ -18,8 +18,10 @@ export interface InputFileProps<T> {
   onBlur?: FocusEventHandler<T> | undefined;
   onChange: (
     field: string,
-    value: File,
+    value: File[],
     shouldValidate?: boolean | undefined
   ) => Promise<FormikErrors<FormikValues>> | Promise<void>;
   extensions?: string;
+  showPreview?: boolean;
+  previewAt?: number;
 }

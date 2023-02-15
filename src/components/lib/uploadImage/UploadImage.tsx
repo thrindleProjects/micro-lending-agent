@@ -1,37 +1,20 @@
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import { MdOutlineArrowBack } from 'react-icons/md';
-import * as Yup from 'yup';
 
 import Button from '@/components/buttons/Button';
 import { UploadImageProps } from '@/components/lib/uploadImage/UploadImage.props';
 import InputFile from '@/components/shared/InputFile';
 
+import { initialValues, validationSchema } from './validation';
+
 const UploadImage: React.FC<UploadImageProps> = ({ onClick }) => {
   const [success, setSuccess] = useState(false);
   // const tabScreen = useMediaQuery('(min-width: 768px)');
 
-  const SUPPORTED_FORMATS = [
-    'image/jpg',
-    'image/jpeg',
-    'image/gif',
-    'image/png',
-  ];
-
   const formik = useFormik({
-    initialValues: {
-      image: '',
-    },
-    validationSchema: Yup.object().shape({
-      image: Yup.mixed()
-        .nullable()
-        .required('An image must be provided')
-        .test(
-          'format',
-          'upload file',
-          (value) => !value || (value && SUPPORTED_FORMATS.includes(value.type))
-        ),
-    }),
+    initialValues,
+    validationSchema,
     onSubmit: () => {
       setSuccess(true);
     },

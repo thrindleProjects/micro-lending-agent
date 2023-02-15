@@ -46,6 +46,8 @@ const AddMemberModal: AddMemberModalProps = ({
       formik.resetForm();
     },
   });
+
+  // console.log({values: formik.values.registration_image})
   return (
     <Modal
       isOpen={isOpen}
@@ -67,7 +69,7 @@ const AddMemberModal: AddMemberModalProps = ({
       shouldCloseOnOverlayClick={true}
       shouldReturnFocusAfterClose={true}
       ariaHideApp={false}
-      className='h-full w-full flex-shrink-0 rounded-md bg-white drop-shadow-2xl md:h-max md:w-5/6 lg:w-3/5 xl:w-[40%] xl:max-w-2xl'
+      className='h-full w-full flex-shrink-0 overflow-hidden rounded-md bg-white drop-shadow-2xl md:max-h-[90%] md:w-5/6 lg:w-3/5 xl:w-[40%] xl:max-w-2xl'
     >
       <div className='h-full w-full overflow-y-auto py-8 px-7'>
         {memberSuccess ? (
@@ -119,7 +121,7 @@ const AddMemberModal: AddMemberModalProps = ({
                     required={true}
                   />
                 </div>
-                <div className='flex flex-col gap-6 md:flex-row'>
+                <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
                   <Select
                     label='ID Type'
                     id={CONSTANTS.IDTYPE}
@@ -151,10 +153,10 @@ const AddMemberModal: AddMemberModalProps = ({
                     errorText={formik.errors[CONSTANTS.IDIMAGE]}
                     required={true}
                     extensions='image/*, .doc, .docx, .pdf'
-                    multiple={true}
+                    showPreview={true}
                   />
                 </div>
-                <div className='flex flex-col gap-6 md:flex-row'>
+                <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
                   <InputFile
                     label='Upload Registration form Image'
                     id={CONSTANTS.REGISTRATION_IMAGE}
@@ -172,7 +174,9 @@ const AddMemberModal: AddMemberModalProps = ({
                     required={true}
                     extensions='image/*, .doc, .docx, .pdf'
                     multiple={true}
+                    showPreview={true}
                   />
+
                   <InputFile
                     label='Upload Loan application form Image'
                     id={CONSTANTS.LOAN_IMAGE}
@@ -190,11 +194,12 @@ const AddMemberModal: AddMemberModalProps = ({
                     required={false}
                     extensions='image/*, .doc, .docx, .pdf'
                     multiple={true}
+                    showPreview={true}
                   />
                 </div>
                 <div>
                   <InputFile
-                    label='Upload other Document (sales records / utility bills etc.)'
+                    label='Upload other Document (sales records / utility bills etc)'
                     id={CONSTANTS.OTHERIMAGE}
                     name={CONSTANTS.OTHERIMAGE}
                     type='file'
@@ -210,6 +215,7 @@ const AddMemberModal: AddMemberModalProps = ({
                     required={true}
                     extensions='image/*, .doc, .docx, .pdf'
                     multiple={true}
+                    showPreview={true}
                   />
                 </div>
                 <Button
