@@ -12,7 +12,7 @@ const InputFilePreview: InputFilePreviewProps = ({ value }) => {
       {value.map((file) => {
         const isImage = file.type.startsWith('image/');
         return (
-          <div key={file.name} className='relative h-full'>
+          <div key={file.name} className='relative h-full w-full'>
             {isImage ? (
               <ImageComponent alt={file.name} src={URL.createObjectURL(file)} />
             ) : (

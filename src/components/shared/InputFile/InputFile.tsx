@@ -34,20 +34,19 @@ const InputFile: React.FC<InputFileProps<HTMLInputElement>> = (props) => {
     if (!files) {
       return;
     }
-    if (value && value.length && multiple) {
-      const allFiles = value.concat(files);
-      const filenames = allFiles.map((file) => file.name);
-      const isValid = new Set(filenames).size === filenames.length;
-      if (!isValid) {
-        (await import('react-hot-toast')).toast.error(
-          'Cannot have duplicate file names'
-        );
-        return;
-      }
-      onChange(id, allFiles);
-      return;
-    }
-
+    // if (value && value.length && multiple) {
+    //   const allFiles = value.concat(files);
+    //   const filenames = allFiles.map((file) => file.name);
+    //   const isValid = new Set(filenames).size === filenames.length;
+    //   if (!isValid) {
+    //     (await import('react-hot-toast')).toast.error(
+    //       'Cannot have duplicate file names'
+    //     );
+    //     return;
+    //   }
+    //   onChange(id, allFiles);
+    //   return;
+    // }
     onChange(id, files);
     return;
   };

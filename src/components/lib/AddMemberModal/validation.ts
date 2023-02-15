@@ -121,25 +121,34 @@ export const validationSchema = Yup.object({
         return isValid;
       }
     ),
+  [CONSTANTS.ID_NUMBER]: Yup.number()
+    .required('ID number is required')
+    .typeError('ID number can only contain numbers'),
+  [CONSTANTS.ID_EXPIRY]: Yup.string()
+    .typeError('Must be a valid date')
+    .required('Please provide an expiry date'),
 });
 
 export const initialValues: {
-  [CONSTANTS.FIRST_NAME]: '';
-  [CONSTANTS.LAST_NAME]: '';
-  [CONSTANTS.IDTYPE]: '';
-  [CONSTANTS.BVN]: '';
+  [CONSTANTS.FIRST_NAME]: string;
+  [CONSTANTS.LAST_NAME]: string;
+  [CONSTANTS.IDTYPE]: string;
+  [CONSTANTS.BVN]: string;
   [CONSTANTS.IDIMAGE]?: File[];
+  [CONSTANTS.ID_NUMBER]: string;
+  [CONSTANTS.ID_EXPIRY]: string;
   [CONSTANTS.REGISTRATION_IMAGE]?: File[];
   [CONSTANTS.LOAN_IMAGE]?: File[];
   [CONSTANTS.OTHERIMAGE]?: File[];
 } = {
   [CONSTANTS.FIRST_NAME]: '',
   [CONSTANTS.LAST_NAME]: '',
-
   [CONSTANTS.BVN]: '',
   [CONSTANTS.REGISTRATION_IMAGE]: [],
   [CONSTANTS.LOAN_IMAGE]: [],
   [CONSTANTS.IDIMAGE]: [],
   [CONSTANTS.OTHERIMAGE]: [],
   [CONSTANTS.IDTYPE]: '',
+  [CONSTANTS.ID_NUMBER]: '',
+  [CONSTANTS.ID_EXPIRY]: '',
 };
