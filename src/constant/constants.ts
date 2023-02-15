@@ -29,6 +29,7 @@ export const IDTYPE = 'id_type';
 export const REGISTRATION_IMAGE = 'registration_image';
 export const LOAN_IMAGE = 'loan_image';
 export const BVN = 'bvn';
+export const OTHERIMAGE = 'other_image';
 
 // Change Member Keys
 export const CURRENT_PASSWORD = 'current_password';

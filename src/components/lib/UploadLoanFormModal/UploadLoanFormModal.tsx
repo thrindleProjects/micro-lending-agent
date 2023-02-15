@@ -59,16 +59,16 @@ const UploadLoanFormModal: UploadLoanFormModalProps = ({
             onClick={handlePrevious}
           />
           <p className=' mb-3 font-bold '>Upload Completed Loan form Image</p>
-          <p className='mb-8 text-xs font-light text-amali-grey'>
+          <p className=' text-xs font-light text-amali-grey'>
             Upload a clear image of the printed and filled form by the user{' '}
           </p>
         </div>
 
         <form
           onSubmit={formik.handleSubmit}
-          className='mt-6 flex flex-col justify-between gap-6'
+          className='mt-4 flex flex-col justify-between gap-6'
         >
-          <div className='  mb-10 w-full '>
+          <div className='  mb-6 flex w-full flex-col gap-4 '>
             <InputFile
               // label='Upload ID Image'
               id='image'
@@ -82,6 +82,22 @@ const UploadLoanFormModal: UploadLoanFormModalProps = ({
               errorText={formik.errors.image}
               required={true}
               extensions='image/*, .doc, .docx, .pdf'
+              multiple={true}
+            />
+            <InputFile
+              label='Upload other Document (sales records / utility bills etc.)'
+              id='image'
+              name='image'
+              type='file'
+              placeholder='Choose file'
+              onChange={formik.setFieldValue}
+              onBlur={formik.handleBlur}
+              value={formik.values.otherImage}
+              error={formik.errors.otherImage && formik.touched.otherImage}
+              errorText={formik.errors.otherImage}
+              required={true}
+              extensions='image/*, .doc, .docx, .pdf'
+              multiple={true}
             />
           </div>
           <Button

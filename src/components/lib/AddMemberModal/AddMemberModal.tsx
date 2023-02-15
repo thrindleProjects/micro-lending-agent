@@ -151,6 +151,7 @@ const AddMemberModal: AddMemberModalProps = ({
                     errorText={formik.errors[CONSTANTS.IDIMAGE]}
                     required={true}
                     extensions='image/*, .doc, .docx, .pdf'
+                    multiple={true}
                   />
                 </div>
                 <div className='flex flex-col gap-6 md:flex-row'>
@@ -170,6 +171,7 @@ const AddMemberModal: AddMemberModalProps = ({
                     errorText={formik.errors[CONSTANTS.REGISTRATION_IMAGE]}
                     required={true}
                     extensions='image/*, .doc, .docx, .pdf'
+                    multiple={true}
                   />
                   <InputFile
                     label='Upload Loan application form Image'
@@ -187,6 +189,27 @@ const AddMemberModal: AddMemberModalProps = ({
                     errorText={formik.errors[CONSTANTS.LOAN_IMAGE]}
                     required={false}
                     extensions='image/*, .doc, .docx, .pdf'
+                    multiple={true}
+                  />
+                </div>
+                <div>
+                  <InputFile
+                    label='Upload other Document (sales records / utility bills etc.)'
+                    id={CONSTANTS.OTHERIMAGE}
+                    name={CONSTANTS.OTHERIMAGE}
+                    type='file'
+                    placeholder='Choose file'
+                    onChange={formik.setFieldValue}
+                    onBlur={formik.handleBlur}
+                    value={formik.values[CONSTANTS.OTHERIMAGE]}
+                    error={
+                      formik.errors[CONSTANTS.OTHERIMAGE] &&
+                      formik.touched[CONSTANTS.OTHERIMAGE]
+                    }
+                    errorText={formik.errors[CONSTANTS.OTHERIMAGE]}
+                    required={true}
+                    extensions='image/*, .doc, .docx, .pdf'
+                    multiple={true}
                   />
                 </div>
                 <Button
