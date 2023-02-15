@@ -50,7 +50,7 @@ const UploadLoanFormModal: UploadLoanFormModalProps = ({
       shouldCloseOnOverlayClick={true}
       shouldReturnFocusAfterClose={true}
       ariaHideApp={false}
-      className='h-full w-full flex-shrink-0 rounded-md bg-white drop-shadow-2xl md:h-max md:w-5/6 lg:w-3/5 xl:w-[35%]'
+      className='h-full w-full flex-shrink-0 rounded-md bg-white drop-shadow-2xl md:h-max md:max-h-[90%] md:w-5/6 lg:w-3/5 xl:w-[35%]'
     >
       <UploadLoanFormModalWrapper className='w-full py-8 px-7'>
         <div className='text-sm'>
@@ -83,10 +83,11 @@ const UploadLoanFormModal: UploadLoanFormModalProps = ({
               required={true}
               extensions='image/*, .doc, .docx, .pdf'
               multiple={true}
+              showPreview={true}
             />
             <InputFile
               label='Upload other Document (sales records / utility bills etc.)'
-              id='image'
+              id='other-image'
               name='image'
               type='file'
               placeholder='Choose file'
@@ -98,6 +99,7 @@ const UploadLoanFormModal: UploadLoanFormModalProps = ({
               required={true}
               extensions='image/*, .doc, .docx, .pdf'
               multiple={true}
+              showPreview={true}
             />
           </div>
           <Button
