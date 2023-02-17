@@ -1,26 +1,55 @@
+import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { signIn } from 'next-auth/react';
 import { useEffect } from 'react';
-import * as Yup from 'yup';
+
+import logger from '@/lib/logger';
 
 import Input from '@/components/shared/Input';
 
 import { PASSWORD, TEXT } from '@/constant/constants';
+import AmaliError from '@/utils/customError';
+
+import { initialValues, validationSchema } from './validation';
 
 const LoginForm = () => {
   useEffect(() => {
     localStorage.setItem('userRole', 'master-agent');
   }, []);
+  const router = useRouter();
 
   const formik = useFormik({
-    initialValues: { phone: '', password: '' },
-    validationSchema: Yup.object({
-      phone: Yup.number()
-        .required('Phone number is required')
-        .typeError('Only numbers are allowed'),
-      password: Yup.string().required('Password is required'),
-    }),
-    onSubmit: () => {
+    initialValues,
+    validationSchema,
+    onSubmit: async (values) => {
+      try {
+        const result = await signIn('credentials', {
+          ...values,
+          redirect: false,
+        });
+
+        if (!result || result.error) {
+          (await import('react-hot-toast')).toast.error(
+            result?.error ?? 'Something went wrong'
+          );
+          return;
+        }
+
+        formik.resetForm();
+        router.replace('/');
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          logger({ error: error.response?.data }, 'Axios Error');
+          (await import('react-hot-toast')).toast.error(
+            error.response?.data ?? 'Server Error'
+          );
+        }
+        if (error instanceof AmaliError) {
+          logger({ error: error.message, cause: error.cause }, 'Amali Error');
+        }
+      }
       // logic here
     },
   });

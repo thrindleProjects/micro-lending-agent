@@ -1,13 +1,11 @@
-import { useRouter } from 'next/router';
+import { signOut } from 'next-auth/react';
 import Modal from 'react-modal';
 
 import { LogoutModalProps } from '@/components/lib/LogoutModal/types';
 
 const LogoutModal: LogoutModalProps = ({ isOpen, handleModal }) => {
-  const router = useRouter();
-
   const handleLogout = () => {
-    router.replace('/login');
+    signOut();
   };
 
   return (

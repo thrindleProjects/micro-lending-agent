@@ -10,7 +10,8 @@ export const SETTINGS = 'Settings';
 
 // REGISTER FORM TYPES
 export const NAME = 'name';
-export const PHONE_NUMBER = 'number';
+export const PHONE_NUMBER = 'phone';
+export const MARKET = 'market';
 
 // Input Types
 export const PASSWORD = 'password';

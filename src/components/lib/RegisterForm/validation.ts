@@ -15,17 +15,20 @@ export const validationSchema = Yup.object({
   [CONSTANTS.PHONE_NUMBER]: Yup.number()
     .required('Last Name is required')
     .typeError('Only numbers are allowed'),
+  [CONSTANTS.MARKET]: Yup.string().required('Market is required'),
   [CONSTANTS.PASSWORD]: Yup.string()
     .required('Password is required')
     .min(8, 'Password must be at least 8 characters'),
 });
 
 export const initialValues: {
-  [CONSTANTS.NAME]: '';
-  [CONSTANTS.PHONE_NUMBER]: '';
-  [CONSTANTS.PASSWORD]: '';
+  [CONSTANTS.NAME]: string;
+  [CONSTANTS.PHONE_NUMBER]: string;
+  [CONSTANTS.PASSWORD]: string;
+  [CONSTANTS.MARKET]: string;
 } = {
   [CONSTANTS.NAME]: '',
   [CONSTANTS.PHONE_NUMBER]: '',
   [CONSTANTS.PASSWORD]: '',
+  [CONSTANTS.MARKET]: '',
 };

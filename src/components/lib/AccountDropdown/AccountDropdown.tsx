@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import { motion, Variants } from 'framer-motion';
-import { useRouter } from 'next/router';
+import { signOut } from 'next-auth/react';
 
 import useMediaQuery from '@/hooks/useMediaQuery';
 
@@ -28,10 +28,8 @@ const variants: Variants = {
 
 const AccountDropdown = () => {
   const largeScreen = useMediaQuery('(min-width: 1024px)');
-  const router = useRouter();
   const logOut = () => {
-    localStorage.removeItem('userRole');
-    router.push('/login');
+    signOut();
   };
 
   return (
