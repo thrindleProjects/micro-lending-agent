@@ -4,9 +4,10 @@ import Button from '@/components/buttons/Button';
 import { MemberSuccessProps } from '@/components/lib/memberSuccess/MemberSuccess.props';
 
 const MemberSuccess: React.FC<MemberSuccessProps> = ({
-  setMemberSuccess,
+  // setMemberSuccess,
   // setShowAddMemberModal,
   handleNext,
+  handleModal,
 }) => {
   return (
     <div className='flex h-full w-full flex-col md:h-max'>
@@ -26,9 +27,7 @@ const MemberSuccess: React.FC<MemberSuccessProps> = ({
         variant='primary'
         size='base'
         className=' mt-auto w-full md:mt-0'
-        onClick={() => {
-          setMemberSuccess(false);
-        }}
+        onClick={() => handleModal('check-bvn')}
       >
         Add New Member
       </Button>

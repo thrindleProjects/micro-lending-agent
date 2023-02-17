@@ -4,6 +4,8 @@ import { getSession } from 'next-auth/react';
 import logger from '@/lib/logger';
 
 import authService from '@/utils/api/auth';
+import groupService from '@/utils/api/group';
+import memberService from '@/utils/api/member';
 import AmaliError from '@/utils/customError';
 
 export const BASE_URL =
@@ -58,3 +60,5 @@ const addTokenToRequest = async (request: InternalAxiosRequestConfig) => {
 api.interceptors.request.use(addTokenToRequest);
 
 export const authAPI = authService({ api });
+export const groupAPI = groupService({ api });
+export const memberAPI = memberService({ api });

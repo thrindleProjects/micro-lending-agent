@@ -1,18 +1,26 @@
+import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { IoMdClose } from 'react-icons/io';
 import Modal from 'react-modal';
 
+import logger from '@/lib/logger';
+
 import { IDType } from '@/data/data';
 
 import Button from '@/components/buttons/Button';
 import MemberSuccess from '@/components/lib/memberSuccess';
+import UnieditableInput from '@/components/lib/uneditableInput/UnieditableInput';
 import Input from '@/components/shared/Input';
 import InputFile from '@/components/shared/InputFile';
 import Select from '@/components/shared/Select';
 
+import { useAppSelector } from '@/store/store.hooks';
+
 import * as CONSTANTS from '@/constant/constants';
+import { memberAPI } from '@/utils/api';
+import AmaliError from '@/utils/customError';
 
 import { AddMemberModalProps } from './types';
 import { initialValues, validationSchema } from './validation';
@@ -23,13 +31,61 @@ const AddMemberModal: AddMemberModalProps = ({
   handleNext,
   onAdd,
   maxNew,
+  handleModal,
 }) => {
   const [count, setCount] = useState<number>(0);
   const [memberSuccess, setMemberSuccess] = useState<boolean>(false);
+  const { user } = useAppSelector((state) => state.bvn);
+  const [loading, setLoading] = useState(false);
+  const { group } = useAppSelector((state) => state.group);
+
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: () => {
+    onSubmit: async (values) => {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append('firstname', user?.firstName as string | Blob);
+      formData.append('lastname', user?.lastName as string | Blob);
+      formData.append('idType', values.id_type as string | Blob);
+      formData.append('bvn', user?.bvn as string);
+      formData.append('group', group?.id as string | Blob);
+      if (values.registration_image) {
+        formData.append(
+          'registrationForm',
+          values.registration_image[0] as Blob
+        );
+      }
+      if (values.loan_image) {
+        formData.append('loanApplicationForm', values.loan_image[0] as Blob);
+      }
+      if (values.id_image) {
+        formData.append('idImage', values.id_image[0] as Blob);
+      }
+      // if (values.other_image) {
+      //   formData.append('otherDocumentImages', values.other_image[0] as Blob);
+      // }
+
+      try {
+        await memberAPI.addMember(formData);
+        (await import('react-hot-toast')).toast.success(
+          'Member added successfully'
+        );
+        setLoading(false);
+
+        formik.resetForm();
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          logger({ error: error.response?.data }, 'Axios Error');
+        }
+        if (error instanceof AmaliError) {
+          logger({ error: error.message, cause: error.cause }, 'Amali Error');
+          (await import('react-hot-toast')).toast.error(
+            error.message ?? 'Something went wrong'
+          );
+          setLoading(false);
+        }
+      }
       // logic
       const counter = typeof maxNew === 'number' ? maxNew : 3;
       if (onAdd) {
@@ -40,6 +96,7 @@ const AddMemberModal: AddMemberModalProps = ({
         handleNext();
         return;
       }
+
       setCount((old) => old + 1);
       setMemberSuccess(true);
       formik.resetForm();
@@ -74,7 +131,7 @@ const AddMemberModal: AddMemberModalProps = ({
         {memberSuccess ? (
           <MemberSuccess
             setMemberSuccess={setMemberSuccess}
-            handleNext={handleNext}
+            handleModal={handleModal}
           />
         ) : (
           <>
@@ -87,38 +144,8 @@ const AddMemberModal: AddMemberModalProps = ({
             <form onSubmit={formik.handleSubmit}>
               <div className='flex flex-col gap-6'>
                 <div className='flex flex-col gap-6 md:flex-row'>
-                  <Input
-                    id={CONSTANTS.FIRST_NAME}
-                    name={CONSTANTS.FIRST_NAME}
-                    type={CONSTANTS.TEXT}
-                    value={formik.values[CONSTANTS.FIRST_NAME]}
-                    placeholder='Makinde'
-                    label='First Name '
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={
-                      formik.errors[CONSTANTS.FIRST_NAME] &&
-                      formik.touched[CONSTANTS.FIRST_NAME]
-                    }
-                    errorText={formik.errors[CONSTANTS.FIRST_NAME]}
-                    required={true}
-                  />
-                  <Input
-                    id={CONSTANTS.LAST_NAME}
-                    name={CONSTANTS.LAST_NAME}
-                    type={CONSTANTS.TEXT}
-                    value={formik.values[CONSTANTS.LAST_NAME]}
-                    placeholder='John'
-                    label='Last Name '
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={
-                      formik.errors[CONSTANTS.LAST_NAME] &&
-                      formik.touched[CONSTANTS.LAST_NAME]
-                    }
-                    errorText={formik.errors[CONSTANTS.LAST_NAME]}
-                    required={true}
-                  />
+                  <UnieditableInput text={user?.firstName} label='First Name' />
+                  <UnieditableInput text={user?.lastName} label='Last Name' />
                 </div>
                 <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
                   <Select
@@ -255,6 +282,7 @@ const AddMemberModal: AddMemberModalProps = ({
                   size='base'
                   className=' w-full '
                   type='submit'
+                  isLoading={loading}
                 >
                   Proceed
                 </Button>

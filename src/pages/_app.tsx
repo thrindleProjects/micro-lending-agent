@@ -4,10 +4,14 @@ import { useRouter } from 'next/router';
 import { SessionProvider } from 'next-auth/react';
 import { ReactElement, ReactNode, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import '@/styles/globals.css';
 
 import AuthenticatedLayout from '@/components/layout/AuthenticatedLayout';
+
+import { persistor, store } from '@/store/store';
 
 import { toastOptions } from '@/utils/toastConfig';
 // !STARTERCONF This is for demo purposes, remove @/styles/colors.css import immediately
@@ -49,8 +53,12 @@ function MyApp({
     ((page) => <AuthenticatedLayout>{page}</AuthenticatedLayout>);
   return (
     <SessionProvider session={session}>
-      {getLayout(<Component {...pageProps} key={router.pathname} />)}
-      <Toaster position='top-right' toastOptions={toastOptions} />
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          {getLayout(<Component {...pageProps} key={router.pathname} />)}
+          <Toaster position='top-right' toastOptions={toastOptions} />
+        </PersistGate>
+      </Provider>
     </SessionProvider>
   );
 }
