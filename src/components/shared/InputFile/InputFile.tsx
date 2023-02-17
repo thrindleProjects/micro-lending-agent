@@ -1,6 +1,8 @@
 import { Icon } from '@iconify/react';
 import { AnimatePresence, motion } from 'framer-motion';
-import dynamic from 'next/dynamic';
+
+import InputFilePreview from '@/components/shared/inputFilePreview/InputFilePreview';
+import InputLabel from '@/components/shared/InputLabel';
 
 import { FileInput } from './styled';
 import { InputFileProps } from './types';
@@ -24,29 +26,11 @@ const InputFile: React.FC<InputFileProps<HTMLInputElement>> = (props) => {
     // previewAt,
   } = props;
 
-  const InputLabel = dynamic(() => import('@/components/shared/InputLabel'));
-  const InputFilePreview = dynamic(
-    () => import('@/components/shared/inputFilePreview')
-  );
-
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files && Array.from(e.target.files);
     if (!files) {
       return;
     }
-    // if (value && value.length && multiple) {
-    //   const allFiles = value.concat(files);
-    //   const filenames = allFiles.map((file) => file.name);
-    //   const isValid = new Set(filenames).size === filenames.length;
-    //   if (!isValid) {
-    //     (await import('react-hot-toast')).toast.error(
-    //       'Cannot have duplicate file names'
-    //     );
-    //     return;
-    //   }
-    //   onChange(id, allFiles);
-    //   return;
-    // }
     onChange(id, files);
     return;
   };

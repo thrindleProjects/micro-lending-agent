@@ -34,6 +34,9 @@ const RegisterForm: RegisterFormProps = ({ markets }) => {
         }
         if (error instanceof AmaliError) {
           logger({ error: error.message, cause: error.cause }, 'Amali Error');
+          if (error.message === 'Error Creating User Account') {
+            (await import('react-hot-toast')).toast.error('Duplicate Account');
+          }
         }
       }
     },

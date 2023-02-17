@@ -1,14 +1,17 @@
-import { GetStaticProps, InferGetStaticPropsType } from 'next';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { getServerSession } from 'next-auth';
 import { ReactElement } from 'react';
 
 import RegisterLayout from '@/components/pages-layout/register';
+
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
 import { NextPageWithLayout } from './_app';
 
 import { Market } from '@/types';
 
 type RegisterPage = NextPageWithLayout<
-  InferGetStaticPropsType<typeof getStaticProps>
+  InferGetServerSidePropsType<typeof getServerSideProps>
 >;
 
 const Register: RegisterPage = ({ markets }) => {
@@ -32,9 +35,17 @@ const staticMarkets: Market[] = [
   },
 ];
 
-export const getStaticProps: GetStaticProps<{
+export const getServerSideProps: GetServerSideProps<{
   markets: typeof staticMarkets;
-}> = () => {
+}> = async (context) => {
+  const session = await getServerSession(context.req, context.res, authOptions);
+
+  if (session) {
+    return {
+      redirect: { destination: '/', permanent: false },
+    };
+  }
+
   return {
     props: {
       markets: staticMarkets,

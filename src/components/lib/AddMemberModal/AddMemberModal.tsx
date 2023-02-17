@@ -125,9 +125,9 @@ const AddMemberModal: AddMemberModalProps = ({
       shouldCloseOnOverlayClick={true}
       shouldReturnFocusAfterClose={true}
       ariaHideApp={false}
-      className='h-full w-full flex-shrink-0 overflow-hidden rounded-md bg-white drop-shadow-2xl md:max-h-[90%] md:w-5/6 lg:w-3/5 xl:w-[40%] xl:max-w-2xl'
+      className='h-full w-full flex-shrink-0 overflow-y-auto rounded-md bg-white drop-shadow-2xl md:h-max md:max-h-[90%] md:w-5/6 lg:w-3/5 xl:w-[40%] xl:max-w-2xl'
     >
-      <div className='h-full w-full overflow-y-auto py-8 px-7'>
+      <div className='h-max w-full py-8 px-7'>
         {memberSuccess ? (
           <MemberSuccess
             setMemberSuccess={setMemberSuccess}

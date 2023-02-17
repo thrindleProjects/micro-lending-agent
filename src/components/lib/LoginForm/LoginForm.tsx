@@ -29,14 +29,22 @@ const LoginForm = () => {
           ...values,
           redirect: false,
         });
+
         if (!result || result.error) {
-          (await import('react-hot-toast')).toast.error('Something went wrong');
+          (await import('react-hot-toast')).toast.error(
+            result?.error ?? 'Something went wrong'
+          );
+          return;
         }
+
         formik.resetForm();
         router.replace('/');
       } catch (error) {
         if (error instanceof AxiosError) {
           logger({ error: error.response?.data }, 'Axios Error');
+          (await import('react-hot-toast')).toast.error(
+            error.response?.data ?? 'Server Error'
+          );
         }
         if (error instanceof AmaliError) {
           logger({ error: error.message, cause: error.cause }, 'Amali Error');

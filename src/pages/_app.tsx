@@ -52,14 +52,14 @@ function MyApp({
     Component.getLayout ??
     ((page) => <AuthenticatedLayout>{page}</AuthenticatedLayout>);
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <SessionProvider session={session}>
+    <SessionProvider session={session}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
           {getLayout(<Component {...pageProps} key={router.pathname} />)}
           <Toaster position='top-right' toastOptions={toastOptions} />
-        </SessionProvider>
-      </PersistGate>
-    </Provider>
+        </PersistGate>
+      </Provider>
+    </SessionProvider>
   );
 }
 

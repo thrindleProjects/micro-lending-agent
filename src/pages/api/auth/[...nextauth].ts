@@ -3,8 +3,9 @@ import NextAuth from 'next-auth/next';
 import Credentials from 'next-auth/providers/credentials';
 
 import { authAPI } from '@/utils/api';
+import AmaliError from '@/utils/customError';
 
-type SignInData = {
+type SignInResponse = {
   token: string;
   id: string;
   name: string;
@@ -38,9 +39,12 @@ export const authOptions: AuthOptions = {
             password: credentials?.password as string,
           };
           const user = await authAPI.login(data);
-          return user.data as SignInData;
+          return user.data as SignInResponse;
         } catch (error) {
           // handle errors here
+          if (error instanceof AmaliError) {
+            throw new AmaliError(error.message);
+          }
         }
         return null;
       },
@@ -62,6 +66,11 @@ export const authOptions: AuthOptions = {
       session.user.type = token.user.type;
       return session;
     },
+  },
+  pages: {
+    error: '/login',
+    signIn: '/login',
+    signOut: '/login',
   },
 };
 
