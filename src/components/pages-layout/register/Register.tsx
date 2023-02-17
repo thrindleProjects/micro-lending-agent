@@ -3,9 +3,13 @@ import Link from 'next/link';
 import RegisterForm from '@/components/lib/RegisterForm';
 import ImageComponent from '@/components/shared/ImageComponent';
 
+import { Market } from '@/types';
+
 import AmaliLogo from '~/assets/amali-logo.png';
 
-const Register: React.FC = () => {
+type RegisterLayoutProps = React.FC<{ markets: Market[] }>;
+
+const Register: RegisterLayoutProps = ({ markets }) => {
   return (
     <div className='flex h-max min-h-max w-full flex-col items-center justify-center gap-4 overflow-y-auto bg-[#FBFBFF] py-12'>
       <div className='relative h-12 min-h-max w-full flex-shrink-0 bg-inherit lg:h-16'>
@@ -19,7 +23,7 @@ const Register: React.FC = () => {
         </h4>
       </section>
       <div className='w-4/5 md:w-2/4 lg:w-7/12 xl:w-1/3'>
-        <RegisterForm />
+        <RegisterForm markets={markets} />
       </div>
       <section className='flex flex-row items-center gap-2 text-xs lg:text-sm'>
         <h6>Have an account?</h6>
