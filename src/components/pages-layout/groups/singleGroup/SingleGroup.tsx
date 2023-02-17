@@ -154,7 +154,7 @@ const SingleGroupLayout = () => {
           handlePrevious={handleAddMemberPrevious}
           addMemberProps={{
             onAdd: handleOnAddMember,
-            maxNew: 1,
+            maxNew: 2,
           }}
         />
       )}
