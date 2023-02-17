@@ -1,24 +1,59 @@
 import { Icon } from '@iconify/react';
+import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
+import { useState } from 'react';
 import Modal from 'react-modal';
+
+import logger from '@/lib/logger';
 
 import Button from '@/components/buttons/Button';
 import { ModalWrapper } from '@/components/lib/CreateGroupModal/styled';
 import { CreateGroupModalProps } from '@/components/lib/CreateGroupModal/types';
 import Input from '@/components/shared/Input';
 
+import { setGroupInfo } from '@/slices/groupSlice';
+import AmaliError from '@/utils/customError';
+
 import { initialValues, validationSchema } from './validation';
+import { useAppDispatch } from '../../../store/store.hooks';
+import { groupAPI } from '../../../utils/api/index';
 
 const CreateGroupModal: CreateGroupModalProps = ({
   isOpen,
   handleClose,
   handleNext,
 }) => {
+  const [loading, setLoading] = useState(false);
+  const dispatch = useAppDispatch();
+
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: () => {
-      handleNext();
+    onSubmit: async (values) => {
+      setLoading(true);
+      try {
+        const groupData = await groupAPI.createGroup(values);
+
+        (await import('react-hot-toast')).toast.success(
+          'Group created successfully'
+        );
+        setLoading(false);
+        dispatch(setGroupInfo(groupData.data));
+        handleNext();
+
+        formik.resetForm();
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          logger({ error: error.response?.data }, 'Axios Error');
+        }
+        if (error instanceof AmaliError) {
+          logger({ error: error.message, cause: error.cause }, 'Amali Error');
+          (await import('react-hot-toast')).toast.error(
+            error.message ?? 'Something went wrong'
+          );
+          setLoading(false);
+        }
+      }
       // setBvnModal(true);
     },
   });
@@ -90,6 +125,7 @@ const CreateGroupModal: CreateGroupModalProps = ({
               variant='primary'
               size='base'
               className='w-full lg:mt-6'
+              isLoading={loading}
             >
               <span className='font-semibold'>Create Group</span>
             </Button>

@@ -55,7 +55,7 @@ const Input: React.FC<InputProps> = ({
               }`}
               {...rest}
             />
-            <span className='eye'>
+            <span className='eye md:ml-auto'>
               {!hidden ? (
                 <svg
                   className='h-6 w-6'

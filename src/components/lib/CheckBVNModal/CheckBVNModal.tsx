@@ -1,27 +1,65 @@
 import { Icon } from '@iconify/react';
+import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
+import { useState } from 'react';
 import Modal from 'react-modal';
+
+import logger from '@/lib/logger';
 
 import Button from '@/components/buttons/Button';
 import Input from '@/components/shared/Input';
 
+import { useAppDispatch } from '@/store/store.hooks';
+
 // import Modal from '@/components/shared/modal/Modal';
 import { TEXT } from '@/constant/constants';
+import { setBvnDetails } from '@/slices/bvnSlice';
+import AmaliError from '@/utils/customError';
 
 import { CheckBVNModalWrapper } from './styled';
 import { CheckBVNModalProps } from './types';
 import { initialValues, validationSchema } from './validation';
+import { memberAPI } from '../../../utils/api/index';
 
 const CheckBVNModal: CheckBVNModalProps = ({
   isOpen,
   handleClose,
   handleNext,
 }) => {
+  const dispatch = useAppDispatch();
+
+  const [loading, setLoading] = useState(false);
+
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: () => {
-      handleNext();
+    onSubmit: async (values) => {
+      setLoading(true);
+
+      try {
+        const userData = await memberAPI.verifyBVN(values);
+        (await import('react-hot-toast')).toast.success(
+          'BVN verified successfully'
+        );
+        setLoading(false);
+        userData.data.bvn = values.bvn;
+
+        dispatch(setBvnDetails(userData.data));
+        handleNext();
+
+        formik.resetForm();
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          logger({ error: error.response?.data }, 'Axios Error');
+        }
+        if (error instanceof AmaliError) {
+          logger({ error: error.message, cause: error.cause }, 'Amali Error');
+          (await import('react-hot-toast')).toast.error(
+            error.message ?? 'Something went wrong'
+          );
+          setLoading(false);
+        }
+      }
     },
   });
 
@@ -98,6 +136,7 @@ const CheckBVNModal: CheckBVNModalProps = ({
             variant='primary'
             size='base'
             className='w-full md:mt-6'
+            isLoading={loading}
           >
             Verify
           </Button>
