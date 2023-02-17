@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
+import { SessionProvider } from 'next-auth/react';
 import { ReactElement, ReactNode, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 
@@ -28,7 +29,10 @@ export type NextPageWithLayout<P = Record<string, unknown>, IP = P> = NextPage<
   getLayout?: (page: ReactElement) => ReactNode;
 };
 
-function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+function MyApp({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppPropsWithLayout) {
   const router = useRouter();
 
   const [showChild, setShowChild] = useState(false);
@@ -44,10 +48,10 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     Component.getLayout ??
     ((page) => <AuthenticatedLayout>{page}</AuthenticatedLayout>);
   return (
-    <>
+    <SessionProvider session={session}>
       {getLayout(<Component {...pageProps} key={router.pathname} />)}
       <Toaster position='top-right' toastOptions={toastOptions} />
-    </>
+    </SessionProvider>
   );
 }
 
