@@ -1,9 +1,18 @@
+import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
+import { useState } from 'react';
 import { MdOutlineArrowBack } from 'react-icons/md';
 import Modal from 'react-modal';
 
+import logger from '@/lib/logger';
+
 import Button from '@/components/buttons/Button';
 import InputFile from '@/components/shared/InputFile';
+
+import { useAppSelector } from '@/store/store.hooks';
+
+import { memberAPI } from '@/utils/api';
+import AmaliError from '@/utils/customError';
 
 import { UploadLoanFormModalWrapper } from './styled';
 import { UploadLoanFormModalProps } from './types';
@@ -15,12 +24,45 @@ const UploadLoanFormModal: UploadLoanFormModalProps = ({
   handlePrevious,
   handleNext,
 }) => {
+  const [loading, setLoading] = useState(false);
+  const { user } = useAppSelector((state) => state.bvn);
+
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: () => {
-      // logic here
-      handleNext();
+    onSubmit: async (values) => {
+      const formData = new FormData();
+      formData.append('bvn', user?.bvn as string);
+      if (values.image) {
+        formData.append('loanApplicationForm', values.image[0] as Blob);
+      }
+      // if (values.otherImage) {
+      //   formData.append(
+      //     'otherDocumentImages',
+      //     values.otherImage[0] as Blob
+      //   );
+      // }
+      try {
+        await memberAPI.applyForLoan(formData);
+        (await import('react-hot-toast')).toast.success(
+          'Loan Application sent successfully'
+        );
+        setLoading(false);
+        handleNext();
+
+        formik.resetForm();
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          logger({ error: error.response?.data }, 'Axios Error');
+        }
+        if (error instanceof AmaliError) {
+          logger({ error: error.message, cause: error.cause }, 'Amali Error');
+          (await import('react-hot-toast')).toast.error(
+            error.message ?? 'Something went wrong'
+          );
+          setLoading(false);
+        }
+      }
     },
   });
 
@@ -107,6 +149,7 @@ const UploadLoanFormModal: UploadLoanFormModalProps = ({
             size='base'
             className='w-full md:mt-0'
             type='submit'
+            isLoading={loading}
           >
             Apply Now
           </Button>
