@@ -13,10 +13,17 @@ function memberService({ api }: Service) {
     const result = await api.post('/group/member', data, { ...reqConfig });
     return result;
   };
+  const applyForLoan = async (data: FormData, reqConfig?: ReqConfig) => {
+    const result = await api.post('/loan/application/upload', data, {
+      ...reqConfig,
+    });
+    return result;
+  };
 
   return Object.freeze({
     verifyBVN,
     addMember,
+    applyForLoan,
   });
 }
 
