@@ -1,10 +1,7 @@
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 
 import useGroupLoanModals from '@/hooks/useGroupLoanModals';
-
-import { groupsList } from '@/data/data';
 
 import Button from '@/components/buttons/Button';
 import ActionButton from '@/components/lib/ActionButton';
@@ -14,7 +11,7 @@ import InputSearch from '@/components/shared/InputSearch';
 import MainContentLayout from '@/components/shared/MainContentLayout';
 
 const GroupsLayout = () => {
-  const [groups] = useState<typeof groupsList>(groupsList);
+  // const [groups] = useState<typeof groupsList>(groupsList);
   const [stage, handleModal, handleClose, handleNext, handlePrevious] =
     useGroupLoanModals(['create-group', 'check-bvn', 'add-member']);
   const GroupLoanModals = dynamic(
@@ -43,7 +40,7 @@ const GroupsLayout = () => {
           </Button>
         </div>
 
-        <GroupsListTable groups={groups} />
+        <GroupsListTable />
       </MainContentLayout>
       <ActionButton
         actions={[

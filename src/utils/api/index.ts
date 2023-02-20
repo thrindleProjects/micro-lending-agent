@@ -23,7 +23,7 @@ api.interceptors.response.use(
   },
   async function (error) {
     if (process.env.NODE_ENV === 'development') {
-      logger(error.response.data, 'Error in axios interceptor');
+      // logger(error.response.data, 'Error in axios interceptor');
     }
 
     const { response, config } = error;
@@ -32,13 +32,12 @@ api.interceptors.response.use(
 
     if (response && !['/login', '/register'].includes(url)) {
       if (response.data) {
-        message = response.data.data.error;
-
+        message = response.data.messager;
         // if (response.data.data.status) {
         // }
-        throw new AmaliError(message, response.data.message);
+        return Promise.reject(new AmaliError(message, response.data.message));
       }
-      return Promise.reject(message);
+      return Promise.reject(new AmaliError(message));
     }
   }
 );

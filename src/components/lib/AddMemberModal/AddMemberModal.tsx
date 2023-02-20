@@ -103,7 +103,6 @@ const AddMemberModal: AddMemberModalProps = ({
     },
   });
 
-  // console.log({values: formik.values.registration_image})
   return (
     <Modal
       isOpen={isOpen}
