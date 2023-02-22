@@ -3,6 +3,7 @@ import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import Modal from 'react-modal';
+import useSWR from 'swr';
 
 import logger from '@/lib/logger';
 
@@ -17,7 +18,6 @@ import AmaliError from '@/utils/customError';
 import { initialValues, validationSchema } from './validation';
 import { useAppDispatch } from '../../../store/store.hooks';
 import { groupAPI } from '../../../utils/api/index';
-
 const CreateGroupModal: CreateGroupModalProps = ({
   isOpen,
   handleClose,
@@ -25,6 +25,7 @@ const CreateGroupModal: CreateGroupModalProps = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useAppDispatch();
+  const { mutate } = useSWR('/api/group', groupAPI.getAllAgentsGroups);
 
   const formik = useFormik({
     initialValues,
@@ -38,6 +39,9 @@ const CreateGroupModal: CreateGroupModalProps = ({
           'Group created successfully'
         );
         setLoading(false);
+
+        await mutate();
+
         dispatch(setGroupInfo(groupData.data));
         handleNext();
 
@@ -54,7 +58,6 @@ const CreateGroupModal: CreateGroupModalProps = ({
           setLoading(false);
         }
       }
-      // setBvnModal(true);
     },
   });
 

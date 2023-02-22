@@ -1,18 +1,36 @@
 import { useRouter } from 'next/router';
+import useSWR from 'swr';
 
 import Table from '@/components/lib/Table';
 
-type GroupListTableProps = React.FC<{
-  groups: {
-    _id: number;
-    name: string;
-    group_id: string;
-    members: number;
-  }[];
-}>;
+import { useAppDispatch } from '@/store/store.hooks';
 
-const GroupsListTable: GroupListTableProps = ({ groups }) => {
+import { IGroupData, setGroupInfo } from '@/slices/groupSlice';
+import { groupAPI } from '@/utils/api';
+
+type GroupListTableProps = React.FC;
+
+const GroupsListTable: GroupListTableProps = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  const { data, error } = useSWR('/api/group', groupAPI.getAllAgentsGroups);
+  setGroupInfo;
+
+  if (error) {
+    return <div>An error occured</div>;
+  }
+
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
+  const { data: groups } = data.data;
+
+  const handleClick = (group: IGroupData) => {
+    dispatch(setGroupInfo(group));
+    router.push(`/groups/${group.id}`);
+  };
 
   return (
     <div className='w-full overflow-x-auto'>
@@ -25,33 +43,33 @@ const GroupsListTable: GroupListTableProps = ({ groups }) => {
             <th>Status</th>
           </tr>
         </thead>
-        <tbody>
-          {groups.map((group) => {
-            const isActiveGroup = group.members === 3;
-            return (
-              <tr
-                key={group._id}
-                onClick={() => router.push(`/groups/${group._id}`)}
-              >
-                <td>{group.name}</td>
-                <td className='hidden md:table-cell'>{group.group_id}</td>
-                <td className='hidden lg:table-cell'>{group.members}</td>
-                <td>
-                  <span
-                    className={`${
-                      isActiveGroup
-                        ? 'text-amali-green'
-                        : 'text-amali-notif-red'
-                    }`}
-                  >
-                    {isActiveGroup ? 'Active' : 'Inactive'}
-                  </span>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
+        {!!groups.length && (
+          <tbody>
+            {groups.map((group) => {
+              const isActiveGroup = group.totalMembers === 3;
+              return (
+                <tr key={group.id} onClick={() => handleClick(group)}>
+                  <td>{group.name}</td>
+                  <td className='hidden md:table-cell'>{group.groupID}</td>
+                  <td className='hidden lg:table-cell'>{group.totalMembers}</td>
+                  <td>
+                    <span
+                      className={`${
+                        isActiveGroup
+                          ? 'text-amali-green'
+                          : 'text-amali-notif-red'
+                      }`}
+                    >
+                      {isActiveGroup ? 'Active' : 'Inactive'}
+                    </span>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        )}
       </Table>
+      {!groups.length && <div>Create group button here</div>}
     </div>
   );
 };
