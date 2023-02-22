@@ -1,7 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
-interface IGroupData {
+export interface IGroupData {
   // createdAt: string
   id: string;
   userId: string;

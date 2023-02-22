@@ -1,7 +1,7 @@
 import { GroupLoanModalTypes } from '@/components/shared/GroupLoanModals/types';
 
 export interface MemberProps {
-  id: number;
+  id: string;
   name: string;
   status: string;
   onClick(arg: GroupLoanModalTypes): void;

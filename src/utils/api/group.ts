@@ -1,5 +1,7 @@
 import { initialValues as CreateGroupValues } from '@/components/lib/CreateGroupModal/validation';
 
+import { IGroupData } from '@/slices/groupSlice';
+
 import { ReqConfig, Service } from '@/types';
 
 const prefix = '/group';
@@ -16,7 +18,24 @@ function groupService({ api }: Service) {
     reqConfig?: ReqConfig
   ) => {
     const result: {
-      data: { name: string }[];
+      data: {
+        bvn: string;
+        firstname: string;
+        group: IGroupData;
+        id: string;
+        idExpiryDate: string;
+        idImage: string;
+        idNumber: string;
+        idType: string;
+        lastname: string;
+        otherDocumentImages: string[];
+        registrationFormImage: string;
+        userId: string;
+        /**
+         * subject to change
+         */
+        status: boolean;
+      }[];
       message: string;
       status: string;
     } = await api.get(
