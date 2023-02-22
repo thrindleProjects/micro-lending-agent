@@ -43,13 +43,14 @@ export const getServerSideProps: GetServerSideProps<{
   if (session) {
     return {
       redirect: { destination: '/', permanent: false },
+      props: {},
     };
   }
 
   return {
     props: {
       markets: staticMarkets,
+      revalidate: 60,
     },
-    revalidate: 60,
   };
 };

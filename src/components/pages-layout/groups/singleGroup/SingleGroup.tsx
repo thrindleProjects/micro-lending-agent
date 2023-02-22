@@ -1,13 +1,12 @@
 import { Icon } from '@iconify/react';
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { BsArrowLeft } from 'react-icons/bs';
 import { GrDownload } from 'react-icons/gr';
+import useSWR from 'swr';
 
 import useGroupLoanModals from '@/hooks/useGroupLoanModals';
-
-import { groupMembers } from '@/data/data';
 
 import Button from '@/components/buttons/Button';
 import ActionButton from '@/components/lib/ActionButton';
@@ -16,9 +15,9 @@ import ActionButtonItem from '@/components/shared/ActionButtonItem';
 import BreadCrumbs from '@/components/shared/BreadCrumbs';
 import MainContentLayout from '@/components/shared/MainContentLayout';
 
-const SingleGroupLayout = () => {
-  const [showGroupMembers, setShowGroupMembers] = useState(false);
+import { groupAPI } from '@/utils/api';
 
+const SingleGroupLayout = () => {
   const [stage, handleModal, handleClose, handleNext, handlePrevious] =
     useGroupLoanModals(['check-bvn', 'upload-loan-image', 'loan-success']);
   const [
@@ -33,19 +32,39 @@ const SingleGroupLayout = () => {
   );
   const Member = dynamic(() => import('@/components/lib/member'));
 
-  const handleOnAddMember = () => {
-    setShowGroupMembers(true);
+  const router = useRouter();
+
+  const memberFetcher = async () => {
+    return await groupAPI.getAllMembersInaGroup(router.query.id as string);
   };
+
+  const { data: memberData, mutate: mutateMember } = useSWR(
+    `/api/group/members/${router.query.id}`,
+    memberFetcher
+  );
+
+  const handleOnAddMember = async () => {
+    await mutateMember();
+  };
+
+  const groupFetcher = async () => {
+    return await groupAPI.getAnAgentGroup(router.query.id as string);
+  };
+
+  const { data: groupData } = useSWR(
+    `/api/group/${router.query.id}`,
+    groupFetcher
+  );
 
   return (
     <>
       <MainContentLayout>
         <div className=''>
           <section className='hidden lg:block'>
-            <BreadCrumbs dynamic_text='Alpha' />
+            {groupData && <BreadCrumbs dynamic_text={groupData.data.name} />}
             <div className=' flex items-center justify-between'>
               <h1 className='text-2xl'>Alpha Group</h1>
-              {!showGroupMembers && (
+              {groupData && groupData.data.totalMembers < 3 && (
                 <div className='flex items-center gap-3'>
                   <Button
                     onClick={() => handleAddMemberModal('check-bvn')}
@@ -71,7 +90,9 @@ const SingleGroupLayout = () => {
             </div>
           </section>
           <div className='text-2xl lg:hidden'>
-            <BsArrowLeft className='mb-6' />
+            <button type='button' onClick={() => router.back()}>
+              <BsArrowLeft className='mb-6' />
+            </button>
             <h1 className='font-bold'>Alpha Group</h1>
           </div>
           <div className='w-full overflow-x-auto'>
@@ -83,21 +104,21 @@ const SingleGroupLayout = () => {
                   <th></th>
                 </tr>
               </thead>
-              {showGroupMembers && (
+              {memberData && memberData.data && !!memberData.data.length && (
                 <tbody className='mt-6'>
-                  {groupMembers.map((member, index) => (
+                  {memberData.data.map((member) => (
                     <Member
                       onClick={handleModal}
-                      name={member.name}
-                      status={member.status}
+                      name={`${member.firstname} ${member.lastname}`}
+                      status={member.status ? 'Active' : 'Inactive'}
                       id={member.id}
-                      key={index}
+                      key={member.id}
                     />
                   ))}
                 </tbody>
               )}
             </Table>
-            {!showGroupMembers && (
+            {memberData && memberData.data && !memberData.data.length && (
               <section className='my-20 flex flex-col items-center justify-center md:hidden'>
                 <span className='block text-4xl text-amali-steel-blue text-opacity-40'>
                   <Icon icon='ph:smiley-sad-fill' />
@@ -116,21 +137,23 @@ const SingleGroupLayout = () => {
             )}
           </div>
         </div>
-        <ActionButton
-          actions={[
-            <ActionButtonItem
-              icon='material-symbols:add'
-              text='Add Members'
-              key={0}
-              onClick={() => handleAddMemberModal('add-member')}
-            />,
-            <ActionButtonItem
-              icon='material-symbols:download'
-              text={`Download\nRegistration Form`}
-              key={1}
-            />,
-          ]}
-        />
+        {groupData && groupData.data.totalMembers > 3 && (
+          <ActionButton
+            actions={[
+              <ActionButtonItem
+                icon='material-symbols:add'
+                text='Add Members'
+                key={0}
+                onClick={() => handleAddMemberModal('check-bvn')}
+              />,
+              <ActionButtonItem
+                icon='material-symbols:download'
+                text={`Download\nRegistration Form`}
+                key={1}
+              />,
+            ]}
+          />
+        )}
       </MainContentLayout>
       {stage && (
         <GroupLoanModals

@@ -5,15 +5,6 @@ const nextConfig = {
   },
   reactStrictMode: true,
   swcMinify: true,
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/home',
-        permanent: true,
-      },
-    ];
-  },
   // Uncoment to add domain whitelist
   // images: {
   //   domains: [
