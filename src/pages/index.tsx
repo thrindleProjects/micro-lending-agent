@@ -1,4 +1,4 @@
-import { GetStaticProps, NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 
 const HomePage: NextPage = () => {
   return <></>;
@@ -6,9 +6,8 @@ const HomePage: NextPage = () => {
 
 export default HomePage;
 
-export const getStaticProps: GetStaticProps = () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   return {
-    props: {},
     redirect: {
       destination: '/home',
       permanent: true,
