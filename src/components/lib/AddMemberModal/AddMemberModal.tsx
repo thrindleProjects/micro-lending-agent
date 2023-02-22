@@ -50,6 +50,7 @@ const AddMemberModal: AddMemberModalProps = ({
       formData.append('idType', values.id_type as string | Blob);
       formData.append('bvn', user?.bvn as string);
       formData.append('group', group?.id as string | Blob);
+
       if (values.registration_image) {
         formData.append(
           'registrationForm',

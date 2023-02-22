@@ -28,7 +28,6 @@ export default SingleGroup;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { params } = context;
   const session = await getServerSession(context.req, context.res, authOptions);
-
   const id = params ? params.id : '';
 
   const config: ReqConfig = {

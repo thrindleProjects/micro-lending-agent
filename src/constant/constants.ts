@@ -31,8 +31,8 @@ export const REGISTRATION_IMAGE = 'registration_image';
 export const LOAN_IMAGE = 'loan_image';
 export const BVN = 'bvn';
 export const OTHERIMAGE = 'other_image';
-export const ID_NUMBER = 'id_number';
-export const ID_EXPIRY = 'id_expires';
+export const ID_NUMBER = 'idNumber';
+export const ID_EXPIRY = 'idExpiryDate';
 
 // Change Member Keys
 export const CURRENT_PASSWORD = 'current_password';

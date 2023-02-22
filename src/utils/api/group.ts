@@ -29,16 +29,23 @@ function groupService({ api }: Service) {
 
   const getAllAgentsGroups = async (query?: string, reqConfig?: ReqConfig) => {
     const result: {
-      status: string;
       message: string;
+      status: string;
       data: {
-        groupID: string;
-        id: string;
-        name: string;
-        status: string;
-        totalMembers: number;
-        userId: string;
-      }[];
+        data: {
+          groupID: string;
+          id: string;
+          name: string;
+          status: string;
+          totalMembers: number;
+          userId: string;
+        }[];
+        count: number;
+        currentpage: number;
+        lastpage: number | null;
+        nextpage: number | null;
+        prevpage: number | null;
+      };
     } = await api.get(prefix, { ...reqConfig });
     return result;
   };

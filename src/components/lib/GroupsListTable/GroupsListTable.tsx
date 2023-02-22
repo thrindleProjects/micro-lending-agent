@@ -19,7 +19,7 @@ const GroupsListTable: GroupListTableProps = () => {
     return <div>Loading...</div>;
   }
 
-  const { data: groups } = data;
+  const { data: groups } = data.data;
 
   return (
     <div className='w-full overflow-x-auto'>

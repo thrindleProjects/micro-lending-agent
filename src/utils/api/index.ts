@@ -1,5 +1,5 @@
 import axios, { InternalAxiosRequestConfig } from 'axios';
-import { getSession } from 'next-auth/react';
+import { getSession, signOut } from 'next-auth/react';
 
 import logger from '@/lib/logger';
 
@@ -23,7 +23,7 @@ api.interceptors.response.use(
   },
   async function (error) {
     if (process.env.NODE_ENV === 'development') {
-      // logger(error.response.data, 'Error in axios interceptor');
+      logger(error.response.data, 'Error in axios interceptor');
     }
 
     const { response, config } = error;
@@ -31,10 +31,20 @@ api.interceptors.response.use(
     const { url }: { url: string } = config;
 
     if (response && !['/login', '/register'].includes(url)) {
+      if (response.status === 401) {
+        signOut();
+        return;
+      }
+      if (response.error) {
+        return Promise.reject(new AmaliError(response.message, response.error));
+      }
+
       if (response.data) {
-        message = response.data.messager;
-        // if (response.data.data.status) {
-        // }
+        message = response.data.message;
+        if (response.data.data) {
+          message = response.data.data.error;
+        }
+
         return Promise.reject(new AmaliError(message, response.data.message));
       }
       return Promise.reject(new AmaliError(message));

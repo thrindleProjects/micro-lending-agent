@@ -32,6 +32,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     },
   });
 
+  if (!groups) {
+    return {
+      props: {
+        fallback: {
+          '/api/group': null,
+        },
+      },
+    };
+  }
+
   return {
     props: {
       fallback: {
