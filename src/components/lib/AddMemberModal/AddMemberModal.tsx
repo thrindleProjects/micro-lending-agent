@@ -48,6 +48,8 @@ const AddMemberModal: AddMemberModalProps = ({
       formData.append('firstname', user?.firstName as string | Blob);
       formData.append('lastname', user?.lastName as string | Blob);
       formData.append('idType', values.id_type as string | Blob);
+      formData.append('idNumber', values.id_number as string | Blob);
+      formData.append('idExpiryDate', values.id_expires as string | Blob);
       formData.append('bvn', user?.bvn as string);
       formData.append('group', group?.id as string | Blob);
       if (values.registration_image) {
@@ -62,9 +64,9 @@ const AddMemberModal: AddMemberModalProps = ({
       if (values.id_image) {
         formData.append('idImage', values.id_image[0] as Blob);
       }
-      // if (values.other_image) {
-      //   formData.append('otherDocumentImages', values.other_image[0] as Blob);
-      // }
+      if (values.other_image) {
+        formData.append('otherDocumentImages', values.other_image[0] as Blob);
+      }
 
       try {
         await memberAPI.addMember(formData);
