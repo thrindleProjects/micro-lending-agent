@@ -4,16 +4,24 @@ import React from 'react';
 import Button from '@/components/buttons/Button';
 import InputFile from '@/components/shared/InputFile/InputFile';
 
+// import { useAppSelector } from '@/store/store.hooks';
 import * as CONSTANTS from '@/constant/constants';
 
+// import { clearRegister } from '@/slices/registerSlice';
 import { initialValues, validationSchema } from './validation';
 import { StepProps } from '../types';
+// import { useAppDispatch } from '../../../../store/store.hooks';
 
 const StepFive: React.FC<StepProps> = ({ setCurrentStep }) => {
+  // const dipatch = useAppDispatch()
+  // const { register } = useAppSelector(state => state.register)
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: () => {
+      // call the API here
+      // TODO: clear the register redux state after submission
+      // dipatch(clearRegister())
       setCurrentStep((prev) => prev);
     },
   });
@@ -79,7 +87,7 @@ const StepFive: React.FC<StepProps> = ({ setCurrentStep }) => {
             className='mt-6 w-full md:mt-0'
             // isLoading={loading}
           >
-            Proceed
+            Create Account
           </Button>
         </div>
       </form>

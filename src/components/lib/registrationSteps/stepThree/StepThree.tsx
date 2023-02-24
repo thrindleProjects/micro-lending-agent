@@ -8,16 +8,31 @@ import Input from '@/components/shared/Input/Input';
 import Select from '@/components/shared/Select/Select';
 
 import * as CONSTANTS from '@/constant/constants';
+import { setRegisterInfo } from '@/slices/registerSlice';
 
 import { initialValues, validationSchema } from './validation';
 import { StepProps } from '../types';
+import { useAppDispatch } from '../../../../store/store.hooks';
 
 const StepThree: React.FC<StepProps> = ({ setCurrentStep }) => {
-  const [shop, setShop] = useState(0);
+  const dispatch = useAppDispatch();
+  const [shop, setShop] = useState('');
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: () => {
+    onSubmit: (values) => {
+      dispatch(
+        setRegisterInfo({
+          businessName: values['Business Name'],
+          businessAddress: values['Business Address'],
+          whatYouSell: values['What Do You Sell'],
+          landmark: values.Landmark,
+          businessState: values.State,
+          businessLga: values.LGA,
+          businessLengthOfStay: values['Length of Stay'],
+          shopDescription: shop,
+        })
+      );
       setCurrentStep((prev) => prev + 1);
       window.scrollTo(0, 0);
     },
@@ -138,16 +153,16 @@ const StepThree: React.FC<StepProps> = ({ setCurrentStep }) => {
               <div
                 className='flex cursor-pointer gap-2 text-[14px]  md:justify-center'
                 key={index}
-                onClick={() => setShop(index + 1)}
+                onClick={() => setShop(item)}
               >
                 <div
                   className={
-                    shop === index + 1
+                    shop === item
                       ? ' h-[18px] w-[18px]  rounded-full bg-amali-green'
                       : ' h-[18px] w-[18px]  rounded-full border border-amali-green'
                   }
                 />
-                <p className={shop === index + 1 ? '  text-amali-green' : ''}>
+                <p className={shop === item ? '  text-amali-green' : ''}>
                   {item}
                 </p>
               </div>

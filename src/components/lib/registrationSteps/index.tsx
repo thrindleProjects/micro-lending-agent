@@ -11,7 +11,7 @@ import StepFour from './stepFour/StepFour';
 import StepThree from './stepThree/StepThree';
 
 const RegisterIndex = () => {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(4);
 
   return (
     <div>

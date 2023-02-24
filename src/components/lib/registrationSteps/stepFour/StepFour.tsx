@@ -4,16 +4,27 @@ import React from 'react';
 import Button from '@/components/buttons/Button';
 import Input from '@/components/shared/Input/Input';
 
+import { useAppDispatch } from '@/store/store.hooks';
+
 import * as CONSTANTS from '@/constant/constants';
+import { setRegisterInfo } from '@/slices/registerSlice';
 
 import { initialValues, validationSchema } from './validation';
 import { StepProps } from '../types';
 
 const StepFour: React.FC<StepProps> = ({ setCurrentStep }) => {
+  const dispatch = useAppDispatch();
+
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: () => {
+    onSubmit: (values) => {
+      dispatch(
+        setRegisterInfo({
+          bankName: values['Bank Name'],
+          accountNumber: values['Account Number'],
+        })
+      );
       setCurrentStep((prev) => prev + 1);
       window.scrollTo(0, 0);
     },

@@ -7,14 +7,29 @@ import Input from '@/components/shared/Input/Input';
 import Select from '@/components/shared/Select/Select';
 
 import * as CONSTANTS from '@/constant/constants';
+import { setRegisterInfo } from '@/slices/registerSlice';
 
 import { initialValues, validationSchema } from './validation';
+import { useAppDispatch } from '../../../../store/store.hooks';
 
 const StepTwo: React.FC<StepProps> = ({ setCurrentStep }) => {
+  const dispatch = useAppDispatch();
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: () => {
+    onSubmit: (values) => {
+      window.scrollTo(0, 0);
+      dispatch(
+        setRegisterInfo({
+          mobileNumber: values['Mobile Number'],
+          whatappNumber: values[' WhatsApp Number'],
+          address: values['Home Address'],
+          landmark: values.Landmark,
+          state: values.State,
+          lga: values.LGA,
+          lengthOfStay: values['Length of Stay'],
+        })
+      );
       setCurrentStep((prev) => prev + 1);
       window.scrollTo(0, 0);
     },
