@@ -24,6 +24,7 @@ export const validationSchema = Yup.object({
 });
 
 export const initialValues: {
+  [x: string]: string | undefined;
   [CONSTANTS.MOBILENUMBER]: string;
   [CONSTANTS.WHATSAPPNUMBER]: string;
   [CONSTANTS.HOMEADDRESS]: string;

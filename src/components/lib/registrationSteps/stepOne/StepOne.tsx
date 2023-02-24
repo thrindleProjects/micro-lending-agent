@@ -8,15 +8,29 @@ import Input from '@/components/shared/Input/Input';
 import Select from '@/components/shared/Select/Select';
 
 import * as CONSTANTS from '@/constant/constants';
+import { setRegisterInfo } from '@/slices/registerSlice';
 
 import { initialValues, validationSchema } from './validation';
 import { StepProps } from '../types';
+import { useAppDispatch } from '../../../../store/store.hooks';
 
 const StepOne: React.FC<StepProps> = ({ setCurrentStep }) => {
+  const dispatch = useAppDispatch();
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: () => {
+    onSubmit: (values) => {
+      dispatch(
+        setRegisterInfo({
+          title: values.title,
+          firstName: values['First Name'],
+          lastName: values['Last Name'],
+          gender: values.gender,
+          dob: values['Date of Birth'],
+          idType: values.id_type,
+          nationality: values.Nationality,
+        })
+      );
       setCurrentStep((prev) => prev + 1);
       window.scrollTo(0, 0);
     },

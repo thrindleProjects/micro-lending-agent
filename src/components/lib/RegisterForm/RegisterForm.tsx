@@ -14,7 +14,7 @@ import { Market } from '@/types';
 type RegisterFormProps = React.FC<{ markets: Market[] }>;
 
 const RegisterForm: RegisterFormProps = ({ markets }) => {
-  const [registerStep, setRegisterStep] = useState(true);
+  const [registerStep, setRegisterStep] = useState(false);
   const formik = useFormik({
     initialValues,
     validationSchema,

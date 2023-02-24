@@ -13,6 +13,7 @@ import storage from 'redux-persist/lib/storage';
 
 import bvnSlice from '@/slices/bvnSlice';
 import groupSlice from '@/slices/groupSlice';
+import registerSlice from '@/slices/registerSlice';
 
 const persistConfig = {
   key: 'root',
@@ -22,6 +23,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   bvn: bvnSlice,
   group: groupSlice,
+  register: registerSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
