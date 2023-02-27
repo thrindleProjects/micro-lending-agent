@@ -11,8 +11,8 @@ type RegisterLayoutProps = React.FC<{ markets: Market[] }>;
 
 const Register: RegisterLayoutProps = ({ markets }) => {
   return (
-    <div className='flex  min-h-max w-full flex-col items-center justify-center gap-4 overflow-y-auto bg-[#FBFBFF] py-12'>
-      <section className='w-full p-10 md:w-2/4 md:bg-white md:shadow-md lg:w-7/12'>
+    <div className='flex h-full min-h-max w-full flex-col items-center justify-center gap-4 overflow-y-auto bg-[#F9F9F9] py-12'>
+      <section className='w-full p-10 md:w-2/4 md:border md:border-amali-green md:border-opacity-10 md:bg-white lg:w-7/12'>
         <div className='relative h-12 min-h-max w-full flex-shrink-0 bg-inherit lg:h-16'>
           <Link href='/' className='h-full'>
             <ImageComponent src={AmaliLogo} alt='Amali Logo' />
