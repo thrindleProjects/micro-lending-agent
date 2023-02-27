@@ -51,6 +51,25 @@ const RegisterForm: RegisterFormProps = ({ markets }) => {
             }))}
           />
           <Input
+            id={CONSTANTS.PHONE_NUMBER}
+            type={CONSTANTS.TEXT}
+            value={formik.values[CONSTANTS.PHONE_NUMBER]}
+            placeholder='XXXXXXXXXXX'
+            label='Create Password'
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={
+              formik.errors[CONSTANTS.PHONE_NUMBER] &&
+              formik.touched[CONSTANTS.PHONE_NUMBER]
+            }
+            errorText={formik.errors[CONSTANTS.PHONE_NUMBER]}
+            required={true}
+          />
+          <p className='w-full text-[12px] text-amali-green md:w-[300px]'>
+            Password must be a minimum of 8 characters including alphabets,
+            numbers and symbols
+          </p>
+          <Input
             id={CONSTANTS.BVN}
             type={CONSTANTS.TEXT}
             value={formik.values[CONSTANTS.BVN]}
