@@ -11,24 +11,19 @@ import * as CONSTANTS from '@/constant/constants';
 // };
 
 export const validationSchema = Yup.object({
-  [CONSTANTS.NAME]: Yup.string().required('Name is required'),
-  [CONSTANTS.PHONE_NUMBER]: Yup.number()
-    .required('Last Name is required')
+  [CONSTANTS.BVN]: Yup.number()
+    .required('BVN is required')
     .typeError('Only numbers are allowed'),
   [CONSTANTS.MARKET]: Yup.string().required('Market is required'),
-  [CONSTANTS.PASSWORD]: Yup.string()
-    .required('Password is required')
-    .min(8, 'Password must be at least 8 characters'),
+  [CONSTANTS.PASSWORD]: Yup.string().required('Please create a password'),
 });
 
 export const initialValues: {
-  [CONSTANTS.NAME]: string;
-  [CONSTANTS.PHONE_NUMBER]: string;
-  [CONSTANTS.PASSWORD]: string;
+  [CONSTANTS.BVN]: string;
   [CONSTANTS.MARKET]: string;
+  [CONSTANTS.PASSWORD]: string;
 } = {
-  [CONSTANTS.NAME]: '',
-  [CONSTANTS.PHONE_NUMBER]: '',
-  [CONSTANTS.PASSWORD]: '',
+  [CONSTANTS.BVN]: '',
   [CONSTANTS.MARKET]: '',
+  [CONSTANTS.PASSWORD]: '',
 };

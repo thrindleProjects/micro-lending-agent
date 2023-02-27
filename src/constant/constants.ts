@@ -41,3 +41,31 @@ export const R_NEW_PASSWORD = 'r_new_password';
 
 // PROFILE FORM KEYS
 export const ADDRESS = 'address';
+
+// STEP ONE
+export const TITLE = 'title';
+export const GENDER = 'gender';
+export const DATE_OF_BIRTH = 'Date of Birth';
+export const NATIONALITY = 'nationality';
+
+// STEP TWO
+export const MOBILENUMBER = 'Mobile Number';
+export const WHATSAPPNUMBER = ' WhatsApp Number';
+export const HOMEADDRESS = 'Home Address';
+export const LANDMARK = 'Landmark';
+export const STATE = 'State';
+export const LGA = 'LGA';
+export const LENGTHOFSTAY = 'Length of Stay';
+
+// STEP THREE
+
+export const BUSINNESSNAME = 'Business Name';
+export const WHATDOYOUSELL = 'What Do You Sell';
+export const BUSSINESSADDRESS = 'Business Address';
+
+// STEP FOUR
+export const BANK_NAME = 'Bank Name';
+export const ACCOUNT_NUMBER = 'Account Number';
+
+// STEP FIVE
+export const PLACEOFBUSINESS = 'Place Of Business';

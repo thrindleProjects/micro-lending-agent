@@ -38,7 +38,7 @@ const LoginForm = () => {
         }
 
         formik.resetForm();
-        router.replace('/');
+        router.replace('/home');
       } catch (error) {
         if (error instanceof AxiosError) {
           logger({ error: error.response?.data }, 'Axios Error');
@@ -72,7 +72,7 @@ const LoginForm = () => {
         id='password'
         type={PASSWORD}
         value={formik.values.password}
-        placeholder='Password'
+        placeholder='XXXXXX'
         label='Password'
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}

@@ -12,8 +12,8 @@ interface IBvnData {
   bvn: string;
 }
 
-const initialState: { user: IBvnData | null } = {
-  user: null,
+const initialState: { bvn: IBvnData | null } = {
+  bvn: null,
 };
 
 const bvnSlice = createSlice({
@@ -21,8 +21,8 @@ const bvnSlice = createSlice({
   initialState,
   reducers: {
     setBvnDetails(state, action: PayloadAction<IBvnData>) {
-      // localStorage.setItem('user', JSON.stringify(action.payload));
-      state.user = action.payload;
+      // localStorage.setItem('bvn', JSON.stringify(action.payload));
+      state.bvn = action.payload;
     },
   },
 });

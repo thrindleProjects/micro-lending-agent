@@ -35,7 +35,7 @@ const AddMemberModal: AddMemberModalProps = ({
 }) => {
   const [count, setCount] = useState<number>(0);
   const [memberSuccess, setMemberSuccess] = useState<boolean>(false);
-  const { user } = useAppSelector((state) => state.bvn);
+  const { bvn } = useAppSelector((state) => state.bvn);
   const [loading, setLoading] = useState(false);
   const { group } = useAppSelector((state) => state.group);
 
@@ -45,12 +45,12 @@ const AddMemberModal: AddMemberModalProps = ({
     onSubmit: async (values) => {
       setLoading(true);
       const formData = new FormData();
-      formData.append('firstname', user?.firstName as string | Blob);
-      formData.append('lastname', user?.lastName as string | Blob);
+      formData.append('firstname', bvn?.firstName as string | Blob);
+      formData.append('lastname', bvn?.lastName as string | Blob);
       formData.append('idType', values.id_type as string | Blob);
       formData.append('idNumber', values.idNumber as string | Blob);
       formData.append('idExpiryDate', values.idExpiryDate as string | Blob);
-      formData.append('bvn', user?.bvn as string);
+      formData.append('bvn', bvn?.bvn as string);
       formData.append('group', group?.id as string | Blob);
 
       if (values.registration_image) {
@@ -146,8 +146,8 @@ const AddMemberModal: AddMemberModalProps = ({
             <form onSubmit={formik.handleSubmit}>
               <div className='flex flex-col gap-6'>
                 <div className='flex flex-col gap-6 md:flex-row'>
-                  <UnieditableInput text={user?.firstName} label='First Name' />
-                  <UnieditableInput text={user?.lastName} label='Last Name' />
+                  <UnieditableInput text={bvn?.firstName} label='First Name' />
+                  <UnieditableInput text={bvn?.lastName} label='Last Name' />
                 </div>
                 <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
                   <Select

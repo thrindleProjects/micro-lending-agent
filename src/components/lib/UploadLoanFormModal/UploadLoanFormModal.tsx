@@ -25,7 +25,7 @@ const UploadLoanFormModal: UploadLoanFormModalProps = ({
   handleNext,
 }) => {
   const [loading, setLoading] = useState(false);
-  const { user } = useAppSelector((state) => state.bvn);
+  const { bvn } = useAppSelector((state) => state.bvn);
 
   const formik = useFormik({
     initialValues,
@@ -33,7 +33,7 @@ const UploadLoanFormModal: UploadLoanFormModalProps = ({
     onSubmit: async (values) => {
       setLoading(true);
       const formData = new FormData();
-      formData.append('bvn', user?.bvn as string);
+      formData.append('bvn', bvn?.bvn as string);
       if (values.image) {
         formData.append('loanApplicationForm', values.image[0] as Blob);
       }

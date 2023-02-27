@@ -57,3 +57,29 @@ export const groupsList = [
     members: 3,
   },
 ];
+
+export const registerSteps = [
+  'Personal',
+  'Contact',
+  'Business',
+  'Bank',
+  'Uploads',
+];
+
+export const gender = [
+  {
+    name: 'FEMALE',
+    value: 'FEMALE',
+  },
+  {
+    name: 'MALE',
+    value: 'MALE',
+  },
+];
+
+export const title = [
+  { name: 'MR', value: 'MR' },
+  { name: 'MRS', value: 'MRS' },
+];
+
+export const shopType = ['Lock up Shop', 'Stall', 'Umbrella', 'Mobile'];
