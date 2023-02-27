@@ -58,11 +58,11 @@ export const groupsList = [
   },
 ];
 
-export const RegisterSteps = [
-  'Personal Information',
-  'Contact Details',
-  'Business Details',
-  'Bank Details',
+export const registerSteps = [
+  'Personal',
+  'Contact',
+  'Business',
+  'Bank',
   'Uploads',
 ];
 
