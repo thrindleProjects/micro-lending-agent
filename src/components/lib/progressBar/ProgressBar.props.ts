@@ -1,3 +1,3 @@
 export interface ProgressBarProps {
-  progress: string | undefined;
+  progress: number | undefined;
 }

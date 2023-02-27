@@ -46,7 +46,7 @@ export const ADDRESS = 'address';
 export const TITLE = 'title';
 export const GENDER = 'gender';
 export const DATE_OF_BIRTH = 'Date of Birth';
-export const NATIONALITY = 'Nationality';
+export const NATIONALITY = 'nationality';
 
 // STEP TWO
 export const MOBILENUMBER = 'Mobile Number';

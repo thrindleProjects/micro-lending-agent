@@ -42,7 +42,7 @@ export const getServerSideProps: GetServerSideProps<{
 
   if (session) {
     return {
-      redirect: { destination: '/', permanent: false },
+      redirect: { destination: '/home', permanent: false },
       props: {},
     };
   }

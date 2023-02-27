@@ -64,29 +64,29 @@ const AccountDropdown = () => {
           <div className='p-3'>
             <ul>
               {profileDropdown.map((item, index) => (
-                <div
+                <li
                   key={index}
-                  className='flex items-center gap-4 rounded-md p-2 transition-all duration-200  ease-in-out hover:bg-amali-green hover:text-white '
-                >
-                  <Icon
-                    icon={item.icon}
-                    className={
-                      item.name === LOGOUT
-                        ? 'text-3xl text-red-500'
-                        : 'text-3xl '
+                  onClick={() => {
+                    if (item.name === 'Logout') {
+                      logOut();
                     }
-                  />
-                  <li
-                    onClick={() => {
-                      if (item.name === 'Logout') {
-                        logOut();
+                  }}
+                  className='w-full'
+                >
+                  <button className='flex w-full items-center gap-4 rounded-md p-2 transition-all duration-200  ease-in-out hover:bg-amali-green hover:text-white '>
+                    <Icon
+                      icon={item.icon}
+                      className={
+                        item.name === LOGOUT
+                          ? 'text-3xl text-red-500'
+                          : 'text-3xl '
                       }
-                    }}
-                    className='mb-1 flex h-5 w-full cursor-pointer flex-row items-center px-2 font-semibold transition-all duration-200 ease-in-out'
-                  >
-                    {item.name}
-                  </li>
-                </div>
+                    />
+                    <span className='mb-1 flex h-5 w-full cursor-pointer flex-row items-center px-2 font-semibold transition-all duration-200 ease-in-out'>
+                      {item.name}
+                    </span>
+                  </button>
+                </li>
               ))}
             </ul>
           </div>

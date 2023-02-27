@@ -33,7 +33,7 @@ api.interceptors.response.use(
     if (response && !['/login', '/register'].includes(url)) {
       if (response.status === 401) {
         signOut();
-        return;
+        return Promise.reject(new AmaliError(response.message, response.error));
       }
       if (response.error) {
         return Promise.reject(new AmaliError(response.message, response.error));
@@ -59,6 +59,7 @@ const addTokenToRequest = async (request: InternalAxiosRequestConfig) => {
 
   if (session) {
     const token = session.token ?? '';
+    // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAwODFiZTcxLTAwZDAtNGFiZi05OWU0LTIyNWMwMzFmN2Y1NiIsInN0YXR1cyI6dHJ1ZSwiaWF0IjoxNjc3MTU2NTYxLCJleHAiOjE2NzcyNDI5NjF9.DlEGPtisKDnAecoLXh8gPowhQLRCOIbThgHBvEE-MWI
     request.headers.Authorization = `Bearer ${token}`;
     return request;
   }
