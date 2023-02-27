@@ -15,12 +15,15 @@ export const validationSchema = Yup.object({
     .required('Last Name is required')
     .typeError('Only numbers are allowed'),
   [CONSTANTS.MARKET]: Yup.string().required('Market is required'),
+  [CONSTANTS.PHONE_NUMBER]: Yup.string().required('Phone number is required'),
 });
 
 export const initialValues: {
   [CONSTANTS.BVN]: string;
   [CONSTANTS.MARKET]: string;
+  [CONSTANTS.PHONE_NUMBER]: string;
 } = {
   [CONSTANTS.BVN]: '',
   [CONSTANTS.MARKET]: '',
+  [CONSTANTS.PHONE_NUMBER]: '',
 };
