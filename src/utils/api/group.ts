@@ -46,7 +46,11 @@ function groupService({ api }: Service) {
     return result;
   };
 
-  const getAllAgentsGroups = async (query?: string, reqConfig?: ReqConfig) => {
+  const getAllAgentsGroups = async (
+    url?: string,
+    query?: string,
+    reqConfig?: ReqConfig
+  ) => {
     const result: {
       message: string;
       status: string;
@@ -65,7 +69,7 @@ function groupService({ api }: Service) {
         nextpage: number | null;
         prevpage: number | null;
       };
-    } = await api.get(prefix, { ...reqConfig });
+    } = await api.get(`${prefix}?${query}`, { ...reqConfig });
     return result;
   };
 

@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import { motion } from 'framer-motion';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import logger from '@/lib/logger';
 

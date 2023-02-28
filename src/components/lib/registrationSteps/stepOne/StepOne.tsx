@@ -1,6 +1,5 @@
 import { useFormik } from 'formik';
 import { motion } from 'framer-motion';
-import React from 'react';
 
 import { gender, IDType } from '@/data/data';
 

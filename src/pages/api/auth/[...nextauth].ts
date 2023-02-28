@@ -8,10 +8,16 @@ import AmaliError from '@/utils/customError';
 type SignInResponse = {
   token: string;
   id: string;
-  name: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
   marketId: string;
   phone: string;
-  status: false;
+  bvn: string;
+  bvnStatus: boolean;
+  dateOfBirth: string;
+  gender: string;
+  status: boolean;
   type: string;
 };
 
@@ -59,11 +65,18 @@ export const authOptions: AuthOptions = {
     session: ({ session, token }) => {
       session.token = token.user.token;
       session.user.id = token.user.id;
-      session.user.name = token.user.name;
+      session.user.firstName = token.user.firstName;
+      session.user.middleName = token.user.middleName;
+      session.user.lastName = token.user.lastName;
       session.user.marketId = token.user.marketId;
       session.user.phone = token.user.phone;
+      session.user.bvn = token.user.bvn;
+      session.user.bvnStatus = token.user.bvnStatus;
+      session.user.dateOfBirth = token.user.dateOfBirth;
+      session.user.dateOfBirth = token.user.dateOfBirth;
+      session.user.gender = token.user.gender;
       session.user.type = token.user.type;
-      session.user.type = token.user.type;
+      session.user.status = token.user.status;
       return session;
     },
   },

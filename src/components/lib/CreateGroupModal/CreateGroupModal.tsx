@@ -25,7 +25,7 @@ const CreateGroupModal: CreateGroupModalProps = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useAppDispatch();
-  const { mutate } = useSWR('/api/group', groupAPI.getAllAgentsGroups);
+  const { mutate } = useSWR('/api/group');
 
   const formik = useFormik({
     initialValues,

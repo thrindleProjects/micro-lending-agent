@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { ProgressBarStyle } from '@/components/lib/progressBar/styled';
 
 import { ProgressBarProps } from './ProgressBar.props';

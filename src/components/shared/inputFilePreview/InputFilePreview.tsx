@@ -1,5 +1,3 @@
-import React from 'react';
-
 import ImageComponent from '@/components/shared/ImageComponent';
 
 type InputFilePreviewProps = React.FC<{

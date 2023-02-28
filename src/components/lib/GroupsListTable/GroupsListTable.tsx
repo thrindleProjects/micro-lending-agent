@@ -1,12 +1,15 @@
 import { useRouter } from 'next/router';
+import { useEffect, useRef } from 'react';
 import useSWR from 'swr';
 
 import Table from '@/components/lib/Table';
+import Pagination from '@/components/shared/pagination';
 
 import { useAppDispatch } from '@/store/store.hooks';
 
 import { IGroupData, setGroupInfo } from '@/slices/groupSlice';
 import { groupAPI } from '@/utils/api';
+import { getGroupsQuery } from '@/utils/getGroupsQuery';
 
 type GroupListTableProps = React.FC;
 
@@ -14,8 +17,22 @@ const GroupsListTable: GroupListTableProps = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  const { data, error } = useSWR('/api/group', groupAPI.getAllAgentsGroups);
-  setGroupInfo;
+  const { query } = router;
+
+  const { search, page } = query;
+
+  const { data, error, mutate } = useSWR('/api/group', fetcher);
+
+  const isMounted = useRef<boolean>(false);
+
+  useEffect(() => {
+    if (isMounted.current) {
+      mutate();
+    }
+    if (!isMounted.current) {
+      isMounted.current = true;
+    }
+  }, [search, page, mutate]);
 
   if (error) {
     return <div>An error occured</div>;
@@ -31,6 +48,12 @@ const GroupsListTable: GroupListTableProps = () => {
     dispatch(setGroupInfo(group));
     router.push(`/groups/${group.id}`);
   };
+
+  async function fetcher(url: string) {
+    const params: string = getGroupsQuery(query);
+
+    return await groupAPI.getAllAgentsGroups(url, params.toString());
+  }
 
   return (
     <div className='w-full overflow-x-auto'>
@@ -70,6 +93,7 @@ const GroupsListTable: GroupListTableProps = () => {
         )}
       </Table>
       {!groups.length && <div>Create group button here</div>}
+      <Pagination count={data.data.lastpage || 1} className='mt-7' />
     </div>
   );
 };

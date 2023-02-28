@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import { motion } from 'framer-motion';
 import NaijaStates from 'naija-state-local-government';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import logger from '@/lib/logger';
 

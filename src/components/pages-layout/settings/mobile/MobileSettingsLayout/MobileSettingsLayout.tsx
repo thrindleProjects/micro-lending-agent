@@ -1,4 +1,5 @@
 import { Icon } from '@iconify/react';
+import { signOut, useSession } from 'next-auth/react';
 import { useState } from 'react';
 
 import { settingMobileNav } from '@/data/navLinks';
@@ -12,10 +13,18 @@ import ProfileImg from '~/assets/profile.png';
 
 const MobileSettingsLayout = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { data, status } = useSession({
+    required: true,
+    onUnauthenticated: signOut,
+  });
 
   const handleModal = () => {
     setIsOpen((old) => !old);
   };
+
+  if (status === 'loading') {
+    return <></>;
+  }
 
   return (
     <MainContentLayout>
@@ -30,9 +39,11 @@ const MobileSettingsLayout = () => {
             </div>
           </div>
           <section className='text-center text-amali-steel-blue '>
-            <h3 className='text-sm font-semibold lg:text-base'>Adewale Ayo</h3>
-            <p className='text- text-xs font-semibold text-amali-steel-blue text-opacity-60 lg:text-sm'>
-              Agent
+            <h3 className='text-sm font-semibold capitalize lg:text-base'>
+              {data?.user.lastName} {data?.user.firstName}
+            </h3>
+            <p className='text- text-xs font-semibold capitalize text-amali-steel-blue text-opacity-60 lg:text-sm'>
+              {data?.user.type}
             </p>
           </section>
         </div>
