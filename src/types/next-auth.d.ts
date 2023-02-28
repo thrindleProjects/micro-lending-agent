@@ -8,10 +8,17 @@ declare module 'next-auth' {
   interface Session {
     token: string;
     user: DefaultSession['user'] & {
+      token: string;
       id: string;
-      name: string;
+      firstName: string;
+      middleName: string;
+      lastName: string;
       marketId: string;
       phone: string;
+      bvn: string;
+      bvnStatus: boolean;
+      dateOfBirth: string;
+      gender: string;
       status: boolean;
       type: string;
     };
@@ -21,9 +28,15 @@ declare module 'next-auth' {
   interface User {
     token: string;
     id: string;
-    name: string;
+    firstName: string;
+    middleName: string;
+    lastName: string;
     marketId: string;
     phone: string;
+    bvn: string;
+    bvnStatus: boolean;
+    dateOfBirth: string;
+    gender: string;
     status: boolean;
     type: string;
   }
@@ -36,9 +49,15 @@ declare module 'next-auth/jwt' {
     user: {
       token: string;
       id: string;
-      name: string;
+      firstName: string;
+      middleName: string;
+      lastName: string;
       marketId: string;
       phone: string;
+      bvn: string;
+      bvnStatus: boolean;
+      dateOfBirth: string;
+      gender: string;
       status: boolean;
       type: string;
     };

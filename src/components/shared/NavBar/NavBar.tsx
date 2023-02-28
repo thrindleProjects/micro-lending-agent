@@ -1,6 +1,7 @@
 import { Icon } from '@iconify/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
+import { signOut, useSession } from 'next-auth/react';
 import { useRef, useState } from 'react';
 
 import { useMediaQuery, useOnClickOutside } from '@/hooks';
@@ -23,12 +24,20 @@ const NavBar: React.FC = () => {
   const largeScreen = useMediaQuery('(min-width: 1024px)');
   const [accountDropdown, setAccountDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { data, status } = useSession({
+    required: true,
+    onUnauthenticated: signOut,
+  });
 
   useOnClickOutside(dropdownRef, () => setAccountDropdown(false));
 
   const toggleAccountDropdown = () => {
     setAccountDropdown((prevState) => !prevState);
   };
+
+  if (status === 'loading') {
+    return <></>;
+  }
 
   return (
     <nav className='layout__top_nav'>
@@ -49,8 +58,10 @@ const NavBar: React.FC = () => {
                 className='rounded-full'
               />
               <div>
-                <p className='font-semibold'>Adewale Ayo</p>
-                <p>Agent</p>
+                <p className='font-semibold capitalize'>
+                  {data?.user.lastName} {data?.user.firstName}
+                </p>
+                <p className='capitalize'>{data?.user.type}</p>
               </div>
               <div>
                 <motion.div

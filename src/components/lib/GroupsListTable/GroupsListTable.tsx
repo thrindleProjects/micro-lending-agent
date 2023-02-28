@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { useEffect, useRef } from 'react';
 import useSWR from 'swr';
 
 import Table from '@/components/lib/Table';
@@ -14,8 +15,22 @@ const GroupsListTable: GroupListTableProps = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  const { data, error } = useSWR('/api/group', groupAPI.getAllAgentsGroups);
-  setGroupInfo;
+  const { query } = router;
+
+  const { search, page } = query;
+
+  const { data, error, mutate } = useSWR('/api/group', fetcher);
+
+  const isMounted = useRef<boolean>(false);
+
+  useEffect(() => {
+    if (isMounted.current) {
+      mutate();
+    }
+    if (!isMounted.current) {
+      isMounted.current = true;
+    }
+  }, [search, page, mutate]);
 
   if (error) {
     return <div>An error occured</div>;
@@ -31,6 +46,24 @@ const GroupsListTable: GroupListTableProps = () => {
     dispatch(setGroupInfo(group));
     router.push(`/groups/${group.id}`);
   };
+
+  async function fetcher(url: string) {
+    const params: string | URLSearchParams = new URLSearchParams();
+
+    if (query.search && typeof query.search === 'string') {
+      params.append('name', query.search);
+    }
+
+    if (
+      query.page &&
+      typeof query.page === 'string' &&
+      !!parseInt(query.page)
+    ) {
+      params.append('page', query.page);
+    }
+
+    return await groupAPI.getAllAgentsGroups(url, params.toString());
+  }
 
   return (
     <div className='w-full overflow-x-auto'>
