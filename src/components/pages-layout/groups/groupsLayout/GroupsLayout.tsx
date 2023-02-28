@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic';
 import { AiOutlinePlus } from 'react-icons/ai';
+import useSWR from 'swr';
 
 import useGroupLoanModals from '@/hooks/useGroupLoanModals';
 
@@ -18,6 +19,8 @@ const GroupsLayout = () => {
     () => import('@/components/shared/GroupLoanModals')
   );
 
+  const { isValidating } = useSWR('/api/group');
+
   return (
     <>
       <MainContentLayout>
@@ -26,7 +29,10 @@ const GroupsLayout = () => {
         </h4>
         <div className='mt-6 flex w-full justify-between lg:mt-0'>
           <div className='w-full lg:w-2/4 xl:w-2/5'>
-            <InputSearch placeholder='Type Group Name' />
+            <InputSearch
+              placeholder='Type Group Name'
+              isLoading={isValidating}
+            />
           </div>
           <Button
             type='button'

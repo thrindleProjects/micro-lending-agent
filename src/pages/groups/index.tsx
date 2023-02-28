@@ -10,6 +10,7 @@ import GroupsLayout from '@/components/pages-layout/groups/groupsLayout/GroupsLa
 
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { groupAPI } from '@/utils/api';
+import { getGroupsQuery } from '@/utils/getGroupsQuery';
 
 const Groups: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -24,9 +25,13 @@ const Groups: NextPage<
 export default Groups;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { query } = context;
+
+  const params: string = getGroupsQuery(query);
+
   const session = await getServerSession(context.req, context.res, authOptions);
 
-  const groups = await groupAPI.getAllAgentsGroups(undefined, {
+  const groups = await groupAPI.getAllAgentsGroups(undefined, params, {
     headers: {
       Authorization: `Bearer ${session?.token}`,
     },

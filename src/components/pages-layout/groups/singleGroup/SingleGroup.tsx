@@ -47,14 +47,7 @@ const SingleGroupLayout = () => {
     await mutateMember();
   };
 
-  const groupFetcher = async () => {
-    return await groupAPI.getAnAgentGroup(router.query.id as string);
-  };
-
-  const { data: groupData } = useSWR(
-    `/api/group/${router.query.id}`,
-    groupFetcher
-  );
+  const { data: groupData } = useSWR(`/api/group/${router.query.id}`);
 
   return (
     <>
