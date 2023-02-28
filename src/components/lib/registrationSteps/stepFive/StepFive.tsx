@@ -1,6 +1,9 @@
+import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import { motion } from 'framer-motion';
-import React from 'react';
+import React, { useState } from 'react';
+
+import logger from '@/lib/logger';
 
 import Button from '@/components/buttons/Button';
 import { registerFormVariants } from '@/components/lib/RegisterForm/variants';
@@ -8,22 +11,56 @@ import InputFile from '@/components/shared/InputFile/InputFile';
 
 // import { useAppSelector } from '@/store/store.hooks';
 import * as CONSTANTS from '@/constant/constants';
+import { clearRegister } from '@/slices/registerSlice';
+import { registerAPI } from '@/utils/api';
 
 // import { clearRegister } from '@/slices/registerSlice';
 import { initialValues, validationSchema } from './validation';
 import { StepProps } from '../types';
-// import { useAppDispatch } from '../../../../store/store.hooks';
+import { useAppDispatch, useAppSelector } from '../../../../store/store.hooks';
+import AmaliError from '../../../../utils/customError';
 
 const StepFive: React.FC<StepProps> = ({ setCurrentStep }) => {
-  // const dipatch = useAppDispatch()
-  // const { register } = useAppSelector(state => state.register)
+  const dipatch = useAppDispatch();
+  const { bvn } = useAppSelector((state) => state.bvn);
+  const [loading, setLoading] = useState(false);
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: () => {
-      // call the API here
-      // TODO: clear the register redux state after submission
-      // dipatch(clearRegister())
+    onSubmit: async (values) => {
+      setLoading(true);
+      const formData = new FormData();
+      if (values.id_image) {
+        formData.append('id_image', values.id_image[0] as Blob | string);
+      }
+      if (values['Place Of Business']) {
+        formData.append(
+          'placeOfBusiness',
+          values['Place Of Business'][0] as Blob | string
+        );
+      }
+      formData.append('userId', bvn?.id as Blob | string);
+      try {
+        await registerAPI.registerUploads(formData);
+        dipatch(clearRegister());
+
+        setCurrentStep((prev) => prev + 1);
+        window.scrollTo(0, 0);
+
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+
+        if (error instanceof AxiosError) {
+          logger({ error: error.response?.data }, 'Axios Error');
+        }
+        if (error instanceof AmaliError) {
+          logger({ error: error.message, cause: error.cause }, 'Amali Error');
+          (await import('react-hot-toast')).toast.error(
+            error.message ?? 'Something went wrong'
+          );
+        }
+      }
       setCurrentStep((prev) => prev);
     },
   });
@@ -86,7 +123,7 @@ const StepFive: React.FC<StepProps> = ({ setCurrentStep }) => {
           variant='primary'
           size='base'
           className='mt-6 w-full md:mt-0'
-          // isLoading={loading}
+          isLoading={loading}
         >
           Create Account
         </Button>
