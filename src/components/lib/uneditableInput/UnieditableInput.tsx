@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { UnieditableInputProps } from '@/components/lib/uneditableInput/type';
 
 const UnieditableInput: React.FC<UnieditableInputProps> = ({ text, label }) => {

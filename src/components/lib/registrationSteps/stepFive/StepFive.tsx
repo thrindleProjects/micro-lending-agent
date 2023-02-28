@@ -1,6 +1,5 @@
 import { useFormik } from 'formik';
 import { motion } from 'framer-motion';
-import React from 'react';
 
 import Button from '@/components/buttons/Button';
 import { registerFormVariants } from '@/components/lib/RegisterForm/variants';
