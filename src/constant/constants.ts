@@ -12,6 +12,7 @@ export const SETTINGS = 'Settings';
 export const NAME = 'name';
 export const PHONE_NUMBER = 'phone';
 export const MARKET = 'market';
+export const CONFRIMPASSWORD = 'confirmPassword';
 
 // Input Types
 export const PASSWORD = 'password';

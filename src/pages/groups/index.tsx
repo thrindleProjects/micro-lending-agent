@@ -10,6 +10,7 @@ import GroupsLayout from '@/components/pages-layout/groups/groupsLayout/GroupsLa
 
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { groupAPI } from '@/utils/api';
+import { getGroupsQuery } from '@/utils/getGroupsQuery';
 
 const Groups: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -26,17 +27,7 @@ export default Groups;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query } = context;
 
-  let params: string | URLSearchParams = new URLSearchParams();
-
-  if (query.search && typeof query.search === 'string') {
-    params.append('name', query.search);
-  }
-
-  if (query.page && typeof query.page === 'string' && !!parseInt(query.page)) {
-    params.append('page', query.page);
-  }
-
-  params = params.toString();
+  const params: string = getGroupsQuery(query);
 
   const session = await getServerSession(context.req, context.res, authOptions);
 

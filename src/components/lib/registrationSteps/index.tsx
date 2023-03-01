@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { registerSteps } from '@/data/data';
 
@@ -24,7 +24,7 @@ const RegisterIndex = () => {
       exit='exit'
     >
       <div className='flex w-full flex-col items-center'>
-        <div className='mt-10 w-4/5 md:hidden md:w-[70%] lg:w-9/12 xl:w-2/3'>
+        <div className=' w-4/5 md:hidden md:w-[70%] lg:w-9/12 xl:w-2/3'>
           <ProgressBar progress={(currentStep / 5) * 100} />
         </div>
         <div className='mt-10 hidden justify-between gap-4 px-6 md:flex'>

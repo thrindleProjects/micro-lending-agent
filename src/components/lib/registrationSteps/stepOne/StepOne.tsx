@@ -1,6 +1,5 @@
 import { useFormik } from 'formik';
 import { motion } from 'framer-motion';
-import React from 'react';
 
 import { gender, IDType } from '@/data/data';
 
@@ -25,10 +24,7 @@ const StepOne: React.FC<StepProps> = ({ setCurrentStep }) => {
       dispatch(
         setRegisterInfo({
           title: values.title,
-          firstName: values['First Name'],
-          lastName: values['Last Name'],
-          gender: values.gender,
-          dob: values['Date of Birth'],
+
           idType: values.id_type,
           nationality: values.nationality,
         })
@@ -43,9 +39,10 @@ const StepOne: React.FC<StepProps> = ({ setCurrentStep }) => {
       onSubmit={formik.handleSubmit}
       variants={registerFormVariants}
     >
-      <Select
+      <Input
         label='Title'
         id={CONSTANTS.TITLE}
+        type='text'
         name={CONSTANTS.TITLE}
         onChange={formik.handleChange}
         value={formik.values[CONSTANTS.TITLE]}
@@ -55,10 +52,7 @@ const StepOne: React.FC<StepProps> = ({ setCurrentStep }) => {
         }
         errorText={formik.errors[CONSTANTS.TITLE]}
         required={true}
-        options={[
-          { name: 'MR', value: 'MR' },
-          { name: 'MRS', value: 'MRS' },
-        ]}
+        placeholder='Mr, Mrs, Miss, Chief, Dr'
       />
       <Input
         id={CONSTANTS.FIRST_NAME}

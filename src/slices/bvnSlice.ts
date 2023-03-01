@@ -10,6 +10,7 @@ interface IBvnData {
   middleName: string;
   phoneNo: string;
   bvn: string;
+  id?: string;
 }
 
 const initialState: { bvn: IBvnData | null } = {

@@ -3,11 +3,13 @@ import { useEffect, useRef } from 'react';
 import useSWR from 'swr';
 
 import Table from '@/components/lib/Table';
+import Pagination from '@/components/shared/pagination';
 
 import { useAppDispatch } from '@/store/store.hooks';
 
 import { IGroupData, setGroupInfo } from '@/slices/groupSlice';
 import { groupAPI } from '@/utils/api';
+import { getGroupsQuery } from '@/utils/getGroupsQuery';
 
 type GroupListTableProps = React.FC;
 
@@ -48,19 +50,7 @@ const GroupsListTable: GroupListTableProps = () => {
   };
 
   async function fetcher(url: string) {
-    const params: string | URLSearchParams = new URLSearchParams();
-
-    if (query.search && typeof query.search === 'string') {
-      params.append('name', query.search);
-    }
-
-    if (
-      query.page &&
-      typeof query.page === 'string' &&
-      !!parseInt(query.page)
-    ) {
-      params.append('page', query.page);
-    }
+    const params: string = getGroupsQuery(query);
 
     return await groupAPI.getAllAgentsGroups(url, params.toString());
   }
@@ -103,6 +93,7 @@ const GroupsListTable: GroupListTableProps = () => {
         )}
       </Table>
       {!groups.length && <div>Create group button here</div>}
+      <Pagination count={data.data.lastpage || 1} className='mt-7' />
     </div>
   );
 };
