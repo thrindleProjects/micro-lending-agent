@@ -11,10 +11,12 @@ import * as CONSTANTS from '@/constant/constants';
 // };
 
 export const validationSchema = Yup.object({
-  [CONSTANTS.MOBILENUMBER]: Yup.string().required('Mobile number is required'),
-  [CONSTANTS.WHATSAPPNUMBER]: Yup.string().required(
-    'WhatsApp number is required'
-  ),
+  [CONSTANTS.MOBILENUMBER]: Yup.number()
+    .required('Mobile number is required')
+    .typeError('Mobile number must be a number'),
+  [CONSTANTS.WHATSAPPNUMBER]: Yup.number()
+    .required('WhatsApp number is required')
+    .typeError('WhatsApp number must be a number'),
   [CONSTANTS.HOMEADDRESS]: Yup.string().required('Home address is required'),
   [CONSTANTS.LANDMARK]: Yup.string().required('Landmark is required'),
   [CONSTANTS.STATE]: Yup.string().required('State is required'),

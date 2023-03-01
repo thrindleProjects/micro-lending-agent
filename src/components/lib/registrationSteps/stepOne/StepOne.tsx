@@ -141,10 +141,10 @@ const StepOne: React.FC<StepProps> = ({ setCurrentStep }) => {
         }
         errorText={formik.errors[CONSTANTS.NATIONALITY]}
         required={true}
-        options={[{ name: 'Nigeria', value: 'Nigeria' }]}
+        options={[{ name: 'Nigerian', value: 'Nigerian' }]}
       />
       <div className=' mt-4 justify-between gap-10 md:flex'>
-        <Button
+        {/* <Button
           type='button'
           variant='light'
           size='base'
@@ -152,7 +152,7 @@ const StepOne: React.FC<StepProps> = ({ setCurrentStep }) => {
           // isLoading={loading}
         >
           Back
-        </Button>
+        </Button> */}
         <Button
           type='submit'
           variant='primary'

@@ -144,10 +144,7 @@ const RegisterForm: RegisterFormProps = ({ markets }) => {
               errorText={formik.errors[CONSTANTS.PASSWORD]}
               required={true}
             />
-            <p className='w-full max-w-xs text-xs font-semibold text-amali-green md:w-4/6'>
-              Password must be a minimum of 8 characters including alphabets,
-              numbers and symbols
-            </p>
+
             <Input
               id={CONSTANTS.CONFRIMPASSWORD}
               type={CONSTANTS.TEXT}
