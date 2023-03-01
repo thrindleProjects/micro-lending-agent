@@ -13,7 +13,7 @@ import StepFour from './stepFour/StepFour';
 import StepThree from './stepThree/StepThree';
 
 const RegisterIndex = () => {
-  const [currentStep, setCurrentStep] = useState(5);
+  const [currentStep, setCurrentStep] = useState(1);
 
   return (
     <motion.section
