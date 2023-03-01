@@ -11,7 +11,10 @@ import AmaliError from '@/utils/customError';
 import registerService from './register';
 
 export const BASE_URL =
-  'http://amalimicrolending-env.eba-jwwgmx4e.eu-west-1.elasticbeanstalk.com/api/v1';
+  process.env.NODE_ENV === 'production'
+    ? process.env.NEXT_PUBLIC_PROD_URL
+    : process.env.NEXT_PUBLIC_DEV_URL;
+
 const isBrowser = typeof window !== 'undefined';
 
 export const api = axios.create({
