@@ -1,6 +1,7 @@
 import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import logger from '@/lib/logger';
@@ -21,8 +22,9 @@ import { useAppDispatch, useAppSelector } from '../../../../store/store.hooks';
 import AmaliError from '../../../../utils/customError';
 
 const StepFive: React.FC<StepProps> = ({ setCurrentStep }) => {
-  const dipatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const { bvn } = useAppSelector((state) => state.bvn);
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const formik = useFormik({
     initialValues,
@@ -31,7 +33,7 @@ const StepFive: React.FC<StepProps> = ({ setCurrentStep }) => {
       setLoading(true);
       const formData = new FormData();
       if (values.id_image) {
-        formData.append('id_image', values.id_image[0] as Blob | string);
+        formData.append('idImage', values.id_image[0] as Blob | string);
       }
       if (values['Place Of Business']) {
         formData.append(
@@ -42,9 +44,8 @@ const StepFive: React.FC<StepProps> = ({ setCurrentStep }) => {
       formData.append('userId', bvn?.id as Blob | string);
       try {
         await registerAPI.registerUploads(formData);
-        dipatch(clearRegister());
-
-        setCurrentStep((prev) => prev + 1);
+        dispatch(clearRegister());
+        router.push('/login');
         window.scrollTo(0, 0);
 
         setLoading(false);
