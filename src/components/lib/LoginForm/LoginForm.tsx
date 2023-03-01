@@ -19,27 +19,34 @@ const LoginForm = () => {
     localStorage.setItem('userRole', 'master-agent');
   }, []);
   const router = useRouter();
+  // const [loading, setLoading] = useState(false)
 
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
+      // setLoading(true)
       try {
         const result = await signIn('credentials', {
           ...values,
           redirect: false,
         });
+        // setLoading(false)
 
         if (!result || result.error) {
           (await import('react-hot-toast')).toast.error(
             result?.error ?? 'Something went wrong'
           );
+          // setLoading(false)
+
           return;
         }
 
         formik.resetForm();
         router.replace('/home');
       } catch (error) {
+        // setLoading(false)
+
         if (error instanceof AxiosError) {
           logger({ error: error.response?.data }, 'Axios Error');
           (await import('react-hot-toast')).toast.error(
