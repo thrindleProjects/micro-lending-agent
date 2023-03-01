@@ -105,7 +105,6 @@ const StepFive: React.FC<StepProps> = ({ setCurrentStep }) => {
         errorText={formik.errors[CONSTANTS.PLACEOFBUSINESS]}
         required={true}
         extensions='image/*, .doc, .docx, .pdf'
-        multiple={true}
         showPreview={true}
       />
 
@@ -116,6 +115,7 @@ const StepFive: React.FC<StepProps> = ({ setCurrentStep }) => {
           size='base'
           className='mt-6 w-full md:mt-0'
           // isLoading={loading}
+          onClick={() => setCurrentStep((prev) => prev - 1)}
         >
           Back
         </Button>
