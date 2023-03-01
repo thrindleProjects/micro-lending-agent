@@ -11,6 +11,7 @@ import {
 
 function registerService({ api }: Service) {
   type RegisterValues = typeof registerValues;
+
   const register = async (data: RegisterValues, reqConfig?: ReqConfig) => {
     const result = await api.post('/user', data, { ...reqConfig });
     return result;
