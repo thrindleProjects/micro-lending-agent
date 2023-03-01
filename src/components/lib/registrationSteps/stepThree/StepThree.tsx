@@ -226,6 +226,7 @@ const StepThree: React.FC<StepProps> = ({ setCurrentStep }) => {
           size='base'
           className='mt-6 w-full md:mt-0'
           // isLoading={loading}
+          onClick={() => setCurrentStep((prev) => prev - 1)}
         >
           Back
         </Button>

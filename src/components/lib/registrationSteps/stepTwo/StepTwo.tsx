@@ -98,7 +98,7 @@ const StepTwo: React.FC<StepProps> = ({ setCurrentStep }) => {
         label='Mobile Number'
         placeholder='090XXXXXXXX'
         id={CONSTANTS.MOBILENUMBER}
-        type={CONSTANTS.TEXT}
+        type='text'
         name={CONSTANTS.MOBILENUMBER}
         onChange={formik.handleChange}
         value={formik.values[CONSTANTS.MOBILENUMBER]}
@@ -205,6 +205,8 @@ const StepTwo: React.FC<StepProps> = ({ setCurrentStep }) => {
           size='base'
           className='mt-6 w-full md:mt-0'
           // isLoading={loading}
+
+          onClick={() => setCurrentStep((prev) => prev - 1)}
         >
           Back
         </Button>

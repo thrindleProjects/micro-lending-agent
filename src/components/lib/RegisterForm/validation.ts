@@ -15,7 +15,12 @@ export const validationSchema = Yup.object({
     .required('BVN is required')
     .typeError('Only numbers are allowed'),
   [CONSTANTS.MARKET]: Yup.string().required('Market is required'),
-  [CONSTANTS.PASSWORD]: Yup.string().required('Please create a password'),
+  [CONSTANTS.PASSWORD]: Yup.string()
+    .required('Please create a password')
+    .matches(
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+      'Password must be a minimum of 8 characters including alphabets, numbers and symbols'
+    ),
   [CONSTANTS.CONFRIMPASSWORD]: Yup.string()
     .required('Please confirm your password')
     .oneOf([Yup.ref('password'), null], "Passwords don't match."),

@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { registerSteps } from '@/data/data';
 
-import ProgressBar from '@/components/lib/progressBar/ProgressBar';
+// import ProgressBar from '@/components/lib/progressBar/ProgressBar';
 import { registerFormVariants } from '@/components/lib/RegisterForm/variants';
 import StepFive from '@/components/lib/registrationSteps/stepFive/StepFive';
 import StepOne from '@/components/lib/registrationSteps/stepOne/StepOne';
@@ -24,31 +24,35 @@ const RegisterIndex = () => {
       exit='exit'
     >
       <div className='flex w-full flex-col items-center'>
-        <div className=' w-4/5 md:hidden md:w-[70%] lg:w-9/12 xl:w-2/3'>
+        {/* <div className=' w-4/5 md:hidden md:w-[70%] lg:w-9/12 xl:w-2/3'>
           <ProgressBar progress={(currentStep / 5) * 100} />
-        </div>
-        <div className='mt-10 hidden justify-between gap-4 px-6 md:flex'>
+        </div> */}
+        <div className='mt-6   flex flex-wrap gap-4  px-8'>
           {registerSteps.map((item, index) => (
             <div
-              className='flex cursor-pointer items-center justify-center gap-2'
+              className='flex cursor-pointer items-center justify-center  gap-2'
               key={index}
             >
               <div
-                className={`aspect-square h-3 flex-shrink-0 rounded-full border border-amali-green ${
+                className={`aspect-square h-3 flex-shrink-0 rounded-full border border-amali-green  ${
                   currentStep === index + 1
                     ? 'bg-amali-green'
                     : 'bg-transparent'
                 }`}
               />
               <p
-                className={currentStep === index + 1 ? 'text-amali-green' : ''}
+                className={
+                  currentStep === index + 1
+                    ? 'text-xs text-amali-green md:text-lg'
+                    : 'text-xs md:text-lg'
+                }
               >
                 {item}
               </p>
             </div>
           ))}
         </div>
-        <section className='mt-10 w-4/5 md:w-[70%] lg:w-9/12 xl:w-2/3'>
+        <section className='mt-6 w-4/5 md:w-[70%] lg:w-9/12 xl:w-2/3'>
           <AnimatePresence mode='wait'>
             {currentStep === 1 && <StepOne setCurrentStep={setCurrentStep} />}
             {currentStep === 2 && <StepTwo setCurrentStep={setCurrentStep} />}
