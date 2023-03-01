@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
+import { Session } from 'next-auth';
 import { useState } from 'react';
 
 import { registerSteps } from '@/data/data';
@@ -12,8 +13,31 @@ import StepTwo from '@/components/lib/registrationSteps/stepTwo/StepTwo';
 import StepFour from './stepFour/StepFour';
 import StepThree from './stepThree/StepThree';
 
-const RegisterIndex = () => {
-  const [currentStep, setCurrentStep] = useState(1);
+const RegisterIndex: React.FC<{ session?: Session }> = ({ session }) => {
+  let initialStep = 1;
+  if (session) {
+    const {
+      completedBank,
+      completedBusiness,
+      completedContact,
+      completedUploads,
+    } = session.user;
+
+    if (!completedUploads) {
+      initialStep = 5;
+    }
+    if (!completedBank) {
+      initialStep = 4;
+    }
+    if (!completedBusiness) {
+      initialStep = 3;
+    }
+    if (!completedContact) {
+      initialStep = 2;
+    }
+  }
+
+  const [currentStep, setCurrentStep] = useState(initialStep);
 
   return (
     <motion.section
@@ -24,7 +48,7 @@ const RegisterIndex = () => {
       exit='exit'
     >
       <div className='flex w-full flex-col items-center'>
-        <div className=' w-4/5 md:hidden md:w-[70%] lg:w-9/12 xl:w-2/3'>
+        <div className='w-4/5 md:hidden md:w-[70%] lg:w-9/12 xl:w-2/3'>
           <ProgressBar progress={(currentStep / 5) * 100} />
         </div>
         <div className='mt-10 hidden justify-between gap-4 px-6 md:flex'>
@@ -49,7 +73,7 @@ const RegisterIndex = () => {
           ))}
         </div>
         <section className='mt-10 w-4/5 md:w-[70%] lg:w-9/12 xl:w-2/3'>
-          <AnimatePresence mode='wait'>
+          <AnimatePresence mode='wait' initial={false}>
             {currentStep === 1 && <StepOne setCurrentStep={setCurrentStep} />}
             {currentStep === 2 && <StepTwo setCurrentStep={setCurrentStep} />}
             {currentStep === 3 && <StepThree setCurrentStep={setCurrentStep} />}

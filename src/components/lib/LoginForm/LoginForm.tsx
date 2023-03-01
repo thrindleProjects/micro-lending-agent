@@ -3,10 +3,11 @@ import { useFormik } from 'formik';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
-import { useEffect } from 'react';
+import { useState } from 'react';
 
 import logger from '@/lib/logger';
 
+import Button from '@/components/buttons/Button';
 import Input from '@/components/shared/Input';
 
 import { PASSWORD, TEXT } from '@/constant/constants';
@@ -15,9 +16,8 @@ import AmaliError from '@/utils/customError';
 import { initialValues, validationSchema } from './validation';
 
 const LoginForm = () => {
-  useEffect(() => {
-    localStorage.setItem('userRole', 'master-agent');
-  }, []);
+  const [loading, setLoading] = useState<boolean>(false);
+
   const router = useRouter();
 
   const formik = useFormik({
@@ -25,6 +25,7 @@ const LoginForm = () => {
     validationSchema,
     onSubmit: async (values) => {
       try {
+        setLoading(true);
         const result = await signIn('credentials', {
           ...values,
           redirect: false,
@@ -49,6 +50,8 @@ const LoginForm = () => {
         if (error instanceof AmaliError) {
           logger({ error: error.message, cause: error.cause }, 'Amali Error');
         }
+      } finally {
+        setLoading(false);
       }
       // logic here
     },
@@ -86,12 +89,15 @@ const LoginForm = () => {
       >
         Forgot Password?
       </Link>
-      <button
-        className='mt-4 w-full rounded-md bg-amali-green py-4 text-center font-bold text-[#EDF8F7] hover:bg-opacity-80'
+      <Button
+        className='mt-4 w-full'
         type='submit'
+        size='base'
+        variant='primary'
+        isLoading={loading}
       >
-        Sign In
-      </button>
+        <span>Sign In</span>
+      </Button>
     </form>
   );
 };

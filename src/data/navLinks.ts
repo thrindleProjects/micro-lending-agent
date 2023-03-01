@@ -46,7 +46,7 @@ export const sideBarData: {
     active_icon: 'ph:house-simple-fill',
   },
   {
-    id: 1,
+    id: 2,
     name: GROUPS,
     link: '/groups',
     subLinks: [],
@@ -54,7 +54,7 @@ export const sideBarData: {
     active_icon: 'ph:users-three-fill',
   },
   {
-    id: 1,
+    id: 3,
     name: SETTINGS,
     link: '/settings',
     subLinks: [],
@@ -73,7 +73,7 @@ export const mobileNavData = [
     active_icon: 'ph:house-simple-fill',
   },
   {
-    id: 1,
+    id: 2,
     name: GROUPS,
     link: '/groups',
     subLinks: [],
@@ -81,7 +81,7 @@ export const mobileNavData = [
     active_icon: 'ph:users-three-fill',
   },
   {
-    id: 1,
+    id: 3,
     name: SETTINGS,
     link: '/settings/m',
     subLinks: [],

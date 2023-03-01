@@ -1,18 +1,23 @@
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { getServerSession } from 'next-auth';
-import { signOut } from 'next-auth/react';
 import { ReactElement } from 'react';
+import { SWRConfig } from 'swr';
+
+import { staticMarkets } from '@/data/data';
 
 import CompleteRegistrationLayout from '@/components/layout/CompleteRegistrationLayout';
+import CompleteRegistrationComponent from '@/components/pages-layout/complete-registration/CompleteRegistrationComponent';
 
 import { NextPageWithLayout } from '@/pages/_app';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
-const CompleteRegistration: NextPageWithLayout = () => {
+const CompleteRegistration: NextPageWithLayout<
+  InferGetServerSidePropsType<typeof getServerSideProps>
+> = ({ fallback }) => {
   return (
-    <div>
-      <button onClick={() => signOut()}>sign out</button>
-    </div>
+    <SWRConfig value={{ fallback }}>
+      <CompleteRegistrationComponent />
+    </SWRConfig>
   );
 };
 
@@ -42,7 +47,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   return {
-    props: {},
+    props: {
+      fallback: {
+        '/api/markets': staticMarkets,
+      },
+    },
   };
 };
 
