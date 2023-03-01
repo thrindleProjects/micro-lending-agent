@@ -39,3 +39,9 @@ export const initialValues: {
   [CONSTANTS.LGA]: '',
   [CONSTANTS.LENGTHOFSTAY]: '',
 };
+
+export interface StateProps {
+  state: string;
+  senatorial_districts: string[];
+  lgas: string[];
+}

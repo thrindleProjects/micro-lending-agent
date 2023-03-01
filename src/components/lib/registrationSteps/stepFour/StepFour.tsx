@@ -1,33 +1,63 @@
+import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
+
+import logger from '@/lib/logger';
+
+import { mainBanks } from '@/data/data';
 
 import Button from '@/components/buttons/Button';
 import { registerFormVariants } from '@/components/lib/RegisterForm/variants';
 import Input from '@/components/shared/Input/Input';
 
-import { useAppDispatch } from '@/store/store.hooks';
+import { useAppSelector } from '@/store/store.hooks';
 
 import * as CONSTANTS from '@/constant/constants';
-import { setRegisterInfo } from '@/slices/registerSlice';
+import { registerAPI } from '@/utils/api';
+import AmaliError from '@/utils/customError';
 
 import { initialValues, validationSchema } from './validation';
 import { StepProps } from '../types';
+import { SelectInput } from '../../../shared/Select/styled';
 
 const StepFour: React.FC<StepProps> = ({ setCurrentStep }) => {
-  const dispatch = useAppDispatch();
+  const [loading, setLoading] = useState(false);
+  const [selected, setSelected] = useState('');
 
+  const selectedBank = mainBanks.find((bank) => bank.bankCode === selected);
+
+  const { bvn } = useAppSelector((state) => state.bvn);
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values) => {
-      dispatch(
-        setRegisterInfo({
-          bankName: values['Bank Name'],
+    onSubmit: async (values) => {
+      setLoading(true);
+      try {
+        await registerAPI.registerBank({
           accountNumber: values['Account Number'],
-        })
-      );
-      setCurrentStep((prev) => prev + 1);
-      window.scrollTo(0, 0);
+          bank: selectedBank?.name,
+          bankCode: selectedBank?.bankCode,
+          userId: bvn?.id,
+        });
+
+        setCurrentStep((prev) => prev + 1);
+        window.scrollTo(0, 0);
+
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+
+        if (error instanceof AxiosError) {
+          logger({ error: error.response?.data }, 'Axios Error');
+        }
+        if (error instanceof AmaliError) {
+          logger({ error: error.message, cause: error.cause }, 'Amali Error');
+          (await import('react-hot-toast')).toast.error(
+            error.message ?? 'Something went wrong'
+          );
+        }
+      }
     },
   });
   return (
@@ -36,27 +66,30 @@ const StepFour: React.FC<StepProps> = ({ setCurrentStep }) => {
       onSubmit={formik.handleSubmit}
       variants={registerFormVariants}
     >
-      <Input
-        label='Bank Name'
-        placeholder='XXXXXXXX'
-        id={CONSTANTS.BANK_NAME}
-        type={CONSTANTS.TEXT}
-        name={CONSTANTS.BANK_NAME}
-        onChange={formik.handleChange}
-        value={formik.values[CONSTANTS.BANK_NAME]}
-        onBlur={formik.handleBlur}
-        error={
-          formik.errors[CONSTANTS.BANK_NAME] &&
-          formik.touched[CONSTANTS.BANK_NAME]
-        }
-        errorText={formik.errors[CONSTANTS.BANK_NAME]}
-        required={true}
-      />
+      <SelectInput
+        className='flex w-full flex-row items-center border-x-0 border-t-0 border-b-2 py-4 px-2 text-xs shadow-inner outline-none transition-all duration-300 ease-in placeholder:text-xs focus:outline-none md:px-4 lg:py-5 xl:text-sm xl:placeholder:text-sm'
+        onChange={(e) => setSelected(e.target.value)}
+      >
+        {mainBanks
+          .sort((a, b) =>
+            a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+          )
+          .map((bank, index) => (
+            <option
+              selected={bank.name === 'Select an option'}
+              value={bank.bankCode}
+              key={index}
+            >
+              {bank.name}
+            </option>
+          ))}
+      </SelectInput>
+
       <Input
         id={CONSTANTS.ACCOUNT_NUMBER}
         type={CONSTANTS.TEXT}
         value={formik.values[CONSTANTS.ACCOUNT_NUMBER]}
-        placeholder='Clothings'
+        placeholder='XXXXXXXXXX'
         label='Account Number'
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -83,7 +116,7 @@ const StepFour: React.FC<StepProps> = ({ setCurrentStep }) => {
           variant='primary'
           size='base'
           className='mt-6 w-full md:mt-0'
-          // isLoading={loading}
+          isLoading={loading}
         >
           Proceed
         </Button>

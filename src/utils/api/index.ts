@@ -8,6 +8,8 @@ import groupService from '@/utils/api/group';
 import memberService from '@/utils/api/member';
 import AmaliError from '@/utils/customError';
 
+import registerService from './register';
+
 export const BASE_URL =
   'http://amalimicrolending-env.eba-jwwgmx4e.eu-west-1.elasticbeanstalk.com/api/v1';
 const isBrowser = typeof window !== 'undefined';
@@ -72,3 +74,4 @@ api.interceptors.request.use(addTokenToRequest);
 export const authAPI = authService({ api });
 export const groupAPI = groupService({ api });
 export const memberAPI = memberService({ api });
+export const registerAPI = registerService({ api });

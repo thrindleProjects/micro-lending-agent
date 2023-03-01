@@ -1,39 +1,92 @@
+import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import { motion } from 'framer-motion';
+import NaijaStates from 'naija-state-local-government';
+import { useEffect, useState } from 'react';
+
+import logger from '@/lib/logger';
+
+import { lengthOfStayData } from '@/data/data';
 
 import Button from '@/components/buttons/Button';
 import { registerFormVariants } from '@/components/lib/RegisterForm/variants';
+import { StateProps } from '@/components/lib/registrationSteps/stepThree/validation';
 import { StepProps } from '@/components/lib/registrationSteps/types';
 import Input from '@/components/shared/Input/Input';
 import Select from '@/components/shared/Select/Select';
 
 import * as CONSTANTS from '@/constant/constants';
-import { setRegisterInfo } from '@/slices/registerSlice';
+import { registerAPI } from '@/utils/api';
+import AmaliError from '@/utils/customError';
 
 import { initialValues, validationSchema } from './validation';
-import { useAppDispatch } from '../../../../store/store.hooks';
+import { useAppSelector } from '../../../../store/store.hooks';
 
 const StepTwo: React.FC<StepProps> = ({ setCurrentStep }) => {
-  const dispatch = useAppDispatch();
+  const [loading, setLoading] = useState(false);
+  const { bvn } = useAppSelector((state) => state.bvn);
+  const { register } = useAppSelector((state) => state.register);
+  const [lga, setLga] = useState<StateProps>();
+
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values) => {
-      window.scrollTo(0, 0);
-      dispatch(
-        setRegisterInfo({
-          mobileNumber: values['Mobile Number'],
-          whatappNumber: values[' WhatsApp Number'],
-          address: values['Home Address'],
+    onSubmit: async (values) => {
+      setLoading(true);
+      try {
+        await registerAPI.registerInfo({
+          homeAddress: values['Home Address'],
           landmark: values.Landmark,
           state: values.State,
-          lga: values.LGA,
           lengthOfStay: values['Length of Stay'],
-        })
-      );
-      setCurrentStep((prev) => prev + 1);
-      window.scrollTo(0, 0);
+          lga: values.LGA,
+          mobileNumber: values['Mobile Number'],
+          whatsappNumber: values[' WhatsApp Number'],
+          userId: bvn?.id,
+          title: register?.title,
+          idType: register?.idType,
+          nationality: register?.nationality,
+        });
+
+        setCurrentStep((prev) => prev + 1);
+        window.scrollTo(0, 0);
+
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+
+        if (error instanceof AxiosError) {
+          logger({ error: error.response?.data }, 'Axios Error');
+        }
+        if (error instanceof AmaliError) {
+          logger({ error: error.message, cause: error.cause }, 'Amali Error');
+          (await import('react-hot-toast')).toast.error(
+            error.message ?? 'Something went wrong'
+          );
+        }
+      }
     },
+  });
+
+  useEffect(() => {
+    if (formik.values.State !== '') {
+      setLga(NaijaStates.lgas(formik.values.State));
+    }
+  }, [formik.values.State]);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const state = NaijaStates.all().map((state: any) => state.state);
+  const mappedState = state.map((state: string) => {
+    return {
+      name: state,
+      value: state,
+    };
+  });
+  const mappedLga = lga?.lgas.map((lga: string) => {
+    return {
+      name: lga,
+      value: lga,
+    };
   });
   return (
     <motion.form
@@ -114,7 +167,7 @@ const StepTwo: React.FC<StepProps> = ({ setCurrentStep }) => {
         }
         errorText={formik.errors[CONSTANTS.STATE]}
         required={true}
-        options={[{ name: 'Lagos', value: 'Lagos' }]}
+        options={mappedState}
       />
 
       <Select
@@ -127,10 +180,10 @@ const StepTwo: React.FC<StepProps> = ({ setCurrentStep }) => {
         error={formik.errors[CONSTANTS.LGA] && formik.touched[CONSTANTS.LGA]}
         errorText={formik.errors[CONSTANTS.LGA]}
         required={true}
-        options={[{ name: 'Maryland', value: 'Maryland' }]}
+        options={mappedLga}
       />
       <Select
-        label='Length of Stay'
+        label='Length of Stay (year)'
         id={CONSTANTS.LENGTHOFSTAY}
         name={CONSTANTS.LENGTHOFSTAY}
         onChange={formik.handleChange}
@@ -142,7 +195,7 @@ const StepTwo: React.FC<StepProps> = ({ setCurrentStep }) => {
         }
         errorText={formik.errors[CONSTANTS.LENGTHOFSTAY]}
         required={true}
-        options={[{ name: '1 year', value: '1 year' }]}
+        options={lengthOfStayData}
       />
 
       <div className=' mt-4 justify-between gap-10 md:flex'>
@@ -160,7 +213,7 @@ const StepTwo: React.FC<StepProps> = ({ setCurrentStep }) => {
           variant='primary'
           size='base'
           className='mt-6 w-full md:mt-0'
-          // isLoading={loading}
+          isLoading={loading}
         >
           Proceed
         </Button>
