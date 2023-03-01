@@ -6,7 +6,7 @@ import { useState } from 'react';
 import logger from '@/lib/logger';
 
 import Button from '@/components/buttons/Button';
-import OtpModal from '@/components/lib/otpModal/OtpModal';
+// import OtpModal from '@/components/lib/otpModal/OtpModal';
 import { registerFormVariants } from '@/components/lib/RegisterForm/variants';
 import RegisterIndex from '@/components/lib/registrationSteps';
 import Input from '@/components/shared/Input';
@@ -25,14 +25,14 @@ import { Market } from '@/types';
 type RegisterFormProps = React.FC<{ markets: Market[] }>;
 
 const RegisterForm: RegisterFormProps = ({ markets }) => {
-  const [registerStep, setRegisterStep] = useState(true);
-  const [isOpen, setIsOpen] = useState(true);
+  const [registerStep, setRegisterStep] = useState(false);
+  // const [isOpen, setIsOpen] = useState(true);
   const [loading, setLoading] = useState(false);
   const dispatch = useAppDispatch();
 
-  const handleCloseModal = () => {
-    setIsOpen((prev) => !prev);
-  };
+  // const handleCloseModal = () => {
+  //   setIsOpen((prev) => !prev);
+  // };
 
   const formik = useFormik({
     initialValues,
@@ -41,10 +41,8 @@ const RegisterForm: RegisterFormProps = ({ markets }) => {
       setLoading(true);
       try {
         const data = await registerAPI.register(values);
-        (await import('react-hot-toast')).toast.success(
-          'an otp has been sent to the number register with your bvn'
-        );
-        handleCloseModal();
+
+        setRegisterStep(true);
 
         setLoading(false);
         // data.data.bvn = values.bvn;
@@ -82,13 +80,13 @@ const RegisterForm: RegisterFormProps = ({ markets }) => {
   return (
     <section className='w-full overflow-x-hidden'>
       <AnimatePresence mode='popLayout' initial={false}>
-        {isOpen && (
+        {/* {isOpen && (
           <OtpModal
             isOpen={isOpen}
             handleCloseModal={handleCloseModal}
             setRegisterStep={setRegisterStep}
           />
-        )}
+        )} */}
         {registerStep && <RegisterIndex />}
         {!registerStep && (
           <motion.form
