@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 import { AxiosError } from 'axios';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Modal from 'react-modal';
 import OtpInput from 'react-otp-input';
 

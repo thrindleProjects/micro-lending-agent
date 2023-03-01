@@ -21,6 +21,10 @@ declare module 'next-auth' {
       gender: string;
       status: boolean;
       type: string;
+      completedContact: boolean;
+      completedBusiness: boolean;
+      completedBank: boolean;
+      completedUploads: boolean;
     };
     expires: ISODateString;
   }
@@ -39,6 +43,10 @@ declare module 'next-auth' {
     gender: string;
     status: boolean;
     type: string;
+    completedContact: boolean;
+    completedBusiness: boolean;
+    completedBank: boolean;
+    completedUploads: boolean;
   }
 }
 
@@ -60,6 +68,10 @@ declare module 'next-auth/jwt' {
       gender: string;
       status: boolean;
       type: string;
+      completedContact: boolean;
+      completedBusiness: boolean;
+      completedBank: boolean;
+      completedUploads: boolean;
     };
   }
 }

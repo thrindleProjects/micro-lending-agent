@@ -19,6 +19,10 @@ type SignInResponse = {
   gender: string;
   status: boolean;
   type: string;
+  completedContact: boolean;
+  completedBusiness: boolean;
+  completedBank: boolean;
+  completedUploads: boolean;
 };
 
 export const authOptions: AuthOptions = {
@@ -77,6 +81,10 @@ export const authOptions: AuthOptions = {
       session.user.gender = token.user.gender;
       session.user.type = token.user.type;
       session.user.status = token.user.status;
+      session.user.completedBank = token.user.completedBank;
+      session.user.completedBusiness = token.user.completedBusiness;
+      session.user.completedContact = token.user.completedContact;
+      session.user.completedUploads = token.user.completedUploads;
       return session;
     },
   },
