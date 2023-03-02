@@ -24,7 +24,6 @@ const StepOne: React.FC<StepProps> = ({ setCurrentStep }) => {
       dispatch(
         setRegisterInfo({
           title: values.title,
-
           idType: values.id_type,
           nationality: values.nationality,
         })

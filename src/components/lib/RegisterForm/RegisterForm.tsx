@@ -42,9 +42,6 @@ const RegisterForm: RegisterFormProps = ({ markets }) => {
       try {
         const data = await registerAPI.register(values);
 
-        setRegisterStep(true);
-
-        setLoading(false);
         // data.data.bvn = values.bvn;
 
         dispatch(
@@ -59,6 +56,9 @@ const RegisterForm: RegisterFormProps = ({ markets }) => {
             id: data.data.id,
           })
         );
+        setRegisterStep(true);
+
+        setLoading(false);
 
         formik.resetForm();
       } catch (error) {
@@ -131,7 +131,7 @@ const RegisterForm: RegisterFormProps = ({ markets }) => {
             />
             <Input
               id={CONSTANTS.PASSWORD}
-              type={CONSTANTS.TEXT}
+              type={CONSTANTS.PASSWORD}
               value={formik.values[CONSTANTS.PASSWORD]}
               placeholder='XXXXXXXXXXX'
               label='Create Password'
@@ -147,7 +147,7 @@ const RegisterForm: RegisterFormProps = ({ markets }) => {
 
             <Input
               id={CONSTANTS.CONFRIMPASSWORD}
-              type={CONSTANTS.TEXT}
+              type={CONSTANTS.PASSWORD}
               value={formik.values[CONSTANTS.CONFRIMPASSWORD]}
               placeholder='XXXXXXXXXXX'
               label='Confirm Password'

@@ -1,3 +1,5 @@
+import { Market } from '@/types';
+
 export const IDType = [
   {
     name: "Driver's License",
@@ -1540,5 +1542,12 @@ export const mainBanks = [
     code: '090416',
     bankCode: '694',
     name: 'Chibueze MFB',
+  },
+];
+
+export const staticMarkets: Market[] = [
+  {
+    market: 'Unnamed Market',
+    _id: '0008a3ce-dc01-40c2-85f4-54bfdd6eb919',
   },
 ];

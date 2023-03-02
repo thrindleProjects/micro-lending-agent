@@ -71,13 +71,14 @@ const AddMemberModal: AddMemberModalProps = ({
 
       try {
         await memberAPI.addMember(formData);
-        (await import('react-hot-toast')).toast.success(
-          'Member added successfully'
-        );
+        toast.success('BVN verified successfully');
+
         setLoading(false);
 
         formik.resetForm();
       } catch (error) {
+        setLoading(false);
+
         if (error instanceof AxiosError) {
           logger({ error: error.response?.data }, 'Axios Error');
         }
@@ -86,7 +87,6 @@ const AddMemberModal: AddMemberModalProps = ({
           (await import('react-hot-toast')).toast.error(
             error.message ?? 'Something went wrong'
           );
-          setLoading(false);
         }
       }
       // logic

@@ -38,7 +38,6 @@ function MyApp({
   pageProps: { session, ...pageProps },
 }: AppPropsWithLayout) {
   const router = useRouter();
-
   const [showChild, setShowChild] = useState(false);
 
   useEffect(() => {

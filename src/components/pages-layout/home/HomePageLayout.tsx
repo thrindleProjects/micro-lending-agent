@@ -1,18 +1,14 @@
 import { Icon } from '@iconify/react';
 import dynamic from 'next/dynamic';
-import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 
 import useGroupLoanModals from '@/hooks/useGroupLoanModals';
 
 import Button from '@/components/buttons/Button';
 import ActionButton from '@/components/lib/ActionButton';
-import StatusModal from '@/components/lib/statusModal/StatusModal';
 import InputSearch from '@/components/shared/InputSearch';
 import MainContentLayout from '@/components/shared/MainContentLayout';
 import NotificationBell from '@/components/shared/NotificationBell';
-
 /**
  * @returns Home page layout
  */
@@ -26,18 +22,13 @@ const HomePageLayout = () => {
     handleApplyNext,
     handleApplyPrevious,
   ] = useGroupLoanModals(['check-bvn', 'upload-loan-image', 'loan-success']);
-  const [isOpen, setIsOpen] = useState(false);
+
+  // const [errorModal, setErrorModal] = useState(false)
 
   const GroupLoanModals = dynamic(
     () => import('@/components/shared/GroupLoanModals')
   );
-  const { data } = useSession();
 
-  useEffect(() => {
-    if (data?.user.status === false) {
-      setIsOpen(true);
-    }
-  }, [data?.user.status]);
   return (
     <>
       <MainContentLayout>
@@ -67,18 +58,38 @@ const HomePageLayout = () => {
             >
               <span className='font-semibold'>Apply for loan</span>
             </Button>
-
-            <Button variant='outline' size='base' className='inline-flex'>
-              <span className='font-semibold'> Download Registration Form</span>
-            </Button>
           </div>
 
           <div className='block lg:hidden'>
             <NotificationBell />
           </div>
         </section>
-        <div className='mt-8'>
-          <InputSearch placeholder='Search group name' />
+        <div className='mt-10 flex items-center justify-between'>
+          <div className='mt-8 w-full md:w-[30%]'>
+            <InputSearch placeholder='Search group name' />
+          </div>
+          <div className='mt-4 hidden gap-4 md:flex '>
+            <a
+              href='/assets/file/reg.pdf'
+              download='AMALI REGISTRATION FORM.pdf'
+            >
+              <Button variant='outline' size='base' className='inline-flex'>
+                <span className='font-semibold'>
+                  Download Registration Form
+                </span>
+              </Button>
+            </a>
+            <a
+              href='/assets/file/loan.pdf'
+              download='AMALI LOAN APPLICATION FORM.pdf'
+            >
+              <Button variant='outline' size='base' className='inline-flex'>
+                <span className='font-semibold'>
+                  Download Loan Application Form
+                </span>
+              </Button>
+            </a>
+          </div>
         </div>
       </MainContentLayout>
       {stage && (
@@ -99,7 +110,6 @@ const HomePageLayout = () => {
           handlePrevious={handleApplyPrevious}
         />
       )}
-      <StatusModal isOpen={isOpen} />
       <ActionButton
         actions={[
           <button

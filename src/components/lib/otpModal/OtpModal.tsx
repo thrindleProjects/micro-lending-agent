@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 import { AxiosError } from 'axios';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Modal from 'react-modal';
 import OtpInput from 'react-otp-input';
 
@@ -28,8 +28,8 @@ const OtpModal: React.FC<OtpModalProps> = ({
   const { bvn } = useAppSelector((state) => state.bvn);
 
   const [otp, setOtp] = useState('');
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleChange = (enteredOtp: any) => {
+
+  const handleChange = (enteredOtp: string) => {
     setOtp(enteredOtp);
   };
 
