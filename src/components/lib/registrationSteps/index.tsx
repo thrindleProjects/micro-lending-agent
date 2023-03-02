@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
+import { Session } from 'next-auth';
+import { useMemo, useState } from 'react';
 
 import { registerSteps } from '@/data/data';
 
@@ -12,8 +13,38 @@ import StepTwo from '@/components/lib/registrationSteps/stepTwo/StepTwo';
 import StepFour from './stepFour/StepFour';
 import StepThree from './stepThree/StepThree';
 
-const RegisterIndex = () => {
-  const [currentStep, setCurrentStep] = useState(1);
+const RegisterIndex: React.FC<{ session?: Session }> = ({ session }) => {
+  const initialStep = useMemo(() => {
+    if (session) {
+      const {
+        completedBank,
+        completedBusiness,
+        completedContact,
+        completedUploads,
+      } = session.user;
+
+      if (!completedContact) {
+        return 1;
+      }
+
+      if (!completedBusiness) {
+        return 3;
+      }
+
+      if (!completedBank) {
+        return 4;
+      }
+
+      if (!completedUploads) {
+        return 5;
+      }
+
+      return 1;
+    }
+    return 1;
+  }, [session]);
+
+  const [currentStep, setCurrentStep] = useState<number>(initialStep);
 
   return (
     <motion.section
@@ -27,7 +58,7 @@ const RegisterIndex = () => {
         {/* <div className=' w-4/5 md:hidden md:w-[70%] lg:w-9/12 xl:w-2/3'>
           <ProgressBar progress={(currentStep / 5) * 100} />
         </div> */}
-        <div className='mt-6   flex flex-wrap gap-4  px-8'>
+        <div className='mt-6 flex flex-wrap gap-4  px-8'>
           {registerSteps.map((item, index) => (
             <div
               className='flex cursor-pointer items-center justify-center  gap-2'

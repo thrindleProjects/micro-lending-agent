@@ -2,6 +2,7 @@ import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
+import { signIn, useSession } from 'next-auth/react';
 import { useState } from 'react';
 
 import logger from '@/lib/logger';
@@ -26,6 +27,7 @@ const StepFive: React.FC<StepProps> = ({ setCurrentStep }) => {
   const { bvn } = useAppSelector((state) => state.bvn);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const session = useSession();
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -43,10 +45,24 @@ const StepFive: React.FC<StepProps> = ({ setCurrentStep }) => {
       }
       formData.append('userId', bvn?.id as Blob | string);
       try {
-        await registerAPI.registerUploads(formData);
+        const result = await registerAPI.registerUploads(formData);
         dispatch(clearRegister());
-        router.push('/login');
         window.scrollTo(0, 0);
+
+        if (session && session.data) {
+          await signIn('update', {
+            ...session.data.user,
+            ...result.data,
+            token: session.data?.token,
+            completedUploads: true,
+            redirect: false,
+          });
+          router.replace('/home');
+        }
+
+        if (!session || !session.data) {
+          router.push('/login');
+        }
 
         setLoading(false);
       } catch (error) {

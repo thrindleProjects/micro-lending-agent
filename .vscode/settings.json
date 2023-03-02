@@ -13,5 +13,25 @@
     "ngClass",
     "activeClassName",
     "inActiveClassName"
-  ]
+  ],
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#61c4bd",
+    "activityBar.background": "#61c4bd",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#b145ba",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "commandCenter.border": "#15202b99",
+    "sash.hoverBorder": "#61c4bd",
+    "statusBar.background": "#42b0a8",
+    "statusBar.foreground": "#15202b",
+    "statusBarItem.hoverBackground": "#348b85",
+    "statusBarItem.remoteBackground": "#42b0a8",
+    "statusBarItem.remoteForeground": "#15202b",
+    "titleBar.activeBackground": "#42b0a8",
+    "titleBar.activeForeground": "#15202b",
+    "titleBar.inactiveBackground": "#42b0a899",
+    "titleBar.inactiveForeground": "#15202b99"
+  },
+  "peacock.color": "#42B0A8"
 }

@@ -19,12 +19,34 @@ export default Login;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getServerSession(context.req, context.res, authOptions);
 
-  if (session) {
+  if (
+    session &&
+    session.user.completedBank &&
+    session.user.completedBusiness &&
+    session.user.completedContact &&
+    session.user.completedUploads
+  ) {
     return {
       redirect: { destination: '/home', permanent: false },
     };
   }
 
+  if (
+    session &&
+    !(
+      session.user.completedBank &&
+      session.user.completedBusiness &&
+      session.user.completedContact &&
+      session.user.completedUploads
+    )
+  ) {
+    return {
+      redirect: {
+        destination: '/complete-registration',
+        permanent: false,
+      },
+    };
+  }
   return {
     props: {},
   };

@@ -131,7 +131,6 @@ label {
   }
   .layout__side_bar__wrapper {
     @apply relative;
-    @apply bg-black;
     @apply col-span-1 col-start-1;
   }
   .main_wrapper {

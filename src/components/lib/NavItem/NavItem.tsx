@@ -45,10 +45,10 @@ const NavItem = () => {
                 }
                 className='mx-auto flex w-full items-center justify-between rounded-md p-2 px-5 ease-in-out hover:bg-amali-green hover:text-white'
               >
-                <div className='flex items-center gap-3 '>
+                <span className='flex items-center gap-3 '>
                   <Icon icon={item.icon} className='font-bold' />
-                  <p className='text-md '>{item.name}</p>
-                </div>
+                  <span className='text-md '>{item.name}</span>
+                </span>
                 {!!item.subLinks.length && (
                   <motion.div
                     variants={variants}

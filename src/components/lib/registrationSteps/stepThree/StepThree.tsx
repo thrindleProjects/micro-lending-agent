@@ -2,6 +2,7 @@ import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import { motion } from 'framer-motion';
 import NaijaStates from 'naija-state-local-government';
+import { signIn, useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
 import logger from '@/lib/logger';
@@ -26,6 +27,7 @@ const StepThree: React.FC<StepProps> = ({ setCurrentStep }) => {
   const [loading, setLoading] = useState(false);
   const { bvn } = useAppSelector((state) => state.bvn);
   const [lga, setLga] = useState<StateProps>();
+  const session = useSession();
 
   const formik = useFormik({
     initialValues,
@@ -45,6 +47,14 @@ const StepThree: React.FC<StepProps> = ({ setCurrentStep }) => {
           userId: bvn?.id,
         });
 
+        if (session && session.data) {
+          await signIn('update', {
+            ...session.data.user,
+            token: session.data.token,
+            completedBusiness: true,
+            redirect: false,
+          });
+        }
         setCurrentStep((prev) => prev + 1);
         window.scrollTo(0, 0);
 
@@ -71,8 +81,9 @@ const StepThree: React.FC<StepProps> = ({ setCurrentStep }) => {
     }
   }, [formik.values.State]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const state = NaijaStates.all().map((state: any) => state.state);
+  const state = NaijaStates.all().map(
+    (state: { state: string }) => state.state
+  );
   const mappedState = state.map((state: string) => {
     return {
       name: state,
