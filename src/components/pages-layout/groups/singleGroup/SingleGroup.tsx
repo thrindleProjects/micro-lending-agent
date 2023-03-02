@@ -68,16 +68,21 @@ const SingleGroupLayout = () => {
                   >
                     <span className='font-semibold'> Add Members</span>
                   </Button>
-                  <Button
-                    variant='outline'
-                    size='base'
-                    className='inline-flex'
-                    leftIcon={GrDownload}
+                  <a
+                    href='/assets/file/reg.pdf'
+                    download='AMALI REGISTRATION FORM.pdf'
                   >
-                    <span className='font-semibold'>
-                      Download Registration Form
-                    </span>
-                  </Button>
+                    <Button
+                      variant='outline'
+                      size='base'
+                      className='inline-flex'
+                      leftIcon={GrDownload}
+                    >
+                      <span className='font-semibold'>
+                        Download Registration Form
+                      </span>
+                    </Button>
+                  </a>
                 </div>
               )}
             </div>

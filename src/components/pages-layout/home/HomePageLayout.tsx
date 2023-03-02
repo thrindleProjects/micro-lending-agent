@@ -58,10 +58,26 @@ const HomePageLayout = () => {
             >
               <span className='font-semibold'>Apply for loan</span>
             </Button>
-
-            <Button variant='outline' size='base' className='inline-flex'>
-              <span className='font-semibold'> Download Registration Form</span>
-            </Button>
+            <a
+              href='/assets/file/reg.pdf'
+              download='AMALI REGISTRATION FORM.pdf'
+            >
+              <Button variant='outline' size='base' className='inline-flex'>
+                <span className='font-semibold'>
+                  Download Registration Form
+                </span>
+              </Button>
+            </a>
+            <a
+              href='/assets/file/loan.pdf'
+              download='AMALI LOAN APPLICATION FORM.pdf'
+            >
+              <Button variant='outline' size='base' className='inline-flex'>
+                <span className='font-semibold'>
+                  Download Loan Application Form
+                </span>
+              </Button>
+            </a>
           </div>
 
           <div className='block lg:hidden'>

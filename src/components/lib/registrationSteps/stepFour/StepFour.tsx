@@ -1,6 +1,7 @@
 import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import { motion } from 'framer-motion';
+import { signIn, useSession } from 'next-auth/react';
 import { useState } from 'react';
 
 import logger from '@/lib/logger';
@@ -28,6 +29,8 @@ const StepFour: React.FC<StepProps> = ({ setCurrentStep }) => {
   const selectedBank = mainBanks.find((bank) => bank.bankCode === selected);
 
   const { bvn } = useAppSelector((state) => state.bvn);
+  const session = useSession();
+
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -40,6 +43,15 @@ const StepFour: React.FC<StepProps> = ({ setCurrentStep }) => {
           bankCode: selectedBank?.bankCode,
           userId: bvn?.id,
         });
+
+        if (session && session.data) {
+          await signIn('update', {
+            ...session.data.user,
+            token: session.data.token,
+            completedBank: true,
+            redirect: false,
+          });
+        }
 
         setCurrentStep((prev) => prev + 1);
         window.scrollTo(0, 0);
@@ -74,15 +86,17 @@ const StepFour: React.FC<StepProps> = ({ setCurrentStep }) => {
           .sort((a, b) =>
             a.name.toLowerCase().localeCompare(b.name.toLowerCase())
           )
-          .map((bank, index) => (
-            <option
-              selected={bank.name === 'Select an option'}
-              value={bank.bankCode}
-              key={index}
-            >
-              {bank.name}
-            </option>
-          ))}
+          .map((bank, index) => {
+            return bank.name === 'Select an option' ? (
+              <option defaultValue='true' value={bank.bankCode} key={index}>
+                {bank.name}
+              </option>
+            ) : (
+              <option value={bank.bankCode} key={index}>
+                {bank.name}
+              </option>
+            );
+          })}
       </SelectInput>
 
       <Input

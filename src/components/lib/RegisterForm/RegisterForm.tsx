@@ -131,7 +131,7 @@ const RegisterForm: RegisterFormProps = ({ markets }) => {
             />
             <Input
               id={CONSTANTS.PASSWORD}
-              type={CONSTANTS.TEXT}
+              type={CONSTANTS.PASSWORD}
               value={formik.values[CONSTANTS.PASSWORD]}
               placeholder='XXXXXXXXXXX'
               label='Create Password'
@@ -147,7 +147,7 @@ const RegisterForm: RegisterFormProps = ({ markets }) => {
 
             <Input
               id={CONSTANTS.CONFRIMPASSWORD}
-              type={CONSTANTS.TEXT}
+              type={CONSTANTS.PASSWORD}
               value={formik.values[CONSTANTS.CONFRIMPASSWORD]}
               placeholder='XXXXXXXXXXX'
               label='Confirm Password'

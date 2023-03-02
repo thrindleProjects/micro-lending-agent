@@ -2,13 +2,13 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { getServerSession } from 'next-auth';
 import { ReactElement } from 'react';
 
+import { staticMarkets } from '@/data/data';
+
 import RegisterLayout from '@/components/pages-layout/register';
 
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
 import { NextPageWithLayout } from './_app';
-
-import { Market } from '@/types';
 
 type RegisterPage = NextPageWithLayout<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -27,13 +27,6 @@ Register.getLayout = function getLayout(page: ReactElement) {
 };
 
 export default Register;
-
-const staticMarkets: Market[] = [
-  {
-    market: 'Unnamed Market',
-    _id: '0008a3ce-dc01-40c2-85f4-54bfdd6eb919',
-  },
-];
 
 export const getServerSideProps: GetServerSideProps<{
   markets: typeof staticMarkets;

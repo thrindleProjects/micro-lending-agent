@@ -1,3 +1,4 @@
+import { Icon } from '@iconify/react';
 import { signOut } from 'next-auth/react';
 import Modal from 'react-modal';
 
@@ -32,8 +33,12 @@ const LogoutModal: LogoutModalProps = ({ isOpen, handleModal }) => {
       className='h-max w-11/12 flex-shrink-0 rounded-md bg-white drop-shadow-2xl sm:w-2/3 lg:w-[28rem] xl:w-2/5 xl:max-w-lg'
     >
       <section className='w-full p-4 text-center md:p-6'>
+        <div className='mx-auto mb-6 w-max rounded-full bg-amali-notif-red bg-opacity-10 p-6 text-6xl text-amali-notif-red'>
+          <Icon icon='ph:question' />
+        </div>
+
         <h1 className='text-base font-semibold'>Are you sure?</h1>
-        <p className='mt-3 text-sm font-semibold text-amali-steel-blue text-opacity-60'>
+        <p className='mt-3 text-sm text-amali-steel-blue text-opacity-60'>
           You will be logging out of your account and password will be required
           to re-enter, Do you want to proceed?
         </p>
@@ -41,14 +46,14 @@ const LogoutModal: LogoutModalProps = ({ isOpen, handleModal }) => {
           <button
             type='button'
             onClick={handleModal}
-            className='rounded-md border border-amali-notif-red p-3 text-sm font-semibold text-amali-notif-red'
+            className='w-full rounded-md border border-amali-green p-3 text-sm font-semibold text-amali-green'
           >
             Back
           </button>
           <button
             type='button'
             onClick={handleLogout}
-            className='rounded-md bg-amali-green p-3 text-sm font-semibold text-white'
+            className='w-full rounded-md bg-amali-notif-red p-3 text-sm font-semibold text-white'
           >
             Proceed
           </button>
