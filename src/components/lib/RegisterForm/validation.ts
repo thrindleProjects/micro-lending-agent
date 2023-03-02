@@ -33,7 +33,7 @@ export const initialValues: {
   [CONSTANTS.CONFRIMPASSWORD]: string;
 } = {
   [CONSTANTS.BVN]: '',
-  [CONSTANTS.MARKET]: '0008a3ce-dc01-40c2-85f4-54bfdd6eb919',
+  [CONSTANTS.MARKET]: '',
   [CONSTANTS.PASSWORD]: '',
   [CONSTANTS.CONFRIMPASSWORD]: '',
 };
