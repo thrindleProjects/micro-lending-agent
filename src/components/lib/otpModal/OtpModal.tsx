@@ -28,8 +28,8 @@ const OtpModal: React.FC<OtpModalProps> = ({
   const { bvn } = useAppSelector((state) => state.bvn);
 
   const [otp, setOtp] = useState('');
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleChange = (enteredOtp: any) => {
+
+  const handleChange = (enteredOtp: string) => {
     setOtp(enteredOtp);
   };
 

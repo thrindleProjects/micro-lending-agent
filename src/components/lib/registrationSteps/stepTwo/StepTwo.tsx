@@ -2,6 +2,7 @@ import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import { motion } from 'framer-motion';
 import NaijaStates from 'naija-state-local-government';
+import { signIn, useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
 import logger from '@/lib/logger';
@@ -27,14 +28,14 @@ const StepTwo: React.FC<StepProps> = ({ setCurrentStep }) => {
   const { bvn } = useAppSelector((state) => state.bvn);
   const { register } = useAppSelector((state) => state.register);
   const [lga, setLga] = useState<StateProps>();
-
+  const session = useSession();
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
       setLoading(true);
       try {
-        await registerAPI.registerInfo({
+        const result = await registerAPI.registerInfo({
           homeAddress: values['Home Address'],
           landmark: values.Landmark,
           state: values.State,
@@ -47,6 +48,14 @@ const StepTwo: React.FC<StepProps> = ({ setCurrentStep }) => {
           idType: register?.idType,
           nationality: register?.nationality,
         });
+        if (session && session.data) {
+          await signIn('update', {
+            ...result.data,
+            token: session.data.token,
+            completedContact: true,
+            redirect: false,
+          });
+        }
 
         setCurrentStep((prev) => prev + 1);
         window.scrollTo(0, 0);
@@ -74,8 +83,9 @@ const StepTwo: React.FC<StepProps> = ({ setCurrentStep }) => {
     }
   }, [formik.values.State]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const state = NaijaStates.all().map((state: any) => state.state);
+  const state = NaijaStates.all().map(
+    (state: { state: string }) => state.state
+  );
   const mappedState = state.map((state: string) => {
     return {
       name: state,
@@ -98,7 +108,7 @@ const StepTwo: React.FC<StepProps> = ({ setCurrentStep }) => {
         label='Mobile Number'
         placeholder='090XXXXXXXX'
         id={CONSTANTS.MOBILENUMBER}
-        type={CONSTANTS.TEXT}
+        type='text'
         name={CONSTANTS.MOBILENUMBER}
         onChange={formik.handleChange}
         value={formik.values[CONSTANTS.MOBILENUMBER]}
@@ -205,6 +215,8 @@ const StepTwo: React.FC<StepProps> = ({ setCurrentStep }) => {
           size='base'
           className='mt-6 w-full md:mt-0'
           // isLoading={loading}
+
+          onClick={() => setCurrentStep((prev) => prev - 1)}
         >
           Back
         </Button>

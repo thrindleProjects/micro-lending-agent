@@ -1,13 +1,36 @@
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
+import { useEffect } from 'react';
 
 import RegisterIndex from '@/components/lib/registrationSteps';
 import ImageComponent from '@/components/shared/ImageComponent';
+
+import { useAppDispatch } from '@/store/store.hooks';
+
+import { setBvnDetails } from '@/slices/bvnSlice';
 
 import AmaliLogo from '~/assets/amali-logo.png';
 
 const CompleteRegistrationComponent = () => {
   const { data } = useSession();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (data) {
+      dispatch(
+        setBvnDetails({
+          firstName: data.user.firstName,
+          lastName: data.user.lastName,
+          middleName: data.user.middleName,
+          bvn: data.user.bvn,
+          phoneNo: data.user.phone,
+          dateOfBirth: data.user.dateOfBirth,
+          gender: data.user.gender,
+          id: data.user.id,
+        })
+      );
+    }
+  }, [data, dispatch]);
 
   return (
     <div className='h-full w-full overflow-y-auto overflow-x-hidden py-8 lg:pl-6'>

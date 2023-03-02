@@ -29,6 +29,7 @@ export const authOptions: AuthOptions = {
   providers: [
     Credentials({
       name: 'Login Form',
+      id: 'login',
       credentials: {
         phone: {
           label: 'phone',
@@ -52,6 +53,113 @@ export const authOptions: AuthOptions = {
           return user.data as SignInResponse;
         } catch (error) {
           // handle errors here
+          if (error instanceof AmaliError) {
+            throw new AmaliError(error.message);
+          }
+        }
+        return null;
+      },
+    }),
+    Credentials({
+      name: 'Update Session',
+      id: 'update',
+      credentials: {
+        token: {
+          label: 'token',
+          type: 'string',
+        },
+        id: {
+          label: 'id',
+          type: 'string',
+        },
+        firstName: {
+          label: 'firstName',
+          type: 'string',
+        },
+        middleName: {
+          label: 'middleName',
+          type: 'string',
+        },
+        lastName: {
+          label: 'lastName',
+          type: 'string',
+        },
+        marketId: {
+          label: 'marketId',
+          type: 'string',
+        },
+        phone: {
+          label: 'phone',
+          type: 'string',
+        },
+        bvn: {
+          label: 'bvn',
+          type: 'string',
+        },
+        bvnStatus: {
+          label: 'bvnStatus',
+          type: 'checkbox',
+        },
+        dateOfBirth: {
+          label: 'dateOfBirth',
+          type: 'string',
+        },
+        gender: {
+          label: 'gender',
+          type: 'string',
+        },
+        status: {
+          label: 'status',
+          type: 'boolean',
+        },
+        type: {
+          label: 'type',
+          type: 'string',
+        },
+        completedContact: {
+          label: 'completedContact',
+          type: 'boolean',
+        },
+        completedBusiness: {
+          label: 'completedBusiness',
+          type: 'boolean',
+        },
+        completedBank: {
+          label: 'completedBank',
+          type: 'boolean',
+          required: true,
+        },
+        completedUploads: {
+          label: 'completedUploads',
+          type: 'boolean',
+        },
+      },
+      async authorize(credentials) {
+        try {
+          const data: SignInResponse = {
+            token: credentials?.token as string,
+            id: credentials?.id as string,
+            firstName: credentials?.firstName as string,
+            middleName: credentials?.middleName as string,
+            lastName: credentials?.lastName as string,
+            marketId: credentials?.marketId as string,
+            phone: credentials?.phone as string,
+            bvn: credentials?.bvn as string,
+            bvnStatus: credentials?.bvnStatus === 'true' ? true : false,
+            dateOfBirth: credentials?.dateOfBirth as string,
+            gender: credentials?.gender as string,
+            status: credentials?.status === 'true' ? true : false,
+            type: credentials?.type as string,
+            completedContact:
+              credentials?.completedContact === 'true' ? true : false,
+            completedBusiness:
+              credentials?.completedBusiness === 'true' ? true : false,
+            completedBank: credentials?.completedBank === 'true' ? true : false,
+            completedUploads:
+              credentials?.completedUploads === 'true' ? true : false,
+          };
+          return data;
+        } catch (error) {
           if (error instanceof AmaliError) {
             throw new AmaliError(error.message);
           }
