@@ -1,18 +1,14 @@
 import { Icon } from '@iconify/react';
 import dynamic from 'next/dynamic';
-import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 
 import useGroupLoanModals from '@/hooks/useGroupLoanModals';
 
 import Button from '@/components/buttons/Button';
 import ActionButton from '@/components/lib/ActionButton';
-import StatusModal from '@/components/lib/statusModal/StatusModal';
 import InputSearch from '@/components/shared/InputSearch';
 import MainContentLayout from '@/components/shared/MainContentLayout';
 import NotificationBell from '@/components/shared/NotificationBell';
-
 /**
  * @returns Home page layout
  */
@@ -26,18 +22,13 @@ const HomePageLayout = () => {
     handleApplyNext,
     handleApplyPrevious,
   ] = useGroupLoanModals(['check-bvn', 'upload-loan-image', 'loan-success']);
-  const [isOpen, setIsOpen] = useState(false);
+
+  // const [errorModal, setErrorModal] = useState(false)
 
   const GroupLoanModals = dynamic(
     () => import('@/components/shared/GroupLoanModals')
   );
-  const { data } = useSession();
 
-  useEffect(() => {
-    if (data?.user.status === false) {
-      setIsOpen(true);
-    }
-  }, [data?.user.status]);
   return (
     <>
       <MainContentLayout>
@@ -99,7 +90,6 @@ const HomePageLayout = () => {
           handlePrevious={handleApplyPrevious}
         />
       )}
-      <StatusModal isOpen={isOpen} />
       <ActionButton
         actions={[
           <button

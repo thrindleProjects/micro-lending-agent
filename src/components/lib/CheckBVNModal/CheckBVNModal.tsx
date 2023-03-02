@@ -2,6 +2,7 @@ import { Icon } from '@iconify/react';
 import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import Modal from 'react-modal';
 
 import logger from '@/lib/logger';
@@ -38,17 +39,17 @@ const CheckBVNModal: CheckBVNModalProps = ({
 
       try {
         const userData = await memberAPI.verifyBVN(values);
-        (await import('react-hot-toast')).toast.success(
-          'BVN verified successfully'
-        );
-        setLoading(false);
-        userData.data.bvn = values.bvn;
+        toast.success('BVN verified successfully');
 
-        dispatch(setBvnDetails(userData.data));
         handleNext();
 
+        setLoading(false);
+        userData.data.bvn = values.bvn;
+        dispatch(setBvnDetails(userData.data));
         formik.resetForm();
       } catch (error) {
+        setLoading(false);
+
         if (error instanceof AxiosError) {
           logger({ error: error.response?.data }, 'Axios Error');
         }
@@ -57,7 +58,6 @@ const CheckBVNModal: CheckBVNModalProps = ({
           (await import('react-hot-toast')).toast.error(
             error.message ?? 'Something went wrong'
           );
-          setLoading(false);
         }
       }
     },
@@ -94,7 +94,7 @@ const CheckBVNModal: CheckBVNModalProps = ({
       <CheckBVNModalWrapper className='w-full py-8 px-7'>
         <section className='flex w-full flex-col items-center justify-between gap-4 md:flex-row md:gap-0'>
           <h5 className='w-full text-xl font-semibold sm:text-2xl md:mx-auto md:w-max'>
-            Check BVN
+            Add Member
           </h5>
           <button
             onClick={handleCloseModal}

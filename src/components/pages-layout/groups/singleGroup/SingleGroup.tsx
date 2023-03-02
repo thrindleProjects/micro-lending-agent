@@ -56,7 +56,7 @@ const SingleGroupLayout = () => {
           <section className='hidden lg:block'>
             {groupData && <BreadCrumbs dynamic_text={groupData.data.name} />}
             <div className=' flex items-center justify-between'>
-              <h1 className='text-2xl'>Alpha Group</h1>
+              <h1 className='text-2xl'>{groupData.data.name}</h1>
               {groupData && groupData.data.totalMembers < 3 && (
                 <div className='flex items-center gap-3'>
                   <Button
