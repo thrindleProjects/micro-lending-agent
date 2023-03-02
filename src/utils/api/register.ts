@@ -64,6 +64,53 @@ function registerService({ api }: Service) {
     return result;
   };
 
+  const getUserDetails = async (
+    id: string | undefined,
+    query?: string,
+    reqConfig?: ReqConfig
+  ) => {
+    const result: {
+      status: string;
+      message: string;
+      data: {
+        id: string;
+        firstName: string;
+        middleName: string;
+        lastName: string;
+        marketId: string;
+        phone: string;
+        bvn: string;
+        status: boolean;
+        bvnStatus: boolean;
+        type: string;
+        address: null | string;
+        email: null | string;
+        code: null | string;
+        codeExpiry: null | string;
+        dateOfBirth: string;
+        gender: string;
+        title: string;
+        idType: string;
+        idNumber: null | string;
+        nationality: string;
+        mobileNumber: string;
+        whatsappNumber: string;
+        homeAddress: string;
+        landmark: string;
+        state: string;
+        lga: string;
+        lengthOfStay: string;
+        idImage: string;
+        placeOfBusinessPhoto: string;
+        completedContact: boolean;
+        completedBusiness: boolean;
+        completedBank: boolean;
+        completedUploads: boolean;
+      };
+    } = await api.get(`/user/${id}`, { ...reqConfig });
+    return result;
+  };
+
   return Object.freeze({
     register,
     validateBvn,
@@ -71,6 +118,7 @@ function registerService({ api }: Service) {
     registerInfo,
     registerBank,
     registerUploads,
+    getUserDetails,
   });
 }
 

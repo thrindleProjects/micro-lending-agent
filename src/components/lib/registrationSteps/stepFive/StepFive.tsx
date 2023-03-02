@@ -47,6 +47,10 @@ const StepFive: React.FC<StepProps> = ({ setCurrentStep }) => {
       try {
         const result = await registerAPI.registerUploads(formData);
         dispatch(clearRegister());
+        (await import('react-hot-toast')).toast.success(
+          'Account has been successfully created and pending verification'
+        );
+        router.push('/login');
         window.scrollTo(0, 0);
 
         if (session && session.data) {
