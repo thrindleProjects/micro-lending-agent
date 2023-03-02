@@ -58,6 +58,17 @@ const HomePageLayout = () => {
             >
               <span className='font-semibold'>Apply for loan</span>
             </Button>
+          </div>
+
+          <div className='block lg:hidden'>
+            <NotificationBell />
+          </div>
+        </section>
+        <div className='mt-10 flex items-center justify-between'>
+          <div className='mt-8 w-full md:w-[30%]'>
+            <InputSearch placeholder='Search group name' />
+          </div>
+          <div className='mt-4 hidden gap-4 md:flex '>
             <a
               href='/assets/file/reg.pdf'
               download='AMALI REGISTRATION FORM.pdf'
@@ -79,13 +90,6 @@ const HomePageLayout = () => {
               </Button>
             </a>
           </div>
-
-          <div className='block lg:hidden'>
-            <NotificationBell />
-          </div>
-        </section>
-        <div className='mt-8'>
-          <InputSearch placeholder='Search group name' />
         </div>
       </MainContentLayout>
       {stage && (
