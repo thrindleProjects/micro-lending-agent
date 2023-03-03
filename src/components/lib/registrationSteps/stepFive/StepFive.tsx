@@ -45,7 +45,7 @@ const StepFive: React.FC<StepProps> = ({ setCurrentStep }) => {
       }
       formData.append('userId', bvn?.id as Blob | string);
       try {
-        const result = await registerAPI.registerUploads(formData);
+        await registerAPI.registerUploads(formData);
         dispatch(clearRegister());
         (await import('react-hot-toast')).toast.success(
           'Account has been successfully created and pending verification'
@@ -56,12 +56,11 @@ const StepFive: React.FC<StepProps> = ({ setCurrentStep }) => {
         if (session && session.data) {
           await signIn('update', {
             ...session.data.user,
-            ...result.data,
             token: session.data?.token,
             completedUploads: true,
             redirect: false,
           });
-          router.replace('/home');
+          router.push('/home');
         }
 
         if (!session || !session.data) {

@@ -32,7 +32,7 @@ const AddMemberModal: AddMemberModalProps = ({
   maxNew,
   handleModal,
 }) => {
-  const [count, setCount] = useState<number>(0);
+  const [count, setCount] = useState<number>(maxNew ?? 3);
   const [memberSuccess, setMemberSuccess] = useState<boolean>(false);
   const { bvn } = useAppSelector((state) => state.bvn);
   const [loading, setLoading] = useState(false);
@@ -67,26 +67,29 @@ const AddMemberModal: AddMemberModalProps = ({
       if (values.other_image) {
         formData.append('otherDocumentImages', values.other_image[0] as Blob);
       }
-
       try {
-        await memberAPI.addMember(formData);
-        toast.success('BVN verified successfully');
-
-        setLoading(false);
-        const counter = typeof maxNew === 'number' ? maxNew : 3;
-        if (onAdd) {
-          onAdd();
+        if (count === 0) {
+          (await import('react-hot-toast')).toast.error(
+            'Maximum number of members added'
+          );
+          return;
         }
-        if (count + 1 === counter) {
+        await memberAPI.addMember(formData);
+        setMemberSuccess(true);
+        toast.success('Member added successfully');
+        if (count === 1) {
           toast.success('Group created successfully');
+          setCount((old) => old - 1);
           handleNext();
           return;
         }
-
-        setCount((old) => old + 1);
-        setMemberSuccess(true);
-
+        setCount((old) => old - 1);
         formik.resetForm();
+
+        if (onAdd) {
+          onAdd();
+        }
+        return;
       } catch (error) {
         setLoading(false);
 
@@ -99,8 +102,9 @@ const AddMemberModal: AddMemberModalProps = ({
             error.message ?? 'Something went wrong'
           );
         }
+      } finally {
+        setLoading(false);
       }
-      // logic
     },
   });
 

@@ -39,7 +39,6 @@ const CheckBVNModal: CheckBVNModalProps = ({
 
       try {
         const userData = await memberAPI.verifyBVN(values);
-        // console.log(userData)
         handleNext();
 
         toast.success('BVN verified successfully');

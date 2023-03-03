@@ -48,8 +48,8 @@ const UploadLoanFormModal: UploadLoanFormModalProps = ({
         (await import('react-hot-toast')).toast.success(
           'Loan Application sent successfully'
         );
-        setLoading(false);
         handleNext();
+        setLoading(false);
 
         formik.resetForm();
       } catch (error) {
