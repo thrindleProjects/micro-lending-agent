@@ -92,7 +92,7 @@ const GroupsListTable: GroupListTableProps = () => {
           </tbody>
         )}
       </Table>
-      {!groups.length && <div>Create group button here</div>}
+      {!groups.length && <div></div>}
       <Pagination count={data.data.lastpage || 1} className='mt-7' />
     </div>
   );

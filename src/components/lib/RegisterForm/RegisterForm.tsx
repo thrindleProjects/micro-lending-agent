@@ -46,13 +46,8 @@ const RegisterForm: RegisterFormProps = ({ markets }) => {
 
         dispatch(
           setBvnDetails({
-            firstName: data.data.firstName,
-            lastName: data.data.lastName,
-            middleName: data.data.middleName,
             bvn: data.data.bvn,
-            phoneNo: data.data.phone,
-            dateOfBirth: data.data.dateOfBirth,
-            gender: data.data.gender,
+
             id: data.data.id,
           })
         );
@@ -101,9 +96,9 @@ const RegisterForm: RegisterFormProps = ({ markets }) => {
               label='Market'
               id={CONSTANTS.MARKET}
               name={CONSTANTS.MARKET}
-              onChange={formik.handleChange}
+              onChangeValue={formik.setFieldValue}
               value={formik.values[CONSTANTS.MARKET]}
-              onBlur={formik.handleBlur}
+              onBlurEvent={formik.setFieldTouched}
               error={
                 formik.errors[CONSTANTS.MARKET] &&
                 formik.touched[CONSTANTS.MARKET]
@@ -111,7 +106,7 @@ const RegisterForm: RegisterFormProps = ({ markets }) => {
               errorText={formik.errors[CONSTANTS.MARKET]}
               required={true}
               options={markets.map((market) => ({
-                name: market.market,
+                label: market.market,
                 value: market._id,
               }))}
             />
@@ -165,7 +160,7 @@ const RegisterForm: RegisterFormProps = ({ markets }) => {
               type='submit'
               variant='primary'
               size='base'
-              className='w-full lg:mt-6'
+              className='w-full lg:my-6'
               isLoading={loading}
             >
               <span className='font-semibold'>Create Account</span>

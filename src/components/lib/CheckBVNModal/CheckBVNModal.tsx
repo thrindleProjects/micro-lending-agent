@@ -39,13 +39,18 @@ const CheckBVNModal: CheckBVNModalProps = ({
 
       try {
         const userData = await memberAPI.verifyBVN(values);
-        toast.success('BVN verified successfully');
-
         handleNext();
 
+        toast.success('BVN verified successfully');
         setLoading(false);
-        userData.data.bvn = values.bvn;
-        dispatch(setBvnDetails(userData.data));
+
+        dispatch(
+          setBvnDetails({
+            bvn: values.bvn,
+            id: userData.data.id,
+          })
+        );
+
         formik.resetForm();
       } catch (error) {
         setLoading(false);

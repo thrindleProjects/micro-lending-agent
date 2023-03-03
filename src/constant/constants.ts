@@ -70,3 +70,6 @@ export const ACCOUNT_NUMBER = 'Account Number';
 
 // STEP FIVE
 export const PLACEOFBUSINESS = 'Place Of Business';
+
+// MAX GROUP MEMBER LENGTH
+export const MAX_GROUP_LENGTH = 3;

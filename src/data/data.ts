@@ -2,15 +2,15 @@ import { Market } from '@/types';
 
 export const IDType = [
   {
-    name: "Driver's License",
+    label: "Driver's License",
     value: "Driver's License",
   },
   {
-    name: 'NIN',
+    label: 'NIN',
     value: 'NIN',
   },
   {
-    name: 'International Passport',
+    label: 'International Passport',
     value: 'International Passport',
   },
 ];
@@ -70,61 +70,61 @@ export const registerSteps = [
 
 export const gender = [
   {
-    name: 'FEMALE',
+    label: 'FEMALE',
     value: 'FEMALE',
   },
   {
-    name: 'MALE',
+    label: 'MALE',
     value: 'MALE',
   },
 ];
 
 export const title = [
-  { name: 'MR', value: 'MR' },
-  { name: 'MRS', value: 'MRS' },
+  { label: 'MR', value: 'MR' },
+  { label: 'MRS', value: 'MRS' },
 ];
 
 export const shopType = ['Lock up Shop', 'Stall', 'Umbrella', 'Mobile'];
 
 export const lengthOfStayData = [
   {
-    name: ' < 1',
+    label: ' < 1',
     value: '<1',
   },
   {
-    name: ' 2',
+    label: ' 2',
     value: '2',
   },
   {
-    name: ' 3',
+    label: ' 3',
     value: '3',
   },
   {
-    name: ' 4',
+    label: ' 4',
     value: '4',
   },
   {
-    name: ' 5',
+    label: ' 5',
     value: '5',
   },
   {
-    name: ' 6',
+    label: ' 6',
     value: '6',
   },
   {
-    name: ' 7',
+    label: ' 7',
     value: '7',
   },
   {
-    name: ' 8',
+    label: ' 8',
     value: '8',
   },
   {
-    name: ' 9',
+    label: ' 9',
     value: '9',
   },
   {
-    name: ' 10 >',
+    label: ' 10 >',
     value: '10 >',
   },
 ];

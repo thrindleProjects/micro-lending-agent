@@ -48,8 +48,8 @@ const UploadLoanFormModal: UploadLoanFormModalProps = ({
         (await import('react-hot-toast')).toast.success(
           'Loan Application sent successfully'
         );
-        setLoading(false);
         handleNext();
+        setLoading(false);
 
         formik.resetForm();
       } catch (error) {
@@ -124,7 +124,7 @@ const UploadLoanFormModal: UploadLoanFormModalProps = ({
               error={formik.errors.image && formik.touched.image}
               errorText={formik.errors.image}
               required={true}
-              extensions='image/*, .doc, .docx, .pdf'
+              extensions='image/*, .doc, .docx, '
               multiple={true}
               showPreview={true}
             />
@@ -140,7 +140,7 @@ const UploadLoanFormModal: UploadLoanFormModalProps = ({
               error={formik.errors.otherImage && formik.touched.otherImage}
               errorText={formik.errors.otherImage}
               required={true}
-              extensions='image/*, .doc, .docx, .pdf'
+              extensions='image/*, .doc, .docx, '
               multiple={true}
               showPreview={true}
             />

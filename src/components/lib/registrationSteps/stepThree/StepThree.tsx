@@ -92,7 +92,7 @@ const StepThree: React.FC<StepProps> = ({ setCurrentStep }) => {
   });
   const mappedLga = lga?.lgas.map((lga: string) => {
     return {
-      name: lga,
+      label: lga,
       value: lga,
     };
   });
@@ -168,9 +168,9 @@ const StepThree: React.FC<StepProps> = ({ setCurrentStep }) => {
         label='State'
         id={CONSTANTS.STATE}
         name={CONSTANTS.STATE}
-        onChange={formik.handleChange}
+        onChangeValue={formik.setFieldValue}
         value={formik.values[CONSTANTS.STATE]}
-        onBlur={formik.handleBlur}
+        onBlurEvent={formik.setFieldTouched}
         error={
           formik.errors[CONSTANTS.STATE] && formik.touched[CONSTANTS.STATE]
         }
@@ -183,9 +183,9 @@ const StepThree: React.FC<StepProps> = ({ setCurrentStep }) => {
         label='LGA'
         id={CONSTANTS.LGA}
         name={CONSTANTS.LGA}
-        onChange={formik.handleChange}
+        onChangeValue={formik.setFieldValue}
         value={formik.values[CONSTANTS.LGA]}
-        onBlur={formik.handleBlur}
+        onBlurEvent={formik.setFieldTouched}
         error={formik.errors[CONSTANTS.LGA] && formik.touched[CONSTANTS.LGA]}
         errorText={formik.errors[CONSTANTS.LGA]}
         required={true}
@@ -195,9 +195,9 @@ const StepThree: React.FC<StepProps> = ({ setCurrentStep }) => {
         label='Length of Stay (year)'
         id={CONSTANTS.LENGTHOFSTAY}
         name={CONSTANTS.LENGTHOFSTAY}
-        onChange={formik.handleChange}
+        onChangeValue={formik.setFieldValue}
         value={formik.values[CONSTANTS.LENGTHOFSTAY]}
-        onBlur={formik.handleBlur}
+        onBlurEvent={formik.setFieldTouched}
         error={
           formik.errors[CONSTANTS.LENGTHOFSTAY] &&
           formik.touched[CONSTANTS.LENGTHOFSTAY]
@@ -232,7 +232,7 @@ const StepThree: React.FC<StepProps> = ({ setCurrentStep }) => {
 
       <div className=' mt-4 justify-between gap-10 md:flex'>
         <Button
-          type='submit'
+          type='button'
           variant='light'
           size='base'
           className='mt-6 w-full md:mt-0'

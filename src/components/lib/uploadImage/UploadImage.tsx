@@ -57,7 +57,7 @@ const UploadImage: React.FC<UploadImageProps> = ({ onClick }) => {
                 error={formik.errors.image && formik.touched.image}
                 errorText={formik.errors.image}
                 required={true}
-                extensions='image/*, .doc, .docx, .pdf'
+                extensions='image/*, .doc, .docx, '
               />
             </div>
             <Button
