@@ -26,6 +26,7 @@ export const ID_CARD = 'id_card';
 // Add member keys
 export const FIRST_NAME = 'First Name';
 export const LAST_NAME = 'Last Name';
+export const MIDDLENAME = 'Middle Name';
 export const IDIMAGE = 'id_image';
 export const IDTYPE = 'id_type';
 export const REGISTRATION_IMAGE = 'registration_image';
