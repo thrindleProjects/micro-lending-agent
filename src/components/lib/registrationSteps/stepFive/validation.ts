@@ -15,7 +15,7 @@ export const validationSchema = Yup.object({
   [CONSTANTS.IDIMAGE]: Yup.mixed().test({
     message: 'Please provide a supported file type',
     test: (file, context) => {
-      const isValid = ['doc', 'docx', 'pdf', 'png', 'jpeg', 'jpg'].includes(
+      const isValid = ['doc', 'docx', 'png', 'jpeg', 'jpg'].includes(
         getExtension(file[0]?.name)
       );
 
@@ -26,7 +26,7 @@ export const validationSchema = Yup.object({
   [CONSTANTS.PLACEOFBUSINESS]: Yup.mixed().test({
     message: 'Please provide a supported file type',
     test: (file, context) => {
-      const isValid = ['doc', 'docx', 'pdf', 'png', 'jpeg', 'jpg'].includes(
+      const isValid = ['doc', 'docx', 'png', 'jpeg', 'jpg'].includes(
         getExtension(file[0]?.name)
       );
 

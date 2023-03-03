@@ -3,14 +3,9 @@ import { createSlice } from '@reduxjs/toolkit';
 
 interface IBvnData {
   // createdAt: string
-  dateOfBirth: string;
-  firstName: string;
-  gender: string;
-  lastName: string;
-  middleName: string;
-  phoneNo: string;
+
   bvn: string;
-  id?: string;
+  id: string;
 }
 
 const initialState: { bvn: IBvnData | null } = {

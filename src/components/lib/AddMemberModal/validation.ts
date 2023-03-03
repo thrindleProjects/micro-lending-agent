@@ -11,8 +11,8 @@ export const getExtension = (filename: string) => {
 };
 
 export const validationSchema = Yup.object({
-  // [CONSTANTS.FIRST_NAME]: Yup.string().required('First Name is required'),
-  // [CONSTANTS.LAST_NAME]: Yup.string().required('Last Name is required'),
+  [CONSTANTS.FIRST_NAME]: Yup.string().required('First Name is required'),
+  [CONSTANTS.LAST_NAME]: Yup.string().required('Last Name is required'),
   // [CONSTANTS.BVN]: Yup.number()
   //   .required('BVN is required')
   //   .typeError('BVN must only contain numbers'),
@@ -41,7 +41,7 @@ export const validationSchema = Yup.object({
       (value: undefined | File[]) => {
         if (!value) return false;
         const isValid = value.every((file) => {
-          return ['doc', 'docx', 'pdf', 'png', 'jpeg', 'jpg'].includes(
+          return ['doc', 'docx', 'png', 'jpeg', 'jpg'].includes(
             getExtension(file.name)
           );
         });
@@ -72,7 +72,7 @@ export const validationSchema = Yup.object({
       (value: undefined | File[]) => {
         if (!value) return false;
         const isValid = value.every((file) => {
-          return ['doc', 'docx', 'pdf', 'png', 'jpeg', 'jpg'].includes(
+          return ['doc', 'docx', 'png', 'jpeg', 'jpg'].includes(
             getExtension(file.name)
           );
         });
@@ -82,7 +82,7 @@ export const validationSchema = Yup.object({
   [CONSTANTS.IDIMAGE]: Yup.mixed().test({
     message: 'Please provide a supported file type',
     test: (file, context) => {
-      const isValid = ['doc', 'docx', 'pdf', 'png', 'jpeg', 'jpg'].includes(
+      const isValid = ['doc', 'docx', 'png', 'jpeg', 'jpg'].includes(
         getExtension(file[0]?.name)
       );
 
@@ -114,7 +114,7 @@ export const validationSchema = Yup.object({
       (value: undefined | File[]) => {
         if (!value) return false;
         const isValid = value.every((file) => {
-          return ['doc', 'docx', 'pdf', 'png', 'jpeg', 'jpg'].includes(
+          return ['doc', 'docx', 'png', 'jpeg', 'jpg'].includes(
             getExtension(file.name)
           );
         });
@@ -130,8 +130,8 @@ export const validationSchema = Yup.object({
 });
 
 export const initialValues: {
-  // [CONSTANTS.FIRST_NAME]: string;
-  // [CONSTANTS.LAST_NAME]: string;
+  [CONSTANTS.FIRST_NAME]: string;
+  [CONSTANTS.LAST_NAME]: string;
   [CONSTANTS.IDTYPE]: string;
   [CONSTANTS.BVN]: string;
   [CONSTANTS.IDIMAGE]?: File[];
@@ -141,8 +141,8 @@ export const initialValues: {
   [CONSTANTS.LOAN_IMAGE]?: File[];
   [CONSTANTS.OTHERIMAGE]?: File[];
 } = {
-  // [CONSTANTS.FIRST_NAME]: '',
-  // [CONSTANTS.LAST_NAME]: '',
+  [CONSTANTS.FIRST_NAME]: '',
+  [CONSTANTS.LAST_NAME]: '',
   [CONSTANTS.BVN]: '',
   [CONSTANTS.REGISTRATION_IMAGE]: [],
   [CONSTANTS.LOAN_IMAGE]: [],

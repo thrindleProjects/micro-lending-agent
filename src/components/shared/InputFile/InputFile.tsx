@@ -52,7 +52,7 @@ const InputFile: React.FC<InputFileProps<HTMLInputElement>> = (props) => {
           required={required}
           onChange={handleFileUpload}
           multiple={Boolean(multiple)}
-          accept={`${extensions ? extensions : '.doc, .docx, .pdf'}`}
+          accept={`${extensions ? extensions : '.doc, .docx, '}`}
         />
         <div className='grid grid-cols-7'>
           <span className='col-span-1 grid place-items-center text-xl'>
