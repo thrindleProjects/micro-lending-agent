@@ -41,6 +41,11 @@ export interface RegisterStepTwoValues {
   title: string | undefined;
   idType: string | undefined;
   nationality: string | undefined;
+  firstName: string | undefined;
+  middleName: string | undefined;
+  lastName: string | undefined;
+  gender: string | undefined;
+  dateOfBirth: string | undefined;
 }
 
 export interface RegisterBusinessValues {
