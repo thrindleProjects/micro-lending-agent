@@ -88,10 +88,11 @@ const StepTwo: React.FC<StepProps> = ({ setCurrentStep }) => {
   );
   const mappedState = state.map((state: string) => {
     return {
-      name: state,
+      label: state,
       value: state,
     };
   });
+
   const mappedLga = lga?.lgas.map((lga: string) => {
     return {
       label: lga,
@@ -178,6 +179,7 @@ const StepTwo: React.FC<StepProps> = ({ setCurrentStep }) => {
         errorText={formik.errors[CONSTANTS.STATE]}
         required={true}
         options={mappedState}
+        className='text-black'
       />
 
       <Select
@@ -210,7 +212,7 @@ const StepTwo: React.FC<StepProps> = ({ setCurrentStep }) => {
 
       <div className=' mt-4 justify-between gap-10 md:flex'>
         <Button
-          type='submit'
+          type='button'
           variant='light'
           size='base'
           className='mt-6 w-full md:mt-0'

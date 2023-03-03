@@ -105,7 +105,7 @@ const StepFive: React.FC<StepProps> = ({ setCurrentStep }) => {
         }
         errorText={formik.errors[CONSTANTS.IDIMAGE]}
         required={true}
-        extensions='image/*, .doc, .docx, .pdf'
+        extensions='image/*, .doc, .docx,'
         multiple={true}
         showPreview={true}
       />
@@ -124,7 +124,7 @@ const StepFive: React.FC<StepProps> = ({ setCurrentStep }) => {
         }
         errorText={formik.errors[CONSTANTS.PLACEOFBUSINESS]}
         required={true}
-        extensions='image/*, .doc, .docx, .pdf'
+        extensions='image/*, .doc, .docx,'
         showPreview={true}
       />
 

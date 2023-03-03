@@ -46,13 +46,8 @@ const RegisterForm: RegisterFormProps = ({ markets }) => {
 
         dispatch(
           setBvnDetails({
-            firstName: data.data.firstName,
-            lastName: data.data.lastName,
-            middleName: data.data.middleName,
             bvn: data.data.bvn,
-            phoneNo: data.data.phone,
-            dateOfBirth: data.data.dateOfBirth,
-            gender: data.data.gender,
+
             id: data.data.id,
           })
         );

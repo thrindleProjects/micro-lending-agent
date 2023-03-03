@@ -1,6 +1,7 @@
 import { Icon } from '@iconify/react';
 import dynamic from 'next/dynamic';
-import { AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlineDownload, AiOutlinePlus } from 'react-icons/ai';
+import { TfiWrite } from 'react-icons/tfi';
 
 import useGroupLoanModals from '@/hooks/useGroupLoanModals';
 
@@ -9,6 +10,7 @@ import ActionButton from '@/components/lib/ActionButton';
 import InputSearch from '@/components/shared/InputSearch';
 import MainContentLayout from '@/components/shared/MainContentLayout';
 import NotificationBell from '@/components/shared/NotificationBell';
+
 /**
  * @returns Home page layout
  */
@@ -32,12 +34,12 @@ const HomePageLayout = () => {
   return (
     <>
       <MainContentLayout>
-        <section className='flex items-center justify-between gap-4'>
+        <section className=''>
           <h1 className='shrink-0 text-base font-semibold sm:text-lg md:text-xl lg:text-2xl'>
             Welcome Agent 👋🏾
           </h1>
 
-          <div className='hidden justify-end lg:flex lg:flex-wrap lg:items-center lg:gap-3'>
+          <div className='mt-6 hidden  flex-wrap justify-between lg:flex lg:w-[50%] lg:items-center lg:gap-3 xl:w-full'>
             <Button
               type='button'
               variant='primary'
@@ -55,25 +57,20 @@ const HomePageLayout = () => {
               className='inline-flex'
               type='button'
               onClick={() => handleApplyModal('check-bvn')}
+              leftIcon={TfiWrite}
             >
               <span className='font-semibold'>Apply for loan</span>
             </Button>
-          </div>
-
-          <div className='block lg:hidden'>
-            <NotificationBell />
-          </div>
-        </section>
-        <div className='mt-10 flex items-center justify-between'>
-          <div className='mt-8 w-full md:w-[30%]'>
-            <InputSearch placeholder='Search group name' />
-          </div>
-          <div className='mt-4 hidden gap-4 md:flex '>
             <a
               href='/assets/file/reg.pdf'
               download='AMALI REGISTRATION FORM.pdf'
             >
-              <Button variant='outline' size='base' className='inline-flex'>
+              <Button
+                variant='outline'
+                size='base'
+                leftIcon={AiOutlineDownload}
+                className='inline-flex'
+              >
                 <span className='font-semibold'>
                   Download Registration Form
                 </span>
@@ -83,7 +80,73 @@ const HomePageLayout = () => {
               href='/assets/file/loan.pdf'
               download='AMALI LOAN APPLICATION FORM.pdf'
             >
-              <Button variant='outline' size='base' className='inline-flex'>
+              <Button
+                variant='outline'
+                size='base'
+                leftIcon={AiOutlineDownload}
+                className='inline-flex'
+              >
+                <span className='font-semibold'>
+                  Download Loan Application Form
+                </span>
+              </Button>
+            </a>
+          </div>
+
+          <div className='block lg:hidden'>
+            <NotificationBell />
+          </div>
+        </section>
+
+        <div className=' mt-6 w-full '>
+          <InputSearch placeholder='Search group name' />
+          <div className='mt-6  w-full lg:hidden '>
+            <Button
+              type='button'
+              variant='primary'
+              size='base'
+              leftIcon={AiOutlinePlus}
+              className='mb-4 inline-flex w-full justify-center'
+              onClick={() => handleModal('create-group')}
+            >
+              <span className='font-semibold'>Create New Group</span>
+            </Button>
+
+            <Button
+              variant='outline'
+              size='base'
+              className='mb-4 inline-flex w-full justify-center'
+              type='button'
+              onClick={() => handleApplyModal('check-bvn')}
+              leftIcon={TfiWrite}
+            >
+              <span className='font-semibold'>Apply for loan</span>
+            </Button>
+            <a
+              href='/assets/file/reg.pdf'
+              download='AMALI REGISTRATION FORM.pdf'
+            >
+              <Button
+                variant='outline'
+                size='base'
+                leftIcon={AiOutlineDownload}
+                className='mb-4 inline-flex w-full justify-center'
+              >
+                <span className='font-semibold'>
+                  Download Registration Form
+                </span>
+              </Button>
+            </a>
+            <a
+              href='/assets/file/loan.pdf'
+              download='AMALI LOAN APPLICATION FORM.pdf'
+            >
+              <Button
+                variant='outline'
+                size='base'
+                leftIcon={AiOutlineDownload}
+                className='mb-4 inline-flex w-full  justify-center'
+              >
                 <span className='font-semibold'>
                   Download Loan Application Form
                 </span>

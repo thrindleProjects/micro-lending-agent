@@ -61,15 +61,15 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           //#region  //*=========== Variants ===========
           [
             variant === 'primary' && [
-              'bg-amali-green text-center text-white',
+              'bg-amali-green px-8 text-center text-white',
               'border-primary-600 border',
               'hover:bg-primary-600 hover:text-white',
               'active:bg-primary-700',
               'disabled:bg-primary-700',
             ],
             variant === 'outline' && [
-              'text-primary-500',
-              'border-primary-500 border',
+              'text-primary-500 px-8 text-amali-green',
+              'border-2 border-amali-green',
               'hover:bg-primary-50 active:bg-primary-100 disabled:bg-primary-100',
               isDarkBg &&
                 'hover:bg-gray-900 active:bg-gray-800 disabled:bg-gray-800',
@@ -125,7 +125,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             <LeftIcon
               className={clsxm(
                 [
-                  size === 'base' && 'md:text-md text-md',
+                  size === 'base' && 'md:text-md text-md ',
                   size === 'sm' && 'md:text-md text-sm',
                 ],
                 leftIconClassName
