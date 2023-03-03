@@ -87,9 +87,9 @@ const StepOne: React.FC<StepProps> = ({ setCurrentStep }) => {
         label='Gender'
         id={CONSTANTS.GENDER}
         name={CONSTANTS.GENDER}
-        onChange={formik.handleChange}
+        onChangeValue={formik.setFieldValue}
         value={formik.values[CONSTANTS.GENDER]}
-        onBlur={formik.handleBlur}
+        onBlurEvent={formik.setFieldTouched}
         error={
           formik.errors[CONSTANTS.GENDER] && formik.touched[CONSTANTS.GENDER]
         }
@@ -117,9 +117,9 @@ const StepOne: React.FC<StepProps> = ({ setCurrentStep }) => {
         label='ID TYPE'
         id={CONSTANTS.IDTYPE}
         name={CONSTANTS.IDTYPE}
-        onChange={formik.handleChange}
+        onChangeValue={formik.setFieldValue}
         value={formik.values[CONSTANTS.IDTYPE]}
-        onBlur={formik.handleBlur}
+        onBlurEvent={formik.setFieldTouched}
         error={
           formik.errors[CONSTANTS.IDTYPE] && formik.touched[CONSTANTS.IDTYPE]
         }
@@ -131,16 +131,16 @@ const StepOne: React.FC<StepProps> = ({ setCurrentStep }) => {
         label='NATIONALITY'
         id={CONSTANTS.NATIONALITY}
         name={CONSTANTS.NATIONALITY}
-        onChange={formik.handleChange}
+        onChangeValue={formik.setFieldValue}
         value={formik.values[CONSTANTS.NATIONALITY]}
-        onBlur={formik.handleBlur}
+        onBlurEvent={formik.setFieldTouched}
         error={
           formik.errors[CONSTANTS.NATIONALITY] &&
           formik.touched[CONSTANTS.NATIONALITY]
         }
         errorText={formik.errors[CONSTANTS.NATIONALITY]}
         required={true}
-        options={[{ name: 'Nigerian', value: 'Nigerian' }]}
+        options={[{ label: 'Nigerian', value: 'Nigerian' }]}
       />
       <div className=' mt-4 justify-between gap-10 md:flex'>
         {/* <Button

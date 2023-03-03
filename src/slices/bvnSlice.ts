@@ -6,6 +6,7 @@ interface IBvnData {
 
   bvn: string;
   id: string;
+  phoneNo?: string;
 }
 
 const initialState: { bvn: IBvnData | null } = {

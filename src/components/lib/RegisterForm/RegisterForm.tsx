@@ -96,9 +96,9 @@ const RegisterForm: RegisterFormProps = ({ markets }) => {
               label='Market'
               id={CONSTANTS.MARKET}
               name={CONSTANTS.MARKET}
-              onChange={formik.handleChange}
+              onChangeValue={formik.setFieldValue}
               value={formik.values[CONSTANTS.MARKET]}
-              onBlur={formik.handleBlur}
+              onBlurEvent={formik.setFieldTouched}
               error={
                 formik.errors[CONSTANTS.MARKET] &&
                 formik.touched[CONSTANTS.MARKET]
@@ -106,7 +106,7 @@ const RegisterForm: RegisterFormProps = ({ markets }) => {
               errorText={formik.errors[CONSTANTS.MARKET]}
               required={true}
               options={markets.map((market) => ({
-                name: market.market,
+                label: market.market,
                 value: market._id,
               }))}
             />

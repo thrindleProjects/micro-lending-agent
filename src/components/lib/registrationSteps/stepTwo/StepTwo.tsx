@@ -88,13 +88,14 @@ const StepTwo: React.FC<StepProps> = ({ setCurrentStep }) => {
   );
   const mappedState = state.map((state: string) => {
     return {
-      name: state,
+      label: state,
       value: state,
     };
   });
+
   const mappedLga = lga?.lgas.map((lga: string) => {
     return {
-      name: lga,
+      label: lga,
       value: lga,
     };
   });
@@ -169,24 +170,25 @@ const StepTwo: React.FC<StepProps> = ({ setCurrentStep }) => {
         label='State'
         id={CONSTANTS.STATE}
         name={CONSTANTS.STATE}
-        onChange={formik.handleChange}
+        onChangeValue={formik.setFieldValue}
         value={formik.values[CONSTANTS.STATE]}
-        onBlur={formik.handleBlur}
+        onBlurEvent={formik.setFieldTouched}
         error={
           formik.errors[CONSTANTS.STATE] && formik.touched[CONSTANTS.STATE]
         }
         errorText={formik.errors[CONSTANTS.STATE]}
         required={true}
         options={mappedState}
+        className='text-black'
       />
 
       <Select
         label='LGA'
         id={CONSTANTS.LGA}
         name={CONSTANTS.LGA}
-        onChange={formik.handleChange}
+        onChangeValue={formik.setFieldValue}
         value={formik.values[CONSTANTS.LGA]}
-        onBlur={formik.handleBlur}
+        onBlurEvent={formik.setFieldTouched}
         error={formik.errors[CONSTANTS.LGA] && formik.touched[CONSTANTS.LGA]}
         errorText={formik.errors[CONSTANTS.LGA]}
         required={true}
@@ -196,9 +198,9 @@ const StepTwo: React.FC<StepProps> = ({ setCurrentStep }) => {
         label='Length of Stay (year)'
         id={CONSTANTS.LENGTHOFSTAY}
         name={CONSTANTS.LENGTHOFSTAY}
-        onChange={formik.handleChange}
+        onChangeValue={formik.setFieldValue}
         value={formik.values[CONSTANTS.LENGTHOFSTAY]}
-        onBlur={formik.handleBlur}
+        onBlurEvent={formik.setFieldTouched}
         error={
           formik.errors[CONSTANTS.LENGTHOFSTAY] &&
           formik.touched[CONSTANTS.LENGTHOFSTAY]

@@ -183,9 +183,9 @@ const AddMemberModal: AddMemberModalProps = ({
                     label='ID Type'
                     id={CONSTANTS.IDTYPE}
                     name={CONSTANTS.IDTYPE}
-                    onChange={formik.handleChange}
+                    onChangeValue={formik.setFieldValue}
                     value={formik.values[CONSTANTS.IDTYPE]}
-                    onBlur={formik.handleBlur}
+                    onBlurEvent={formik.setFieldTouched}
                     error={
                       formik.errors[CONSTANTS.IDTYPE] &&
                       formik.touched[CONSTANTS.IDTYPE]
