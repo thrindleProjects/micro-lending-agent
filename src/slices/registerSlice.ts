@@ -6,6 +6,7 @@ export interface IRegisterData {
   title?: string;
   firstName?: string;
   lastName?: string;
+  middleName?: string;
   gender?: string;
   dob?: string;
   idType?: string;

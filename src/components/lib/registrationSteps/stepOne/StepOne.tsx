@@ -26,6 +26,11 @@ const StepOne: React.FC<StepProps> = ({ setCurrentStep }) => {
           title: values.title,
           idType: values.id_type,
           nationality: values.nationality,
+          firstName: values['First Name'],
+          lastName: values['Last Name'],
+          dob: values['Date of Birth'],
+          gender: values.gender,
+          middleName: values['Middle Name'],
         })
       );
       setCurrentStep((prev) => prev + 1);
@@ -81,6 +86,21 @@ const StepOne: React.FC<StepProps> = ({ setCurrentStep }) => {
           formik.touched[CONSTANTS.LAST_NAME]
         }
         errorText={formik.errors[CONSTANTS.LAST_NAME]}
+        required={true}
+      />
+      <Input
+        id={CONSTANTS.MIDDLENAME}
+        type={CONSTANTS.TEXT}
+        value={formik.values[CONSTANTS.MIDDLENAME]}
+        placeholder='Olawale'
+        label='Middle Name'
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        error={
+          formik.errors[CONSTANTS.MIDDLENAME] &&
+          formik.touched[CONSTANTS.MIDDLENAME]
+        }
+        errorText={formik.errors[CONSTANTS.MIDDLENAME]}
         required={true}
       />
       <Select

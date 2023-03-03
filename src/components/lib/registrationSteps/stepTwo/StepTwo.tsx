@@ -47,6 +47,11 @@ const StepTwo: React.FC<StepProps> = ({ setCurrentStep }) => {
           title: register?.title,
           idType: register?.idType,
           nationality: register?.nationality,
+          lastName: register?.lastName,
+          firstName: register?.firstName,
+          gender: register?.gender,
+          dateOfBirth: register?.dob,
+          middleName: register?.middleName,
         });
         if (session && session.data) {
           await signIn('update', {
