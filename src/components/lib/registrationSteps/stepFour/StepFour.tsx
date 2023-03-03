@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import { motion } from 'framer-motion';
 import { signIn, useSession } from 'next-auth/react';
 import { useState } from 'react';
+import ReactSelect from 'react-select';
 
 import logger from '@/lib/logger';
 
@@ -20,11 +21,11 @@ import AmaliError from '@/utils/customError';
 
 import { initialValues, validationSchema } from './validation';
 import { StepProps } from '../types';
-import { SelectInput } from '../../../shared/Select/styled';
+import { SelectWrapper } from '../../../shared/Select/styled';
 
 const StepFour: React.FC<StepProps> = ({ setCurrentStep }) => {
   const [loading, setLoading] = useState(false);
-  const [selected, setSelected] = useState('');
+  const [selected, setSelected] = useState<string | undefined>('');
 
   const selectedBank = mainBanks.find((bank) => bank.bankCode === selected);
 
@@ -78,26 +79,32 @@ const StepFour: React.FC<StepProps> = ({ setCurrentStep }) => {
       onSubmit={formik.handleSubmit}
       variants={registerFormVariants}
     >
-      <SelectInput
-        className='flex w-full flex-row items-center border-x-0 border-t-0 border-b-2 py-4 px-2 text-xs shadow-inner outline-none transition-all duration-300 ease-in placeholder:text-xs focus:outline-none md:px-4 lg:py-5 xl:text-sm xl:placeholder:text-sm'
-        onChange={(e) => setSelected(e.target.value)}
-      >
-        {mainBanks
-          .sort((a, b) =>
-            a.name.toLowerCase().localeCompare(b.name.toLowerCase())
-          )
-          .map((bank, index) => {
-            return bank.name === 'Select an option' ? (
-              <option defaultValue='true' value={bank.bankCode} key={index}>
-                {bank.name}
-              </option>
-            ) : (
-              <option value={bank.bankCode} key={index}>
-                {bank.name}
-              </option>
-            );
-          })}
-      </SelectInput>
+      <SelectWrapper>
+        <ReactSelect
+          name='form-field-name'
+          onChange={(bank) => setSelected(bank?.value)}
+          classNames={{
+            option: (state) =>
+              `hover:bg-amali-green hover:text-white bg-transparent text-xs lg:text-sm px-2 md:px-6 py-2 ${
+                state.isSelected
+                  ? 'font-semibold bg-amali-grey bg-opacity-20'
+                  : ''
+              }`,
+            control: () =>
+              `w-full border-x-0 border-b-2 border-t-0 px-2 py-4 text-xs outline-none transition-all duration-300 ease-in placeholder:text-xs md:px-4 lg:py-4 lg:text-sm xl:placeholder:text-sm flex react-select`,
+          }}
+          options={mainBanks
+            .sort((a, b) =>
+              a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+            )
+            .map((bank) => {
+              return {
+                value: bank.bankCode,
+                label: bank.name,
+              };
+            })}
+        />
+      </SelectWrapper>
 
       <Input
         id={CONSTANTS.ACCOUNT_NUMBER}
@@ -117,7 +124,7 @@ const StepFour: React.FC<StepProps> = ({ setCurrentStep }) => {
 
       <div className=' mt-4 justify-between gap-10 md:flex'>
         <Button
-          type='submit'
+          type='button'
           variant='light'
           size='base'
           className='mt-6 w-full md:mt-0'

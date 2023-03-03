@@ -19,13 +19,9 @@ const CompleteRegistrationComponent = () => {
     if (data) {
       dispatch(
         setBvnDetails({
-          firstName: data.user.firstName,
-          lastName: data.user.lastName,
-          middleName: data.user.middleName,
           bvn: data.user.bvn,
           phoneNo: data.user.phone,
-          dateOfBirth: data.user.dateOfBirth,
-          gender: data.user.gender,
+
           id: data.user.id,
         })
       );

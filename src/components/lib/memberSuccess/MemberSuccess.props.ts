@@ -5,4 +5,5 @@ export interface MemberSuccessProps {
   // setShowAddMemberModal: React.Dispatch<React.SetStateAction<boolean>>;
   handleNext?: () => void;
   handleModal(arg: GroupLoanModalTypes | null): void;
+  handleClose(): void;
 }

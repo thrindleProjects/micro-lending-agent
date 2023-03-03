@@ -11,7 +11,6 @@ import { IDType } from '@/data/data';
 
 import Button from '@/components/buttons/Button';
 import MemberSuccess from '@/components/lib/memberSuccess';
-import UnieditableInput from '@/components/lib/uneditableInput/UnieditableInput';
 import Input from '@/components/shared/Input';
 import InputFile from '@/components/shared/InputFile';
 import Select from '@/components/shared/Select';
@@ -33,7 +32,7 @@ const AddMemberModal: AddMemberModalProps = ({
   maxNew,
   handleModal,
 }) => {
-  const [count, setCount] = useState<number>(maxNew ?? 0);
+  const [count, setCount] = useState<number>(maxNew ?? 3);
   const [memberSuccess, setMemberSuccess] = useState<boolean>(false);
   const { bvn } = useAppSelector((state) => state.bvn);
   const [loading, setLoading] = useState(false);
@@ -45,8 +44,8 @@ const AddMemberModal: AddMemberModalProps = ({
     onSubmit: async (values) => {
       setLoading(true);
       const formData = new FormData();
-      formData.append('firstname', bvn?.firstName as string | Blob);
-      formData.append('lastname', bvn?.lastName as string | Blob);
+      formData.append('firstname', values['First Name'] as string | Blob);
+      formData.append('lastname', values['Last Name'] as string | Blob);
       formData.append('idType', values.id_type as string | Blob);
       formData.append('idNumber', values.idNumber as string | Blob);
       formData.append('idExpiryDate', values.idExpiryDate as string | Blob);
@@ -68,7 +67,6 @@ const AddMemberModal: AddMemberModalProps = ({
       if (values.other_image) {
         formData.append('otherDocumentImages', values.other_image[0] as Blob);
       }
-
       try {
         if (count === 0) {
           (await import('react-hot-toast')).toast.error(
@@ -76,26 +74,25 @@ const AddMemberModal: AddMemberModalProps = ({
           );
           return;
         }
-
         await memberAPI.addMember(formData);
-
-        (await import('react-hot-toast')).toast.success(
-          'Member added successfully'
-        );
-        if (onAdd) {
-          onAdd();
-        }
+        setMemberSuccess(true);
+        toast.success('Member added successfully');
         if (count === 1) {
           toast.success('Group created successfully');
           setCount((old) => old - 1);
           handleNext();
           return;
         }
-
         setCount((old) => old - 1);
-        setMemberSuccess(true);
         formik.resetForm();
+
+        if (onAdd) {
+          onAdd();
+        }
+        return;
       } catch (error) {
+        setLoading(false);
+
         if (error instanceof AxiosError) {
           logger({ error: error.response?.data }, 'Axios Error');
         }
@@ -139,6 +136,7 @@ const AddMemberModal: AddMemberModalProps = ({
           <MemberSuccess
             setMemberSuccess={setMemberSuccess}
             handleModal={handleModal}
+            handleClose={handleClose}
           />
         ) : (
           <>
@@ -151,8 +149,38 @@ const AddMemberModal: AddMemberModalProps = ({
             <form onSubmit={formik.handleSubmit}>
               <div className='flex flex-col gap-6'>
                 <div className='flex flex-col gap-6 md:flex-row'>
-                  <UnieditableInput text={bvn?.firstName} label='First Name' />
-                  <UnieditableInput text={bvn?.lastName} label='Last Name' />
+                  <Input
+                    id={CONSTANTS.FIRST_NAME}
+                    name={CONSTANTS.FIRST_NAME}
+                    onChange={formik.handleChange}
+                    type='text'
+                    label='First Name'
+                    onBlur={formik.handleBlur}
+                    error={
+                      formik.errors[CONSTANTS.FIRST_NAME] &&
+                      formik.touched[CONSTANTS.FIRST_NAME]
+                    }
+                    errorText={formik.errors[CONSTANTS.FIRST_NAME]}
+                    required={true}
+                    value={formik.values[CONSTANTS.FIRST_NAME]}
+                    placeholder='Adewale'
+                  />
+                  <Input
+                    id={CONSTANTS.LAST_NAME}
+                    name={CONSTANTS.LAST_NAME}
+                    onChange={formik.handleChange}
+                    type='text'
+                    label='Last Name'
+                    onBlur={formik.handleBlur}
+                    error={
+                      formik.errors[CONSTANTS.LAST_NAME] &&
+                      formik.touched[CONSTANTS.LAST_NAME]
+                    }
+                    errorText={formik.errors[CONSTANTS.LAST_NAME]}
+                    required={true}
+                    value={formik.values[CONSTANTS.LAST_NAME]}
+                    placeholder='Ayo'
+                  />
                 </div>
                 <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
                   <Select
@@ -185,7 +213,7 @@ const AddMemberModal: AddMemberModalProps = ({
                     }
                     errorText={formik.errors[CONSTANTS.IDIMAGE]}
                     required={true}
-                    extensions='image/*, .doc, .docx, .pdf'
+                    extensions='image/*, .doc, .docx, '
                     showPreview={true}
                   />
                 </div>
@@ -238,7 +266,7 @@ const AddMemberModal: AddMemberModalProps = ({
                     }
                     errorText={formik.errors[CONSTANTS.REGISTRATION_IMAGE]}
                     required={true}
-                    extensions='image/*, .doc, .docx, .pdf'
+                    extensions='image/*, .doc, .docx, '
                     multiple={true}
                     showPreview={true}
                   />
@@ -258,7 +286,7 @@ const AddMemberModal: AddMemberModalProps = ({
                     }
                     errorText={formik.errors[CONSTANTS.LOAN_IMAGE]}
                     required={false}
-                    extensions='image/*, .doc, .docx, .pdf'
+                    extensions='image/*, .doc, .docx, '
                     multiple={true}
                     showPreview={true}
                   />
@@ -279,7 +307,7 @@ const AddMemberModal: AddMemberModalProps = ({
                     }
                     errorText={formik.errors[CONSTANTS.OTHERIMAGE]}
                     required={true}
-                    extensions='image/*, .doc, .docx, .pdf'
+                    extensions='image/*, .doc, .docx, '
                     multiple={true}
                     showPreview={true}
                   />

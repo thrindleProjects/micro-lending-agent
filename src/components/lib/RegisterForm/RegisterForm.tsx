@@ -42,23 +42,18 @@ const RegisterForm: RegisterFormProps = ({ markets }) => {
       try {
         const data = await registerAPI.register(values);
 
-        setRegisterStep(true);
-
-        setLoading(false);
         // data.data.bvn = values.bvn;
 
         dispatch(
           setBvnDetails({
-            firstName: data.data.firstName,
-            lastName: data.data.lastName,
-            middleName: data.data.middleName,
             bvn: data.data.bvn,
-            phoneNo: data.data.phone,
-            dateOfBirth: data.data.dateOfBirth,
-            gender: data.data.gender,
+
             id: data.data.id,
           })
         );
+        setRegisterStep(true);
+
+        setLoading(false);
 
         formik.resetForm();
       } catch (error) {

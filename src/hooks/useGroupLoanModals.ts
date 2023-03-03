@@ -26,7 +26,6 @@ const useGroupLoanModals = (order?: GroupLoanModalTypes[]) => {
    * @returns void
    */
   const handleNext = () => {
-    // console.log('here');
     if (!order || (order && !order.length)) return;
 
     if (!stage) {
@@ -40,8 +39,6 @@ const useGroupLoanModals = (order?: GroupLoanModalTypes[]) => {
     }
 
     const nextStage = order[indexOfCurrentStage + 1];
-
-    // console.log({ nextStage });
 
     setStage(nextStage);
   };

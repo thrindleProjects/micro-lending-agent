@@ -47,6 +47,10 @@ const StepFive: React.FC<StepProps> = ({ setCurrentStep }) => {
       try {
         await registerAPI.registerUploads(formData);
         dispatch(clearRegister());
+        (await import('react-hot-toast')).toast.success(
+          'Account has been successfully created and pending verification'
+        );
+        router.push('/login');
         window.scrollTo(0, 0);
 
         if (session && session.data) {
@@ -100,7 +104,7 @@ const StepFive: React.FC<StepProps> = ({ setCurrentStep }) => {
         }
         errorText={formik.errors[CONSTANTS.IDIMAGE]}
         required={true}
-        extensions='image/*, .doc, .docx, .pdf'
+        extensions='image/*, .doc, .docx,'
         multiple={true}
         showPreview={true}
       />
@@ -119,7 +123,7 @@ const StepFive: React.FC<StepProps> = ({ setCurrentStep }) => {
         }
         errorText={formik.errors[CONSTANTS.PLACEOFBUSINESS]}
         required={true}
-        extensions='image/*, .doc, .docx, .pdf'
+        extensions='image/*, .doc, .docx,'
         showPreview={true}
       />
 

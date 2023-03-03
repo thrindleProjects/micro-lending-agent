@@ -15,7 +15,7 @@ export const BASE_URL =
     ? process.env.NEXT_PUBLIC_PROD_URL
     : process.env.NEXT_PUBLIC_DEV_URL;
 
-const isBrowser = typeof window !== 'undefined';
+export const isBrowser = typeof window !== 'undefined';
 
 export const api = axios.create({
   baseURL: BASE_URL,
