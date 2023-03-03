@@ -1,9 +1,23 @@
-export interface SelectProps
-  extends React.SelectHTMLAttributes<HTMLSelectElement> {
+export type SelectProps = React.SelectHTMLAttributes<
+  HTMLSelectElement | HTMLInputElement
+> & {
   className?: string;
   id: string;
   error?: boolean | string;
   label?: string;
   errorText?: string;
-  options?: { name: string; value: string }[];
-}
+  options?: readonly {
+    readonly value: string;
+    readonly label: string;
+  }[];
+  onChangeValue?: (
+    field: string,
+    value: string,
+    shouldValidate?: boolean | undefined
+  ) => void;
+  onBlurEvent?: (
+    field: string,
+    touched?: boolean | undefined,
+    shouldValidate?: boolean | undefined
+  ) => void;
+};
