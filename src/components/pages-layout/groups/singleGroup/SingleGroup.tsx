@@ -15,6 +15,7 @@ import ActionButtonItem from '@/components/shared/ActionButtonItem';
 import BreadCrumbs from '@/components/shared/BreadCrumbs';
 import MainContentLayout from '@/components/shared/MainContentLayout';
 
+import { MAX_GROUP_LENGTH } from '@/constant/constants';
 import { groupAPI } from '@/utils/api';
 
 const SingleGroupLayout = () => {
@@ -49,18 +50,28 @@ const SingleGroupLayout = () => {
 
   const { data: groupData } = useSWR(`/api/group/${router.query.id}`);
 
+  const handleAddMember = async () => {
+    if (memberData && memberData.data.length === MAX_GROUP_LENGTH) {
+      (await import('react-hot-toast')).toast.error(
+        'Maximum number of members added'
+      );
+      return;
+    }
+    handleAddMemberModal('check-bvn');
+  };
+
   return (
     <>
       <MainContentLayout>
         <div className=''>
           <section className='hidden lg:block'>
-            {groupData && <BreadCrumbs dynamic_text={groupData.data.name} />}
+            {groupData && <BreadCrumbs dynamic_text={groupData?.data?.name} />}
             <div className=' flex items-center justify-between'>
               <h1 className='text-2xl'>Alpha Group</h1>
               {groupData && groupData.data.totalMembers < 3 && (
                 <div className='flex items-center gap-3'>
                   <Button
-                    onClick={() => handleAddMemberModal('check-bvn')}
+                    onClick={handleAddMember}
                     variant='primary'
                     size='base'
                     leftIcon={AiOutlinePlus}
@@ -119,25 +130,21 @@ const SingleGroupLayout = () => {
                 <p className='mt-4  mb-6 text-[14px] font-semibold text-amali-grey'>
                   No member added yet
                 </p>
-                <Button
-                  onClick={() => handleAddMemberModal('check-bvn')}
-                  variant='primary'
-                  size='base'
-                >
+                <Button onClick={handleAddMember} variant='primary' size='base'>
                   Add Members
                 </Button>
               </section>
             )}
           </div>
         </div>
-        {groupData && groupData.data.totalMembers > 3 && (
+        {groupData && groupData.data.totalMembers < 3 && (
           <ActionButton
             actions={[
               <ActionButtonItem
                 icon='material-symbols:add'
                 text='Add Members'
                 key={0}
-                onClick={() => handleAddMemberModal('check-bvn')}
+                onClick={handleAddMember}
               />,
               <ActionButtonItem
                 icon='material-symbols:download'
@@ -157,7 +164,7 @@ const SingleGroupLayout = () => {
           handlePrevious={handlePrevious}
           addMemberProps={{
             onAdd: handleOnAddMember,
-            maxNew: 1,
+            maxNew: MAX_GROUP_LENGTH - Number(memberData?.data?.length) ?? 0,
           }}
         />
       )}
@@ -170,7 +177,7 @@ const SingleGroupLayout = () => {
           handlePrevious={handleAddMemberPrevious}
           addMemberProps={{
             onAdd: handleOnAddMember,
-            maxNew: 2,
+            maxNew: MAX_GROUP_LENGTH - Number(memberData?.data?.length) ?? 0,
           }}
         />
       )}

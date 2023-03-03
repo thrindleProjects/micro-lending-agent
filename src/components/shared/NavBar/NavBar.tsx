@@ -24,7 +24,7 @@ const NavBar: React.FC = () => {
   const largeScreen = useMediaQuery('(min-width: 1024px)');
   const [accountDropdown, setAccountDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const { data, status } = useSession({
+  const { data } = useSession({
     required: true,
     onUnauthenticated: signOut,
   });
@@ -34,10 +34,6 @@ const NavBar: React.FC = () => {
   const toggleAccountDropdown = () => {
     setAccountDropdown((prevState) => !prevState);
   };
-
-  if (status === 'loading') {
-    return <></>;
-  }
 
   return (
     <nav className='layout__top_nav'>

@@ -165,7 +165,7 @@ const RegisterForm: RegisterFormProps = ({ markets }) => {
               type='submit'
               variant='primary'
               size='base'
-              className='w-full lg:mt-6'
+              className='w-full lg:my-6'
               isLoading={loading}
             >
               <span className='font-semibold'>Create Account</span>

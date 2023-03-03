@@ -33,7 +33,7 @@ const AddMemberModal: AddMemberModalProps = ({
   maxNew,
   handleModal,
 }) => {
-  const [count, setCount] = useState<number>(0);
+  const [count, setCount] = useState<number>(maxNew ?? 0);
   const [memberSuccess, setMemberSuccess] = useState<boolean>(false);
   const { bvn } = useAppSelector((state) => state.bvn);
   const [loading, setLoading] = useState(false);
@@ -70,12 +70,30 @@ const AddMemberModal: AddMemberModalProps = ({
       }
 
       try {
+        if (count === 0) {
+          (await import('react-hot-toast')).toast.error(
+            'Maximum number of members added'
+          );
+          return;
+        }
+
         await memberAPI.addMember(formData);
+
         (await import('react-hot-toast')).toast.success(
           'Member added successfully'
         );
-        setLoading(false);
+        if (onAdd) {
+          onAdd();
+        }
+        if (count === 1) {
+          toast.success('Group created successfully');
+          setCount((old) => old - 1);
+          handleNext();
+          return;
+        }
 
+        setCount((old) => old - 1);
+        setMemberSuccess(true);
         formik.resetForm();
       } catch (error) {
         if (error instanceof AxiosError) {
@@ -86,23 +104,10 @@ const AddMemberModal: AddMemberModalProps = ({
           (await import('react-hot-toast')).toast.error(
             error.message ?? 'Something went wrong'
           );
-          setLoading(false);
         }
+      } finally {
+        setLoading(false);
       }
-      // logic
-      const counter = typeof maxNew === 'number' ? maxNew : 3;
-      if (onAdd) {
-        onAdd();
-      }
-      if (count + 1 === counter) {
-        toast.success('Group created successfully');
-        handleNext();
-        return;
-      }
-
-      setCount((old) => old + 1);
-      setMemberSuccess(true);
-      formik.resetForm();
     },
   });
 

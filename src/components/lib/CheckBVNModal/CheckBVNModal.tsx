@@ -30,6 +30,8 @@ const CheckBVNModal: CheckBVNModalProps = ({
 
   const [loading, setLoading] = useState(false);
 
+  // console.log({ handleNext });
+
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -38,15 +40,15 @@ const CheckBVNModal: CheckBVNModalProps = ({
 
       try {
         const userData = await memberAPI.verifyBVN(values);
+        setLoading(false);
+
+        // console.log('here');
+        handleNext();
         (await import('react-hot-toast')).toast.success(
           'BVN verified successfully'
         );
-        setLoading(false);
         userData.data.bvn = values.bvn;
-
         dispatch(setBvnDetails(userData.data));
-        handleNext();
-
         formik.resetForm();
       } catch (error) {
         if (error instanceof AxiosError) {
