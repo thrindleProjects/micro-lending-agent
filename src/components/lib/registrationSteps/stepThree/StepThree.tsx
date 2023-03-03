@@ -86,7 +86,7 @@ const StepThree: React.FC<StepProps> = ({ setCurrentStep }) => {
   );
   const mappedState = state.map((state: string) => {
     return {
-      name: state,
+      label: state,
       value: state,
     };
   });
