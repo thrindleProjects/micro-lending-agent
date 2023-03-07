@@ -1,9 +1,9 @@
-import { useSession } from 'next-auth/react';
-import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
+import { signIn, useSession } from 'next-auth/react';
+import { PropsWithChildren, useCallback, useEffect } from 'react';
 
+import logger from '@/lib/logger';
 import { useMediaQuery } from '@/hooks';
 
-import StatusModal from '@/components/lib/statusModal/StatusModal';
 import MobileNav from '@/components/shared/MobileNav';
 import NavBar from '@/components/shared/NavBar';
 import SideNav from '@/components/shared/SideNav';
@@ -12,45 +12,43 @@ import { registerAPI } from '@/utils/api';
 
 const AuthenticatedLayout: React.FC<PropsWithChildren> = ({ children }) => {
   const largeScreen = useMediaQuery('(min-width: 1024px)');
-  const [modalOpen, setModalOpen] = useState(false);
 
   const { data } = useSession();
 
-  // const getUserDetails = useCallback(async () => {
-  //   if (data && !data.user.status) {
-  //     if (data.user.status) {
-  //       setIsOpen(false)
-  //       return
-  //     }
-  //     try {
-  //       const response = await registerAPI.getUserDetails(data.user.id);
-  //       if (response.data.status) {
-
-  //         signIn('update', {
-  //           ...data.user,
-  //           ...response.data,
-  //           token: data.token,
-  //         });
-  //       }
-  //     } catch (error) {
-  //       // logic here
-  //     }
-  //   }
-  // }, [data?.user?.status]);
-
   const getUserDetails = useCallback(async () => {
-    if (data?.user.id) {
+    if (data && data.user) {
+      if (data.user.status) {
+        // setShowBanner(false);
+        return;
+      }
       try {
-        const response = await registerAPI.getUserDetails(data?.user.id);
-
-        if (!response.data.status) {
-          setModalOpen(true);
+        const response = await registerAPI.getUserDetails(data.user.id);
+        if (response && response.data) {
+          if (
+            !(
+              response.data.completedBank &&
+              response.data.completedBusiness &&
+              response.data.completedContact &&
+              response.data.completedUploads
+            )
+          ) {
+            // setShowBanner(true);
+            return;
+          }
+          // setShowBanner(false);
+          signIn('update', {
+            ...data.user,
+            ...response.data,
+            token: data.token,
+          });
+          return;
         }
       } catch (error) {
         // logic here
+        logger(error, 'in catch');
       }
     }
-  }, [data?.user?.id]);
+  }, [data]);
 
   useEffect(() => {
     getUserDetails();
@@ -58,7 +56,7 @@ const AuthenticatedLayout: React.FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <div className='layout_wrapper '>
-      <StatusModal isOpen={modalOpen} />
+      {/* <StatusModal isOpen={modalOpen} /> */}
 
       {largeScreen && <SideNav />}
       {!largeScreen && <MobileNav />}

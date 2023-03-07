@@ -94,7 +94,7 @@ const RegisterForm: RegisterFormProps = ({ markets }) => {
 
   return (
     <section className='w-full overflow-x-hidden'>
-      <AnimatePresence mode='popLayout' initial={false}>
+      <AnimatePresence initial={false}>
         {/* {isOpen && (
           <OtpModal
             isOpen={isOpen}
@@ -106,7 +106,7 @@ const RegisterForm: RegisterFormProps = ({ markets }) => {
         {/* {!registerStep && ( */}
         <motion.form
           onSubmit={formik.handleSubmit}
-          className='mx-auto mt-10 flex w-4/5 flex-col  gap-5'
+          className='mx-auto mt-10 flex h-max w-4/5 flex-col gap-5 md:w-[70%] lg:w-9/12 xl:w-4/5'
           variants={registerFormVariants}
           initial='initial'
           animate='animate'

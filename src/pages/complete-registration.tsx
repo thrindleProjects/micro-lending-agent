@@ -1,11 +1,11 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { getServerSession } from 'next-auth';
-import { ReactElement } from 'react';
+// import { ReactElement } from 'react';
 import { SWRConfig } from 'swr';
 
 import { staticMarkets } from '@/data/data';
 
-import CompleteRegistrationLayout from '@/components/layout/CompleteRegistrationLayout';
+// import CompleteRegistrationLayout from '@/components/layout/CompleteRegistrationLayout';
 import CompleteRegistrationComponent from '@/components/pages-layout/complete-registration/CompleteRegistrationComponent';
 
 import { NextPageWithLayout } from '@/pages/_app';
@@ -21,9 +21,9 @@ const CompleteRegistration: NextPageWithLayout<
   );
 };
 
-CompleteRegistration.getLayout = function getLayout(page: ReactElement) {
-  return <CompleteRegistrationLayout>{page}</CompleteRegistrationLayout>;
-};
+// CompleteRegistration.getLayout = function getLayout(page: ReactElement) {
+//   return <CompleteRegistrationLayout>{page}</CompleteRegistrationLayout>;
+// };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getServerSession(context.req, context.res, authOptions);

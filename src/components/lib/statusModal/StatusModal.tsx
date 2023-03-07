@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { Icon } from '@iconify/react';
 import Modal from 'react-modal';
 
 import { ModalWrapper } from '@/components/lib/CreateGroupModal/styled';
@@ -9,8 +9,6 @@ const StatusModal: React.FC<StatusModalProps> = ({ isOpen }) => {
   return (
     <Modal
       isOpen={isOpen}
-      // onRequestClose={handleCloseModal}
-      shouldCloseOnEsc
       style={{
         overlay: {
           backgroundColor: '#00000020',
@@ -24,26 +22,25 @@ const StatusModal: React.FC<StatusModalProps> = ({ isOpen }) => {
           outline: 'none',
         },
       }}
-      shouldCloseOnOverlayClick={true}
+      shouldCloseOnOverlayClick={false}
       shouldReturnFocusAfterClose={true}
       ariaHideApp={false}
       className='h-max w-[90%] flex-shrink-0 rounded-md bg-white drop-shadow-2xl md:h-max md:w-5/6 lg:w-3/5 xl:w-[30%]'
     >
       <ModalWrapper className='w-full py-8 px-7'>
         <div className='text-center'>
-          <Image
-            alt='timer'
-            width={88}
-            height={88}
-            className='mx-auto block'
-            src='/assets/svg/timer.png'
-          />
-          <p className='my-4 text-[16px] font-bold md:text-[24px]'>
+          <div className='mx-auto aspect-square w-max rounded-full bg-amali-green bg-opacity-10 p-6'>
+            <Icon
+              icon='ph:hourglass-medium-fill'
+              className='mx-auto animate-spin text-4xl text-amali-green'
+            />
+          </div>
+          <p className='my-4 text-base font-bold md:text-[24px]'>
             Account Verification in progress
           </p>
-          <p className='text-[12px] md:text-[16px] '>
-            Your account is pending approval, please check back later. Thank
-            you.
+          <p className='text-xs md:text-base '>
+            Your account is currently inactive because it's undergoing
+            verification. Please check back later once it is approved.
           </p>
         </div>
       </ModalWrapper>
