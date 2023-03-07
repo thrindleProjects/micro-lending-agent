@@ -77,14 +77,21 @@ const Select: React.FC<SelectProps> = ({
               state.isSelected ? 'font-bold' : ''
             } ${state.isFocused ? 'bg-[#42B0A8] bg-opacity-10' : ''}`,
           control: () =>
-            `w-full border-x-0 border-b-2 border-t-0 px-2 py-4 text-xs outline-none transition-all duration-300 ease-in placeholder:text-xs md:px-4 lg:py-4 lg:text-sm xl:placeholder:text-sm flex react-select`,
+            `w-full border-x-0 border-b-2 border-t-0 px-2 py-2 md:py-[0.375rem] text-xs outline-none transition-all duration-300 ease-in placeholder:text-xs md:px-4 lg:py-3 lg:text-sm xl:placeholder:text-sm flex react-select`,
         }}
         styles={{
           control: () => {
             return {};
           },
           option: () => ({}),
+          valueContainer: (baseStyles) => ({
+            ...baseStyles,
+            padding: 0,
+            margin: 0,
+          }),
+          input: (baseStyles) => ({ ...baseStyles, margin: 0 }),
           indicatorSeparator: () => ({}),
+          placeholder: (base) => ({ ...base, margin: 0, padding: 0 }),
         }}
         // onChange={onChange}
       />
