@@ -1,4 +1,4 @@
-import axios, { InternalAxiosRequestConfig } from 'axios';
+import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { getSession, signOut } from 'next-auth/react';
 
 import logger from '@/lib/logger';
@@ -27,17 +27,26 @@ api.interceptors.response.use(
     return response.data;
   },
   async function (error) {
-    if (process.env.NODE_ENV === 'development') {
-      logger(error.response.data, 'Error in axios interceptor');
-    }
-
     const { response, config } = error;
     let message = 'An unexpected error occurred';
     const { url }: { url: string } = config;
 
     if (response && !['/login', '/register'].includes(url)) {
-      if (response.status === 401) {
+      if (process.env.NODE_ENV === 'development') {
+        if (error instanceof AxiosError) {
+          logger(
+            error.message,
+            'Error in axios interceptor. Type - Axios Error'
+          );
+        } else {
+          logger(error.response.data, 'Error in axios interceptor');
+        }
+      }
+      if (response.status === 401 && isBrowser) {
         signOut();
+        return Promise.reject(new AmaliError(response.message, response.error));
+      }
+      if (response.status === 401 && !isBrowser) {
         return Promise.reject(new AmaliError(response.message, response.error));
       }
       if (response.error) {

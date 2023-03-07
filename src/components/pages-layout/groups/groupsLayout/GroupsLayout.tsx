@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import { AiOutlinePlus } from 'react-icons/ai';
 import useSWR from 'swr';
 
@@ -11,6 +12,9 @@ import ActionButtonItem from '@/components/shared/ActionButtonItem';
 import InputSearch from '@/components/shared/InputSearch';
 import MainContentLayout from '@/components/shared/MainContentLayout';
 
+import { groupAPI } from '@/utils/api';
+import { getGroupsQuery } from '@/utils/getGroupsQuery';
+
 const GroupsLayout = () => {
   // const [groups] = useState<typeof groupsList>(groupsList);
   const [stage, handleModal, handleClose, handleNext, handlePrevious] =
@@ -18,8 +22,17 @@ const GroupsLayout = () => {
   const GroupLoanModals = dynamic(
     () => import('@/components/shared/GroupLoanModals')
   );
+  const router = useRouter();
+  const { query } = router;
 
-  const { isValidating } = useSWR('/api/group');
+  const data = useSWR('/api/group', fetcher);
+
+  // const { isValidating } = data;
+
+  async function fetcher(url: string) {
+    const params: string = getGroupsQuery(query);
+    return await groupAPI.getAllAgentsGroups(url, params.toString());
+  }
 
   return (
     <>
@@ -31,7 +44,7 @@ const GroupsLayout = () => {
           <div className='w-full lg:w-2/4 xl:w-2/5'>
             <InputSearch
               placeholder='Type Group Name'
-              isLoading={isValidating}
+              isLoading={data?.isValidating}
             />
           </div>
           <Button

@@ -1,4 +1,3 @@
-import { NextResponse } from 'next/server';
 import { withAuth } from 'next-auth/middleware';
 
 export default withAuth(
@@ -14,7 +13,7 @@ export default withAuth(
         session.completedUploads
       )
     ) {
-      return NextResponse.redirect(new URL('/complete-registration', req.url));
+      // return NextResponse.redirect(new URL('/complete-registration', req.url));
     }
   },
   {
