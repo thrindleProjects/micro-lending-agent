@@ -13,8 +13,6 @@ import Button from '@/components/buttons/Button';
 import { registerFormVariants } from '@/components/lib/RegisterForm/variants';
 import Input from '@/components/shared/Input/Input';
 
-import { useAppSelector } from '@/store/store.hooks';
-
 import * as CONSTANTS from '@/constant/constants';
 import { registerAPI } from '@/utils/api';
 import AmaliError from '@/utils/customError';
@@ -29,7 +27,6 @@ const StepFour: React.FC<StepProps> = ({ setCurrentStep }) => {
 
   const selectedBank = mainBanks.find((bank) => bank.bankCode === selected);
 
-  const { bvn } = useAppSelector((state) => state.bvn);
   const session = useSession();
 
   const formik = useFormik({
@@ -42,7 +39,8 @@ const StepFour: React.FC<StepProps> = ({ setCurrentStep }) => {
           accountNumber: values['Account Number'],
           bank: selectedBank?.name,
           bankCode: selectedBank?.bankCode,
-          userId: bvn?.id,
+          userId: session.data?.user.id,
+          bvn: values.bvn,
         });
 
         if (session && session.data) {
@@ -79,6 +77,18 @@ const StepFour: React.FC<StepProps> = ({ setCurrentStep }) => {
       onSubmit={formik.handleSubmit}
       variants={registerFormVariants}
     >
+      <Input
+        id={CONSTANTS.BVN}
+        type={CONSTANTS.TEXT}
+        value={formik.values[CONSTANTS.BVN]}
+        placeholder='XXXXXXXXXX'
+        label='BVN'
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        error={formik.errors[CONSTANTS.BVN] && formik.touched[CONSTANTS.BVN]}
+        errorText={formik.errors[CONSTANTS.BVN]}
+        required={true}
+      />
       <SelectWrapper>
         <ReactSelect
           name='form-field-name'
