@@ -20,12 +20,10 @@ import AmaliError from '@/utils/customError';
 
 import { initialValues, StateProps, validationSchema } from './validation';
 import { StepProps } from '../types';
-import { useAppSelector } from '../../../../store/store.hooks';
 
 const StepThree: React.FC<StepProps> = ({ setCurrentStep }) => {
   const [shop, setShop] = useState('');
   const [loading, setLoading] = useState(false);
-  const { bvn } = useAppSelector((state) => state.bvn);
   const [lga, setLga] = useState<StateProps>();
   const session = useSession();
 
@@ -44,7 +42,7 @@ const StepThree: React.FC<StepProps> = ({ setCurrentStep }) => {
           service: values['What Do You Sell'],
           state: values.State,
           type: shop,
-          userId: bvn?.id,
+          userId: session.data?.user.id,
         });
 
         if (session && session.data) {

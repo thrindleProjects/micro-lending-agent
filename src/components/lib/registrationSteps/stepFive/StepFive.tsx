@@ -19,12 +19,11 @@ import { registerAPI } from '@/utils/api';
 // import { clearRegister } from '@/slices/registerSlice';
 import { initialValues, validationSchema } from './validation';
 import { StepProps } from '../types';
-import { useAppDispatch, useAppSelector } from '../../../../store/store.hooks';
+import { useAppDispatch } from '../../../../store/store.hooks';
 import AmaliError from '../../../../utils/customError';
 
 const StepFive: React.FC<StepProps> = ({ setCurrentStep }) => {
   const dispatch = useAppDispatch();
-  const { bvn } = useAppSelector((state) => state.bvn);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const session = useSession();
@@ -43,7 +42,7 @@ const StepFive: React.FC<StepProps> = ({ setCurrentStep }) => {
           values['Place Of Business'][0] as Blob | string
         );
       }
-      formData.append('userId', bvn?.id as Blob | string);
+      formData.append('userId', session.data?.user.id as Blob | string);
       try {
         await registerAPI.registerUploads(formData);
         dispatch(clearRegister());
