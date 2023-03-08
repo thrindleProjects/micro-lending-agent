@@ -241,12 +241,12 @@ const StepThree: React.FC<StepProps> = ({ setCurrentStep }) => {
         </div>
       </div>
 
-      <div className=' mt-4 justify-between gap-10 md:flex'>
+      <div className='mt-8 flex flex-col gap-6 md:flex-row'>
         <Button
           type='button'
-          variant='light'
+          variant='error-secondary'
           size='base'
-          className='mt-6 w-full md:mt-0'
+          className='w-full md:mt-0 md:w-max'
           // isLoading={loading}
           onClick={() => setCurrentStep((prev) => prev - 1)}
         >
@@ -256,10 +256,10 @@ const StepThree: React.FC<StepProps> = ({ setCurrentStep }) => {
           type='submit'
           variant='primary'
           size='base'
-          className='mt-6 w-full md:mt-0'
+          className='md:mt-0 md:w-full md:max-w-md'
           isLoading={loading}
         >
-          Proceed
+          Next
         </Button>
       </div>
     </motion.form>

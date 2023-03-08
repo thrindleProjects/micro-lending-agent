@@ -252,15 +252,15 @@ const StepTwo: React.FC<StepProps> = ({ setCurrentStep }) => {
         />
       </div>
 
-      <div className='mt-4 justify-between gap-10 md:flex'>
+      <div className='mt-8 justify-between gap-10 md:flex'>
         <Button
           type='submit'
           variant='primary'
           size='base'
-          className='mt-6 w-full md:mt-0'
+          className='w-full md:mt-0 lg:max-w-md'
           isLoading={loading}
         >
-          Proceed
+          Next
         </Button>
       </div>
     </motion.form>
