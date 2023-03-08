@@ -69,7 +69,17 @@ const GroupsListTable: GroupListTableProps = () => {
   }
 
   if (!data || (!data && isValidating)) {
-    return <div>Loading...</div>;
+    return (
+      <div className='mt-8 w-full'>
+        <div className='w-full animate-pulse bg-amali-grey/70 py-6'></div>
+        <div className='flex h-40 w-full animate-pulse flex-col divide-y-2 bg-amali-grey/20'>
+          <div className='h-1/4 bg-amali-grey/20'></div>
+          <div className='h-1/4 bg-amali-grey/20'></div>
+          <div className='h-1/4 bg-amali-grey/20'></div>
+          <div className='h-1/4 bg-amali-grey/20'></div>
+        </div>
+      </div>
+    );
   }
 
   const { data: groups } = data.data;
