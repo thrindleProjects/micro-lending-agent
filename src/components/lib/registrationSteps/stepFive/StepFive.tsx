@@ -15,16 +15,15 @@ import InputFile from '@/components/shared/InputFile/InputFile';
 import * as CONSTANTS from '@/constant/constants';
 import { clearRegister } from '@/slices/registerSlice';
 import { registerAPI } from '@/utils/api';
+import AmaliError from '@/utils/customError';
 
 // import { clearRegister } from '@/slices/registerSlice';
 import { initialValues, validationSchema } from './validation';
 import { StepProps } from '../types';
-import { useAppDispatch, useAppSelector } from '../../../../store/store.hooks';
-import AmaliError from '../../../../utils/customError';
+import { useAppDispatch } from '../../../../store/store.hooks';
 
 const StepFive: React.FC<StepProps> = ({ setCurrentStep }) => {
   const dispatch = useAppDispatch();
-  const { bvn } = useAppSelector((state) => state.bvn);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const session = useSession();
@@ -43,14 +42,18 @@ const StepFive: React.FC<StepProps> = ({ setCurrentStep }) => {
           values['Place Of Business'][0] as Blob | string
         );
       }
-      formData.append('userId', bvn?.id as Blob | string);
+      formData.append('userId', session.data?.user.id as Blob | string);
+      if (values.guarantorFormImages) {
+        values.guarantorFormImages.forEach((value) => {
+          formData.append(CONSTANTS.GUARANTOR_FORM, value);
+        });
+      }
       try {
         await registerAPI.registerUploads(formData);
         dispatch(clearRegister());
         (await import('react-hot-toast')).toast.success(
           'Account has been successfully created and pending verification'
         );
-        router.push('/login');
         window.scrollTo(0, 0);
 
         if (session && session.data) {
@@ -90,49 +93,73 @@ const StepFive: React.FC<StepProps> = ({ setCurrentStep }) => {
       onSubmit={formik.handleSubmit}
       variants={registerFormVariants}
     >
-      <InputFile
-        label='Upload ID Image'
-        id={CONSTANTS.IDIMAGE}
-        name={CONSTANTS.IDIMAGE}
-        type='file'
-        placeholder='Choose file'
-        onChange={formik.setFieldValue}
-        onBlur={formik.handleBlur}
-        value={formik.values[CONSTANTS.IDIMAGE]}
-        error={
-          formik.errors[CONSTANTS.IDIMAGE] && formik.touched[CONSTANTS.IDIMAGE]
-        }
-        errorText={formik.errors[CONSTANTS.IDIMAGE]}
-        required={true}
-        extensions='image/*, .doc, .docx,'
-        multiple={true}
-        showPreview={true}
-      />
-      <InputFile
-        label='Upload photo of your place of business'
-        id={CONSTANTS.PLACEOFBUSINESS}
-        name={CONSTANTS.PLACEOFBUSINESS}
-        type='file'
-        placeholder='Choose file'
-        onChange={formik.setFieldValue}
-        onBlur={formik.handleBlur}
-        value={formik.values[CONSTANTS.PLACEOFBUSINESS]}
-        error={
-          formik.errors[CONSTANTS.PLACEOFBUSINESS] &&
-          formik.touched[CONSTANTS.PLACEOFBUSINESS]
-        }
-        errorText={formik.errors[CONSTANTS.PLACEOFBUSINESS]}
-        required={true}
-        extensions='image/*, .doc, .docx,'
-        showPreview={true}
-      />
+      <div className='grid gap-5 md:grid-cols-2'>
+        <InputFile
+          label='Upload ID Image'
+          id={CONSTANTS.IDIMAGE}
+          name={CONSTANTS.IDIMAGE}
+          type='file'
+          placeholder='Choose file'
+          onChange={formik.setFieldValue}
+          onBlur={formik.handleBlur}
+          value={formik.values[CONSTANTS.IDIMAGE]}
+          error={
+            formik.errors[CONSTANTS.IDIMAGE] &&
+            formik.touched[CONSTANTS.IDIMAGE]
+          }
+          errorText={formik.errors[CONSTANTS.IDIMAGE]}
+          required={true}
+          extensions='image/*, .doc, .docx,'
+          multiple={true}
+          showPreview={true}
+        />
+        <InputFile
+          label='Upload photo of your place of business'
+          id={CONSTANTS.PLACEOFBUSINESS}
+          name={CONSTANTS.PLACEOFBUSINESS}
+          type='file'
+          placeholder='Choose file'
+          onChange={formik.setFieldValue}
+          onBlur={formik.handleBlur}
+          value={formik.values[CONSTANTS.PLACEOFBUSINESS]}
+          error={
+            formik.errors[CONSTANTS.PLACEOFBUSINESS] &&
+            formik.touched[CONSTANTS.PLACEOFBUSINESS]
+          }
+          errorText={formik.errors[CONSTANTS.PLACEOFBUSINESS]}
+          required={true}
+          extensions='image/*, .doc, .docx,'
+          showPreview={true}
+        />
+      </div>
+      <div className='grid gap-5 md:grid-cols-2'>
+        <InputFile
+          label='Upload Guarantor Form'
+          id={CONSTANTS.GUARANTOR_FORM}
+          name={CONSTANTS.GUARANTOR_FORM}
+          type='file'
+          placeholder='Choose file'
+          onChange={formik.setFieldValue}
+          onBlur={formik.handleBlur}
+          value={formik.values[CONSTANTS.GUARANTOR_FORM]}
+          error={
+            formik.errors[CONSTANTS.GUARANTOR_FORM] &&
+            formik.touched[CONSTANTS.GUARANTOR_FORM]
+          }
+          errorText={formik.errors[CONSTANTS.GUARANTOR_FORM]}
+          required={true}
+          extensions='image/*, .doc, .docx,'
+          multiple={true}
+          showPreview={true}
+        />
+      </div>
 
-      <div className=' mt-4 justify-between gap-10 md:flex'>
+      <div className='mt-8 flex flex-col gap-6 md:flex-row'>
         <Button
-          type='submit'
-          variant='light'
+          type='button'
+          variant='error-secondary'
           size='base'
-          className='mt-6 w-full md:mt-0'
+          className='w-full md:mt-0 md:w-max'
           // isLoading={loading}
           onClick={() => setCurrentStep((prev) => prev - 1)}
         >
@@ -142,10 +169,10 @@ const StepFive: React.FC<StepProps> = ({ setCurrentStep }) => {
           type='submit'
           variant='primary'
           size='base'
-          className='mt-6 w-full md:mt-0'
+          className='md:mt-0 md:w-full md:max-w-md'
           isLoading={loading}
         >
-          Create Account
+          Complete Registration
         </Button>
       </div>
     </motion.form>

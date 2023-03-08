@@ -38,14 +38,25 @@ export interface RegisterStepTwoValues {
   lga: string;
   lengthOfStay: string;
   userId: string | undefined;
-  title: string | undefined;
+  // title: string | undefined;
   idType: string | undefined;
   nationality: string | undefined;
-  firstName: string | undefined;
-  middleName: string | undefined;
-  lastName: string | undefined;
-  gender: string | undefined;
-  dateOfBirth: string | undefined;
+  // firstName: string | undefined;
+  // middleName: string | undefined;
+  // lastName: string | undefined;
+  // gender: string | undefined;
+  // dateOfBirth: string | undefined;
+}
+export interface RegisterValues {
+  market: string;
+  password: string;
+  confirmPassword: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  dateOfBirth: string;
+  gender: string;
+  phone: string;
 }
 
 export interface RegisterBusinessValues {
@@ -65,4 +76,5 @@ export interface RegisterBankValues {
   bankCode: string | undefined;
   accountNumber: string;
   userId: string | undefined;
+  bvn: string;
 }

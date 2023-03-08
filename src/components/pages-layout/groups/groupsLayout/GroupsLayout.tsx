@@ -18,8 +18,17 @@ const GroupsLayout = () => {
   const GroupLoanModals = dynamic(
     () => import('@/components/shared/GroupLoanModals')
   );
+  // const router = useRouter();
+  // const { query } = router;
 
-  const { isValidating } = useSWR('/api/group');
+  const data = useSWR('/api/group');
+
+  const { isValidating } = data;
+
+  // async function fetcher(url: string) {
+  //   const params: string = getGroupsQuery(query);
+  //   return await groupAPI.getAllAgentsGroups(url, params.toString());
+  // }
 
   return (
     <>

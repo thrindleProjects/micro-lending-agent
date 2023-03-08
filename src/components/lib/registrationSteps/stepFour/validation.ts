@@ -11,16 +11,19 @@ import * as CONSTANTS from '@/constant/constants';
 // };
 
 export const validationSchema = Yup.object({
-  // [CONSTANTS.BANK_NAME]: Yup.string().required('Bank Name is required'),
+  [CONSTANTS.BVN]: Yup.number()
+    .required('BVN is required')
+    .typeError('BVN must only contain numbers'),
   [CONSTANTS.ACCOUNT_NUMBER]: Yup.string().required(
     'Account Number is required'
   ),
 });
 
 export const initialValues: {
-  // [CONSTANTS.BANK_NAME]: string;
+  [CONSTANTS.BVN]: string;
+  [CONSTANTS.ACCOUNT_NUMBER]: string;
   [CONSTANTS.ACCOUNT_NUMBER]: string;
 } = {
-  // [CONSTANTS.BANK_NAME]: '',
+  [CONSTANTS.BVN]: '',
   [CONSTANTS.ACCOUNT_NUMBER]: '',
 };
