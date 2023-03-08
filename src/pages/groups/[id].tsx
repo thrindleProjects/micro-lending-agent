@@ -30,6 +30,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getServerSession(context.req, context.res, authOptions);
   const id = params ? params.id : '';
 
+  if (session && !session.user.status) {
+    return {
+      notFound: true,
+    };
+  }
+
   const config: ReqConfig = {
     headers: {
       Authorization: `Bearer ${session?.token}`,
@@ -43,6 +49,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     undefined,
     config
   );
+
+  if (!group || !members) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {
