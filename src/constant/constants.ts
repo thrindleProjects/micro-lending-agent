@@ -52,7 +52,7 @@ export const NATIONALITY = 'nationality';
 
 // STEP TWO
 export const MOBILENUMBER = 'Mobile Number';
-export const WHATSAPPNUMBER = ' WhatsApp Number';
+export const WHATSAPPNUMBER = 'WhatsApp Number';
 export const HOMEADDRESS = 'Home Address';
 export const LANDMARK = 'Landmark';
 export const STATE = 'State';

@@ -12,6 +12,7 @@ import { lengthOfStayData, shopType } from '@/data/data';
 import Button from '@/components/buttons/Button';
 import { registerFormVariants } from '@/components/lib/RegisterForm/variants';
 import Input from '@/components/shared/Input/Input';
+import InputLabel from '@/components/shared/InputLabel';
 import Select from '@/components/shared/Select/Select';
 
 import * as CONSTANTS from '@/constant/constants';
@@ -101,130 +102,142 @@ const StepThree: React.FC<StepProps> = ({ setCurrentStep }) => {
       onSubmit={formik.handleSubmit}
       variants={registerFormVariants}
     >
-      <Input
-        label='Business Name'
-        placeholder='Name of Business'
-        id={CONSTANTS.BUSINNESSNAME}
-        type={CONSTANTS.TEXT}
-        name={CONSTANTS.BUSINNESSNAME}
-        onChange={formik.handleChange}
-        value={formik.values[CONSTANTS.BUSINNESSNAME]}
-        onBlur={formik.handleBlur}
-        error={
-          formik.errors[CONSTANTS.BUSINNESSNAME] &&
-          formik.touched[CONSTANTS.BUSINNESSNAME]
-        }
-        errorText={formik.errors[CONSTANTS.BUSINNESSNAME]}
-        required={true}
-      />
-      <Input
-        id={CONSTANTS.WHATDOYOUSELL}
-        type={CONSTANTS.TEXT}
-        value={formik.values[CONSTANTS.WHATDOYOUSELL]}
-        placeholder='Clothings'
-        label='What do you sell'
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={
-          formik.errors[CONSTANTS.WHATDOYOUSELL] &&
-          formik.touched[CONSTANTS.WHATDOYOUSELL]
-        }
-        errorText={formik.errors[CONSTANTS.WHATDOYOUSELL]}
-        required={true}
-      />
-      <Input
-        id={CONSTANTS.BUSSINESSADDRESS}
-        type={CONSTANTS.TEXT}
-        value={formik.values[CONSTANTS.BUSSINESSADDRESS]}
-        placeholder='12, Maryland, Yaba'
-        label='Business Address'
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={
-          formik.errors[CONSTANTS.BUSSINESSADDRESS] &&
-          formik.touched[CONSTANTS.BUSSINESSADDRESS]
-        }
-        errorText={formik.errors[CONSTANTS.BUSSINESSADDRESS]}
-        required={true}
-      />
-      <Input
-        id={CONSTANTS.LANDMARK}
-        type={CONSTANTS.TEXT}
-        value={formik.values[CONSTANTS.LANDMARK]}
-        placeholder='Shoprite'
-        label='Landmark'
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={
-          formik.errors[CONSTANTS.LANDMARK] &&
-          formik.touched[CONSTANTS.LANDMARK]
-        }
-        errorText={formik.errors[CONSTANTS.LANDMARK]}
-        required={true}
-      />
-      <Select
-        label='State'
-        id={CONSTANTS.STATE}
-        name={CONSTANTS.STATE}
-        onChangeValue={formik.setFieldValue}
-        value={formik.values[CONSTANTS.STATE]}
-        onBlurEvent={formik.setFieldTouched}
-        error={
-          formik.errors[CONSTANTS.STATE] && formik.touched[CONSTANTS.STATE]
-        }
-        errorText={formik.errors[CONSTANTS.STATE]}
-        required={true}
-        options={mappedState}
-      />
+      <div className='grid gap-5 md:grid-cols-2'>
+        <Input
+          label='Business Name'
+          placeholder='Name of Business'
+          id={CONSTANTS.BUSINNESSNAME}
+          type={CONSTANTS.TEXT}
+          name={CONSTANTS.BUSINNESSNAME}
+          onChange={formik.handleChange}
+          value={formik.values[CONSTANTS.BUSINNESSNAME]}
+          onBlur={formik.handleBlur}
+          error={
+            formik.errors[CONSTANTS.BUSINNESSNAME] &&
+            formik.touched[CONSTANTS.BUSINNESSNAME]
+          }
+          errorText={formik.errors[CONSTANTS.BUSINNESSNAME]}
+          required={true}
+        />
+        <Input
+          id={CONSTANTS.WHATDOYOUSELL}
+          type={CONSTANTS.TEXT}
+          value={formik.values[CONSTANTS.WHATDOYOUSELL]}
+          placeholder='Clothings'
+          label='What do you sell'
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={
+            formik.errors[CONSTANTS.WHATDOYOUSELL] &&
+            formik.touched[CONSTANTS.WHATDOYOUSELL]
+          }
+          errorText={formik.errors[CONSTANTS.WHATDOYOUSELL]}
+          required={true}
+        />
+      </div>
+      <div className='grid gap-5 md:grid-cols-2'>
+        <Input
+          id={CONSTANTS.BUSSINESSADDRESS}
+          type={CONSTANTS.TEXT}
+          value={formik.values[CONSTANTS.BUSSINESSADDRESS]}
+          placeholder='12, Maryland, Yaba'
+          label='Business Address'
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={
+            formik.errors[CONSTANTS.BUSSINESSADDRESS] &&
+            formik.touched[CONSTANTS.BUSSINESSADDRESS]
+          }
+          errorText={formik.errors[CONSTANTS.BUSSINESSADDRESS]}
+          required={true}
+        />
+        <Input
+          id={CONSTANTS.LANDMARK}
+          type={CONSTANTS.TEXT}
+          value={formik.values[CONSTANTS.LANDMARK]}
+          placeholder='Shoprite'
+          label='Landmark'
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={
+            formik.errors[CONSTANTS.LANDMARK] &&
+            formik.touched[CONSTANTS.LANDMARK]
+          }
+          errorText={formik.errors[CONSTANTS.LANDMARK]}
+          required={true}
+        />
+      </div>
+      <div className='grid gap-5 md:grid-cols-2'>
+        <Select
+          label='State'
+          id={CONSTANTS.STATE}
+          name={CONSTANTS.STATE}
+          onChangeValue={formik.setFieldValue}
+          value={formik.values[CONSTANTS.STATE]}
+          onBlurEvent={formik.setFieldTouched}
+          error={
+            formik.errors[CONSTANTS.STATE] && formik.touched[CONSTANTS.STATE]
+          }
+          errorText={formik.errors[CONSTANTS.STATE]}
+          required={true}
+          options={mappedState}
+        />
 
-      <Select
-        label='LGA'
-        id={CONSTANTS.LGA}
-        name={CONSTANTS.LGA}
-        onChangeValue={formik.setFieldValue}
-        value={formik.values[CONSTANTS.LGA]}
-        onBlurEvent={formik.setFieldTouched}
-        error={formik.errors[CONSTANTS.LGA] && formik.touched[CONSTANTS.LGA]}
-        errorText={formik.errors[CONSTANTS.LGA]}
-        required={true}
-        options={mappedLga}
-      />
-      <Select
-        label='Length of Stay (year)'
-        id={CONSTANTS.LENGTHOFSTAY}
-        name={CONSTANTS.LENGTHOFSTAY}
-        onChangeValue={formik.setFieldValue}
-        value={formik.values[CONSTANTS.LENGTHOFSTAY]}
-        onBlurEvent={formik.setFieldTouched}
-        error={
-          formik.errors[CONSTANTS.LENGTHOFSTAY] &&
-          formik.touched[CONSTANTS.LENGTHOFSTAY]
-        }
-        errorText={formik.errors[CONSTANTS.LENGTHOFSTAY]}
-        required={true}
-        options={lengthOfStayData}
-      />
-      <div>
-        <p className='text-[14px]'>Which Best Describe your Shop</p>
-        <div className='mt-6 flex flex-col gap-4  md:flex-row'>
-          {shopType.map((item, index) => (
-            <div
-              className='flex cursor-pointer gap-2 text-[14px]  md:justify-center'
-              key={index}
-              onClick={() => setShop(item)}
-            >
+        <Select
+          label='LGA'
+          id={CONSTANTS.LGA}
+          name={CONSTANTS.LGA}
+          onChangeValue={formik.setFieldValue}
+          value={formik.values[CONSTANTS.LGA]}
+          onBlurEvent={formik.setFieldTouched}
+          error={formik.errors[CONSTANTS.LGA] && formik.touched[CONSTANTS.LGA]}
+          errorText={formik.errors[CONSTANTS.LGA]}
+          required={true}
+          options={mappedLga}
+        />
+      </div>
+      <div className='grid gap-5 md:grid-cols-2'>
+        <Select
+          label='Length of Stay (year)'
+          id={CONSTANTS.LENGTHOFSTAY}
+          name={CONSTANTS.LENGTHOFSTAY}
+          onChangeValue={formik.setFieldValue}
+          value={formik.values[CONSTANTS.LENGTHOFSTAY]}
+          onBlurEvent={formik.setFieldTouched}
+          error={
+            formik.errors[CONSTANTS.LENGTHOFSTAY] &&
+            formik.touched[CONSTANTS.LENGTHOFSTAY]
+          }
+          errorText={formik.errors[CONSTANTS.LENGTHOFSTAY]}
+          required={true}
+          options={lengthOfStayData}
+        />
+        <div>
+          <InputLabel id='shop_type' label='Which Best Describe your Shop' />
+          <div className='mt-6 flex flex-col gap-4 md:flex-row md:flex-wrap'>
+            {shopType.map((item, index) => (
               <div
-                className={
-                  shop === item
-                    ? ' h-[18px] w-[18px]  rounded-full bg-amali-green'
-                    : ' h-[18px] w-[18px]  rounded-full border border-amali-green'
-                }
-              />
-              <p className={shop === item ? '  text-amali-green' : ''}>
-                {item}
-              </p>
-            </div>
-          ))}
+                className='flex cursor-pointer gap-2 text-[14px] md:justify-center'
+                key={index}
+                onClick={() => setShop(item)}
+              >
+                <div
+                  className={
+                    shop === item
+                      ? ' aspect-square h-[18px] flex-shrink-0  rounded-full bg-amali-green'
+                      : ' aspect-square h-[18px] flex-shrink-0  rounded-full border border-amali-green'
+                  }
+                />
+                <p
+                  className={`break-words ${
+                    shop === item ? 'text-amali-green' : ''
+                  }`}
+                >
+                  {item}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

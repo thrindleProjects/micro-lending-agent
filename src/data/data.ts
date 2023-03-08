@@ -61,7 +61,7 @@ export const groupsList = [
 ];
 
 export const registerSteps = [
-  'Personal',
+  // 'Personal',
   'Contact',
   'Business',
   'Bank',

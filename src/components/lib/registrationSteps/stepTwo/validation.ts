@@ -22,7 +22,8 @@ export const validationSchema = Yup.object({
   [CONSTANTS.STATE]: Yup.string().required('State is required'),
   [CONSTANTS.LGA]: Yup.string().required('LGA is required'),
   [CONSTANTS.LENGTHOFSTAY]: Yup.string().required('Length of stay is required'),
-  // [CONSTANTS.NATIONALITY]: Yup.string().required('Nationality is required'),
+  [CONSTANTS.NATIONALITY]: Yup.string().required('Nationality is required'),
+  [CONSTANTS.IDTYPE]: Yup.string().required('ID Type is required'),
 });
 
 export const initialValues: {
@@ -34,7 +35,9 @@ export const initialValues: {
   [CONSTANTS.STATE]: string;
   [CONSTANTS.LGA]: string;
   [CONSTANTS.LENGTHOFSTAY]: string;
-  // [CONSTANTS.NATIONALITY]: string;
+  [CONSTANTS.NATIONALITY]: string;
+  [CONSTANTS.IDTYPE]: string;
+  [CONSTANTS.ID_NUMBER]: string;
 } = {
   [CONSTANTS.MOBILENUMBER]: '',
   [CONSTANTS.WHATSAPPNUMBER]: '',
@@ -43,5 +46,7 @@ export const initialValues: {
   [CONSTANTS.STATE]: '',
   [CONSTANTS.LGA]: '',
   [CONSTANTS.LENGTHOFSTAY]: '',
-  // [CONSTANTS.NATIONALITY]: '',
+  [CONSTANTS.NATIONALITY]: '',
+  [CONSTANTS.IDTYPE]: '',
+  [CONSTANTS.ID_NUMBER]: '',
 };
