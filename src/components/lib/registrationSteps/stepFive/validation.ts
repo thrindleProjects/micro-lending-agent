@@ -34,12 +34,25 @@ export const validationSchema = Yup.object({
       return isValid;
     },
   }),
+  [CONSTANTS.GUARANTOR_FORM]: Yup.mixed().test({
+    message: 'Please provide a supported file type',
+    test: (file, context) => {
+      const isValid = ['doc', 'docx', 'png', 'jpeg', 'jpg'].includes(
+        getExtension(file[0]?.name)
+      );
+
+      if (!isValid) context?.createError();
+      return isValid;
+    },
+  }),
 });
 
 export const initialValues: {
   [CONSTANTS.IDIMAGE]?: File[];
   [CONSTANTS.PLACEOFBUSINESS]?: File[];
+  [CONSTANTS.GUARANTOR_FORM]?: File[];
 } = {
   [CONSTANTS.IDIMAGE]: [],
   [CONSTANTS.PLACEOFBUSINESS]: [],
+  [CONSTANTS.GUARANTOR_FORM]: [],
 };

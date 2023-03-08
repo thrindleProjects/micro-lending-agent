@@ -37,29 +37,6 @@ const Select: React.FC<SelectProps> = ({
   return (
     <SelectWrapper className='flex w-full flex-col gap-2' error={error}>
       {label && !!label.length && <InputLabel id={id} label={label} />}
-      {/* <SelectInput
-        error={error}
-        className='flex w-full flex-row items-center border-x-0 border-t-0 border-b-2 py-4 px-2 text-xs shadow-inner outline-none transition-all duration-300 ease-in placeholder:text-xs focus:outline-none md:px-4 lg:py-5 xl:text-sm xl:placeholder:text-sm'
-        value={value}
-        onChange={onChange}
-        onFocus={onFocus}
-        disabled={disabled}
-        required={required}
-        onBlur={onBlur}
-        placeholder={placeholder}
-        id={id}
-        name={name}
-      >
-        <option value='' label={placeholder}>
-          Select a {label}
-        </option>
-        {options &&
-          options.map((option, index) => (
-            <option key={index} value={option.value} label={option.label}>
-              {option.label}
-            </option>
-          ))}
-      </SelectInput> */}
       <ReactSelect
         placeholder={`Select ${placeholder || label || 'option'}`}
         options={options}

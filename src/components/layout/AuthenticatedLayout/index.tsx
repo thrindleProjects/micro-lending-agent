@@ -17,29 +17,37 @@ const AuthenticatedLayout: React.FC<PropsWithChildren> = ({ children }) => {
 
   const getUserDetails = useCallback(async () => {
     if (data && data.user) {
-      if (data.user.status) {
+      // if completed all register steps return out of the function
+      if (
+        data.user.completedBank &&
+        data.user.completedBusiness &&
+        data.user.completedContact &&
+        data.user.completedUploads
+      ) {
         // setShowBanner(false);
         return;
       }
+
       try {
+        // get user information
         const response = await registerAPI.getUserDetails(data.user.id);
         if (response && response.data) {
+          // if response matches our current session return out of the function
           if (
-            !(
-              response.data.completedBank &&
-              response.data.completedBusiness &&
-              response.data.completedContact &&
-              response.data.completedUploads
-            )
+            data.user.completedBank === response.data.completedBank &&
+            data.user.completedBusiness === response.data.completedBusiness &&
+            data.user.completedContact === response.data.completedContact &&
+            data.user.completedUploads === response.data.completedUploads
           ) {
-            // setShowBanner(true);
             return;
           }
-          // setShowBanner(false);
+
+          // if not update the session to the response
           signIn('update', {
             ...data.user,
             ...response.data,
             token: data.token,
+            redirect: false,
           });
           return;
         }

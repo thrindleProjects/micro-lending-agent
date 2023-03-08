@@ -1,3 +1,4 @@
+import { Icon } from '@iconify/react';
 import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
 import useSWR from 'swr';
@@ -9,6 +10,7 @@ import { useAppDispatch } from '@/store/store.hooks';
 
 import { IGroupData, setGroupInfo } from '@/slices/groupSlice';
 import { groupAPI } from '@/utils/api';
+import AmaliError from '@/utils/customError';
 import { getGroupsQuery } from '@/utils/getGroupsQuery';
 
 type GroupListTableProps = React.FC;
@@ -21,7 +23,13 @@ const GroupsListTable: GroupListTableProps = () => {
 
   const { search, page } = query;
 
-  const { data, error, mutate } = useSWR('/api/group', fetcher);
+  const { data, error, mutate, isValidating } = useSWR('/api/group', fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnMount: true,
+    shouldRetryOnError: true,
+    errorRetryInterval: 30000,
+    errorRetryCount: 2,
+  });
 
   const isMounted = useRef<boolean>(false);
 
@@ -34,11 +42,33 @@ const GroupsListTable: GroupListTableProps = () => {
     }
   }, [search, page, mutate]);
 
-  if (error) {
-    return <div>An error occured</div>;
+  if (!data && error && error instanceof AmaliError) {
+    return (
+      <div className='mt-8'>
+        {error.message === 'account is inactive. please contact admin' ? (
+          <div className='text-center'>
+            <div className='mx-auto aspect-square w-max rounded-full bg-amali-green bg-opacity-10 p-6'>
+              <Icon
+                icon='ph:hourglass-medium-fill'
+                className='mx-auto animate-spin text-4xl text-amali-green'
+              />
+            </div>
+            <p className='my-4 text-base font-bold md:text-[24px]'>
+              Account Verification in progress
+            </p>
+            <p className='text-xs md:text-base '>
+              Your account is currently inactive because it's undergoing
+              verification. Please check back later once it is approved.
+            </p>
+          </div>
+        ) : (
+          error.message
+        )}
+      </div>
+    );
   }
 
-  if (!data) {
+  if (!data || (!data && isValidating)) {
     return <div>Loading...</div>;
   }
 

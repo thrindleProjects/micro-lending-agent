@@ -38,14 +38,14 @@ export interface RegisterStepTwoValues {
   lga: string;
   lengthOfStay: string;
   userId: string | undefined;
-  title: string | undefined;
+  // title: string | undefined;
   idType: string | undefined;
   nationality: string | undefined;
-  firstName: string | undefined;
-  middleName: string | undefined;
-  lastName: string | undefined;
-  gender: string | undefined;
-  dateOfBirth: string | undefined;
+  // firstName: string | undefined;
+  // middleName: string | undefined;
+  // lastName: string | undefined;
+  // gender: string | undefined;
+  // dateOfBirth: string | undefined;
 }
 export interface RegisterValues {
   market: string;

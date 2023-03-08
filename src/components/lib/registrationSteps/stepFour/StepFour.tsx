@@ -12,6 +12,7 @@ import { mainBanks } from '@/data/data';
 import Button from '@/components/buttons/Button';
 import { registerFormVariants } from '@/components/lib/RegisterForm/variants';
 import Input from '@/components/shared/Input/Input';
+import InputLabel from '@/components/shared/InputLabel';
 
 import * as CONSTANTS from '@/constant/constants';
 import { registerAPI } from '@/utils/api';
@@ -77,67 +78,87 @@ const StepFour: React.FC<StepProps> = ({ setCurrentStep }) => {
       onSubmit={formik.handleSubmit}
       variants={registerFormVariants}
     >
-      <Input
-        id={CONSTANTS.BVN}
-        type={CONSTANTS.TEXT}
-        value={formik.values[CONSTANTS.BVN]}
-        placeholder='XXXXXXXXXX'
-        label='BVN'
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={formik.errors[CONSTANTS.BVN] && formik.touched[CONSTANTS.BVN]}
-        errorText={formik.errors[CONSTANTS.BVN]}
-        required={true}
-      />
-      <SelectWrapper>
-        <ReactSelect
-          name='form-field-name'
-          onChange={(bank) => setSelected(bank?.value)}
-          classNames={{
-            option: (state) =>
-              `hover:bg-amali-green hover:text-white bg-transparent text-xs lg:text-sm px-2 md:px-6 py-2 ${
-                state.isSelected
-                  ? 'font-semibold bg-amali-grey bg-opacity-20'
-                  : ''
-              }`,
-            control: () =>
-              `w-full border-x-0 border-b-2 border-t-0 px-2 py-4 text-xs outline-none transition-all duration-300 ease-in placeholder:text-xs md:px-4 lg:py-4 lg:text-sm xl:placeholder:text-sm flex react-select`,
-          }}
-          options={mainBanks
-            .sort((a, b) =>
-              a.name.toLowerCase().localeCompare(b.name.toLowerCase())
-            )
-            .map((bank) => {
-              return {
-                value: bank.bankCode,
-                label: bank.name,
-              };
-            })}
+      <div className='grid gap-5 md:grid-cols-2'>
+        <div className='flex flex-col gap-2'>
+          <InputLabel label='Bank Name' id={CONSTANTS.BANK_NAME} />
+          <SelectWrapper>
+            <ReactSelect
+              name='form-field-name'
+              onChange={(bank) => setSelected(bank?.value)}
+              classNames={{
+                option: (state) =>
+                  `hover:bg-amali-green hover:text-white bg-transparent text-xs lg:text-sm px-2 md:px-6 py-2 focus:bg-amali-green focus-within:bg-amali-green ${
+                    state.isSelected ? 'font-bold' : ''
+                  } ${state.isFocused ? 'bg-[#42B0A8] bg-opacity-10' : ''}`,
+                control: () =>
+                  `w-full border-x-0 border-b-2 border-t-0 px-2 py-2 md:py-[0.375rem] text-xs outline-none transition-all duration-300 ease-in placeholder:text-xs md:px-4 lg:py-3 lg:text-sm xl:placeholder:text-sm flex react-select`,
+              }}
+              styles={{
+                control: () => {
+                  return {};
+                },
+                option: () => ({}),
+                valueContainer: (baseStyles) => ({
+                  ...baseStyles,
+                  padding: 0,
+                  margin: 0,
+                }),
+                input: (baseStyles) => ({ ...baseStyles, margin: 0 }),
+                indicatorSeparator: () => ({}),
+                placeholder: (base) => ({ ...base, margin: 0, padding: 0 }),
+              }}
+              options={mainBanks
+                .sort((a, b) =>
+                  a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+                )
+                .map((bank) => {
+                  return {
+                    value: bank.bankCode,
+                    label: bank.name,
+                  };
+                })}
+              id={CONSTANTS.BANK_NAME}
+              placeholder='Select Bank Name'
+            />
+          </SelectWrapper>
+        </div>
+        <Input
+          id={CONSTANTS.ACCOUNT_NUMBER}
+          type={CONSTANTS.TEXT}
+          value={formik.values[CONSTANTS.ACCOUNT_NUMBER]}
+          placeholder='XXXXXXXXXX'
+          label='Account Number'
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={
+            formik.errors[CONSTANTS.ACCOUNT_NUMBER] &&
+            formik.touched[CONSTANTS.ACCOUNT_NUMBER]
+          }
+          errorText={formik.errors[CONSTANTS.ACCOUNT_NUMBER]}
+          required={true}
         />
-      </SelectWrapper>
+      </div>
+      <div className='grid gap-5 md:grid-cols-2'>
+        <Input
+          id={CONSTANTS.BVN}
+          type={CONSTANTS.TEXT}
+          value={formik.values[CONSTANTS.BVN]}
+          placeholder='XXXXXXXXXX'
+          label='BVN'
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.errors[CONSTANTS.BVN] && formik.touched[CONSTANTS.BVN]}
+          errorText={formik.errors[CONSTANTS.BVN]}
+          required={true}
+        />
+      </div>
 
-      <Input
-        id={CONSTANTS.ACCOUNT_NUMBER}
-        type={CONSTANTS.TEXT}
-        value={formik.values[CONSTANTS.ACCOUNT_NUMBER]}
-        placeholder='XXXXXXXXXX'
-        label='Account Number'
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={
-          formik.errors[CONSTANTS.ACCOUNT_NUMBER] &&
-          formik.touched[CONSTANTS.ACCOUNT_NUMBER]
-        }
-        errorText={formik.errors[CONSTANTS.ACCOUNT_NUMBER]}
-        required={true}
-      />
-
-      <div className=' mt-4 justify-between gap-10 md:flex'>
+      <div className='mt-8 flex flex-col gap-6 md:flex-row'>
         <Button
           type='button'
-          variant='light'
+          variant='error-secondary'
           size='base'
-          className='mt-6 w-full md:mt-0'
+          className='w-full md:mt-0 md:w-max'
           // isLoading={loading}
           onClick={() => setCurrentStep((prev) => prev - 1)}
         >
@@ -147,10 +168,10 @@ const StepFour: React.FC<StepProps> = ({ setCurrentStep }) => {
           type='submit'
           variant='primary'
           size='base'
-          className='mt-6 w-full md:mt-0'
+          className='md:mt-0 md:w-full md:max-w-md'
           isLoading={loading}
         >
-          Proceed
+          Next
         </Button>
       </div>
     </motion.form>

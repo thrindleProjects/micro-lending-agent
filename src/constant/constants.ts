@@ -52,7 +52,7 @@ export const NATIONALITY = 'nationality';
 
 // STEP TWO
 export const MOBILENUMBER = 'Mobile Number';
-export const WHATSAPPNUMBER = ' WhatsApp Number';
+export const WHATSAPPNUMBER = 'WhatsApp Number';
 export const HOMEADDRESS = 'Home Address';
 export const LANDMARK = 'Landmark';
 export const STATE = 'State';
@@ -71,6 +71,7 @@ export const ACCOUNT_NUMBER = 'Account Number';
 
 // STEP FIVE
 export const PLACEOFBUSINESS = 'Place Of Business';
+export const GUARANTOR_FORM = 'guarantorFormImages';
 
 // MAX GROUP MEMBER LENGTH
 export const MAX_GROUP_LENGTH = 3;
