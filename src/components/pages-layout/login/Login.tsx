@@ -1,18 +1,26 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 import LoginForm from '@/components/lib/LoginForm';
-import ImageComponent from '@/components/shared/ImageComponent';
-
-import AmaliLogo from '~/assets/amali-logo.png';
 
 const LoginLayout: React.FC = () => {
   return (
     <div className='flex h-full min-h-max w-full items-center justify-center bg-[#F9F9F9]'>
       <div className='flex h-full w-full max-w-4xl flex-col items-center justify-center gap-4 overflow-y-auto bg-white py-12 md:h-max md:w-5/6 md:border md:border-amali-green md:border-opacity-10 lg:w-7/12 xl:w-2/4 2xl:py-24'>
         <div className='relative h-12 min-h-max w-full flex-shrink-0 bg-inherit lg:h-16'>
-          <Link href='/' className='h-full'>
-            <ImageComponent src={AmaliLogo} alt='Amali Logo' />
-          </Link>
+          <div className='h-full'>
+            <Image
+              style={{
+                height: '100%',
+                width: 'auto',
+              }}
+              src='/assets/amali-logo.png'
+              alt='amali Logo'
+              width={300}
+              height={300}
+              className='mx-auto'
+            />
+          </div>
         </div>
         <section className='mt-8 w-4/5 cursor-default md:w-[70%] lg:w-9/12 xl:w-2/3'>
           <h4 className='w-full text-left text-lg font-bold md:text-center md:text-xl'>
