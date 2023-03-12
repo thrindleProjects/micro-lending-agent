@@ -42,68 +42,77 @@ const AddMemberModal: AddMemberModalProps = ({
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
-      setLoading(true);
-      const formData = new FormData();
-      formData.append('firstname', values['First Name'] as string | Blob);
-      formData.append('lastname', values['Last Name'] as string | Blob);
-      formData.append('idType', values.id_type as string | Blob);
-      formData.append('idNumber', values.idNumber as string | Blob);
-      formData.append('idExpiryDate', values.idExpiryDate as string | Blob);
-      formData.append('bvn', bvn?.bvn as string);
-      formData.append('group', group?.id as string | Blob);
+      if (new Date(values.idExpiryDate) <= new Date()) {
+        toast.error('Expiry date of ID must be in the future');
+      } else {
+        setLoading(true);
+        const formData = new FormData();
+        formData.append('firstname', values['First Name'] as string | Blob);
+        formData.append('lastname', values['Last Name'] as string | Blob);
+        formData.append('idType', values.id_type as string | Blob);
+        formData.append('idNumber', values.idNumber as string | Blob);
+        formData.append('idExpiryDate', values.idExpiryDate as string | Blob);
+        formData.append('bvn', bvn?.bvn as string);
+        formData.append('group', group?.id as string | Blob);
 
-      if (values.registration_image) {
-        formData.append(
-          'registrationForm',
-          values.registration_image[0] as Blob
-        );
-      }
-      if (values.loan_image) {
-        formData.append('loanApplicationForm', values.loan_image[0] as Blob);
-      }
-      if (values.id_image) {
-        formData.append('idImage', values.id_image[0] as Blob);
-      }
-      if (values.other_image) {
-        formData.append('otherDocumentImages', values.other_image[0] as Blob);
-      }
-      try {
-        if (count === 0) {
-          (await import('react-hot-toast')).toast.error(
-            'Maximum number of members added'
+        if (values.registration_image) {
+          formData.append(
+            'registrationForm',
+            values.registration_image[0] as Blob
           );
-          return;
         }
-        await memberAPI.addMember(formData);
-        setMemberSuccess(true);
-        toast.success('Member added successfully');
-        if (count === 1) {
-          toast.success('Group created successfully');
+        if (values.loan_image) {
+          formData.append('loanApplicationForm', values.loan_image[0] as Blob);
+        }
+        if (values.id_image) {
+          formData.append('idImage', values.id_image[0] as Blob);
+        }
+        if (values.other_image) {
+          if (values.other_image[0]) {
+            formData.append(
+              'otherDocumentImages',
+              values.other_image[0] as Blob
+            );
+          }
+        }
+        try {
+          if (count === 0) {
+            (await import('react-hot-toast')).toast.error(
+              'Maximum number of members added'
+            );
+            return;
+          }
+          await memberAPI.addMember(formData);
+          setMemberSuccess(true);
+          toast.success('Member added successfully');
+          if (count === 1) {
+            toast.success('Group created successfully');
+            setCount((old) => old - 1);
+            handleNext();
+            return;
+          }
           setCount((old) => old - 1);
-          handleNext();
+          formik.resetForm();
+
+          if (onAdd) {
+            onAdd();
+          }
           return;
-        }
-        setCount((old) => old - 1);
-        formik.resetForm();
+        } catch (error) {
+          setLoading(false);
 
-        if (onAdd) {
-          onAdd();
+          if (error instanceof AxiosError) {
+            logger({ error: error.response?.data }, 'Axios Error');
+          }
+          if (error instanceof AmaliError) {
+            logger({ error: error.message, cause: error.cause }, 'Amali Error');
+            (await import('react-hot-toast')).toast.error(
+              error.message ?? 'Something went wrong'
+            );
+          }
+        } finally {
+          setLoading(false);
         }
-        return;
-      } catch (error) {
-        setLoading(false);
-
-        if (error instanceof AxiosError) {
-          logger({ error: error.response?.data }, 'Axios Error');
-        }
-        if (error instanceof AmaliError) {
-          logger({ error: error.message, cause: error.cause }, 'Amali Error');
-          (await import('react-hot-toast')).toast.error(
-            error.message ?? 'Something went wrong'
-          );
-        }
-      } finally {
-        setLoading(false);
       }
     },
   });
@@ -306,7 +315,7 @@ const AddMemberModal: AddMemberModalProps = ({
                       formik.touched[CONSTANTS.OTHERIMAGE]
                     }
                     errorText={formik.errors[CONSTANTS.OTHERIMAGE]}
-                    required={true}
+                    // required={true}
                     extensions='image/*, .doc, .docx, '
                     multiple={true}
                     showPreview={true}
