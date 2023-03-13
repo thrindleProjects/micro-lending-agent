@@ -15,16 +15,12 @@ type ActiveLinkProps = LinkProps &
     className?: string;
     index?: boolean;
   }>;
+
 /**
  *
  * @param param0 Link Component that can tell if it's target is active
  * @returns A React component that can tell if it's target is active
  */
-
-// const StyledLink = styled(Link)`
-
-// `
-
 const ActiveLink: React.FC<ActiveLinkProps> = ({
   href,
   children,

@@ -1,5 +1,8 @@
-import dynamic from 'next/dynamic';
-
+import AddMemberModal from '@/components/lib/AddMemberModal';
+import CheckBVNModal from '@/components/lib/CheckBVNModal';
+import CreateGroupModal from '@/components/lib/CreateGroupModal';
+import LoanSuccessModal from '@/components/lib/loanSuccessModal';
+import UploadLoanFormModal from '@/components/lib/UploadLoanFormModal';
 import { GroupLoanModalsProps } from '@/components/shared/GroupLoanModals/types';
 
 const GroupLoanModals: GroupLoanModalsProps = ({
@@ -10,19 +13,6 @@ const GroupLoanModals: GroupLoanModalsProps = ({
   handlePrevious,
   addMemberProps,
 }) => {
-  const CreateGroupModal = dynamic(
-    () => import('@/components/lib/CreateGroupModal')
-  );
-  const CheckBVNModal = dynamic(() => import('@/components/lib/CheckBVNModal'));
-  const UploadLoanFormModal = dynamic(
-    () => import('@/components/lib/UploadLoanFormModal')
-  );
-  const AddMemberModal = dynamic(
-    () => import('@/components/lib/AddMemberModal')
-  );
-  const LoanSuccess = dynamic(
-    () => import('@/components/lib/loanSuccessModal')
-  );
   return (
     <>
       <CreateGroupModal
@@ -55,7 +45,7 @@ const GroupLoanModals: GroupLoanModalsProps = ({
         {...addMemberProps}
       />
 
-      <LoanSuccess
+      <LoanSuccessModal
         isOpen={stage === 'loan-success'}
         handleModal={handleModal}
         handleClose={handleClose}

@@ -20,6 +20,7 @@ import { useAppSelector } from '@/store/store.hooks';
 import * as CONSTANTS from '@/constant/constants';
 import { memberAPI } from '@/utils/api';
 import AmaliError from '@/utils/customError';
+import { formatDateNum } from '@/utils/formatDate';
 
 import { AddMemberModalProps } from './types';
 import { initialValues, validationSchema } from './validation';
@@ -42,77 +43,70 @@ const AddMemberModal: AddMemberModalProps = ({
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
-      if (new Date(values.idExpiryDate) <= new Date()) {
-        toast.error('Expiry date of ID must be in the future');
-      } else {
-        setLoading(true);
-        const formData = new FormData();
-        formData.append('firstname', values['First Name'] as string | Blob);
-        formData.append('lastname', values['Last Name'] as string | Blob);
-        formData.append('idType', values.id_type as string | Blob);
-        formData.append('idNumber', values.idNumber as string | Blob);
-        formData.append('idExpiryDate', values.idExpiryDate as string | Blob);
-        formData.append('bvn', bvn?.bvn as string);
-        formData.append('group', group?.id as string | Blob);
+      setLoading(true);
+      const formData = new FormData();
+      formData.append('firstname', values['First Name'] as string | Blob);
+      formData.append('lastname', values['Last Name'] as string | Blob);
+      formData.append('idType', values.id_type as string | Blob);
+      formData.append('idNumber', values.idNumber as string | Blob);
+      formData.append('idExpiryDate', values.idExpiryDate as string | Blob);
+      formData.append('bvn', bvn?.bvn as string);
+      formData.append('group', group?.id as string | Blob);
 
-        if (values.registration_image) {
-          formData.append(
-            'registrationForm',
-            values.registration_image[0] as Blob
+      if (values.registration_image) {
+        formData.append(
+          'registrationForm',
+          values.registration_image[0] as Blob
+        );
+      }
+      if (values.loan_image) {
+        formData.append('loanApplicationForm', values.loan_image[0] as Blob);
+      }
+      if (values.id_image) {
+        formData.append('idImage', values.id_image[0] as Blob);
+      }
+      if (values.other_image) {
+        if (values.other_image[0]) {
+          formData.append('otherDocumentImages', values.other_image[0] as Blob);
+        }
+      }
+      try {
+        if (count === 0) {
+          (await import('react-hot-toast')).toast.error(
+            'Maximum number of members added'
+          );
+          return;
+        }
+        await memberAPI.addMember(formData);
+        setMemberSuccess(true);
+        toast.success('Member added successfully');
+        if (count === 1) {
+          toast.success('Group created successfully');
+          setCount((old) => old - 1);
+          handleNext();
+          return;
+        }
+        setCount((old) => old - 1);
+        formik.resetForm();
+
+        if (onAdd) {
+          onAdd();
+        }
+        return;
+      } catch (error) {
+        setLoading(false);
+
+        if (error instanceof AxiosError) {
+          logger({ error: error.response?.data }, 'Axios Error');
+        }
+        if (error instanceof AmaliError) {
+          logger({ error: error.message, cause: error.cause }, 'Amali Error');
+          (await import('react-hot-toast')).toast.error(
+            error.message ?? 'Something went wrong'
           );
         }
-        if (values.loan_image) {
-          formData.append('loanApplicationForm', values.loan_image[0] as Blob);
-        }
-        if (values.id_image) {
-          formData.append('idImage', values.id_image[0] as Blob);
-        }
-        if (values.other_image) {
-          if (values.other_image[0]) {
-            formData.append(
-              'otherDocumentImages',
-              values.other_image[0] as Blob
-            );
-          }
-        }
-        try {
-          if (count === 0) {
-            (await import('react-hot-toast')).toast.error(
-              'Maximum number of members added'
-            );
-            return;
-          }
-          await memberAPI.addMember(formData);
-          setMemberSuccess(true);
-          toast.success('Member added successfully');
-          if (count === 1) {
-            toast.success('Group created successfully');
-            setCount((old) => old - 1);
-            handleNext();
-            return;
-          }
-          setCount((old) => old - 1);
-          formik.resetForm();
-
-          if (onAdd) {
-            onAdd();
-          }
-          return;
-        } catch (error) {
-          setLoading(false);
-
-          if (error instanceof AxiosError) {
-            logger({ error: error.response?.data }, 'Axios Error');
-          }
-          if (error instanceof AmaliError) {
-            logger({ error: error.message, cause: error.cause }, 'Amali Error');
-            (await import('react-hot-toast')).toast.error(
-              error.message ?? 'Something went wrong'
-            );
-          }
-        } finally {
-          setLoading(false);
-        }
+      } finally {
+        setLoading(false);
       }
     },
   });
@@ -257,6 +251,7 @@ const AddMemberModal: AddMemberModalProps = ({
                     errorText={formik.errors[CONSTANTS.ID_EXPIRY]}
                     required={true}
                     value={formik.values[CONSTANTS.ID_EXPIRY]}
+                    min={formatDateNum(new Date().toISOString(), '-')}
                   />
                 </div>
                 <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
