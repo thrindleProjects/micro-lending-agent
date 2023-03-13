@@ -1,5 +1,4 @@
 import { Icon } from '@iconify/react';
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { AiOutlineDownload, AiOutlinePlus } from 'react-icons/ai';
 import { BsArrowLeft } from 'react-icons/bs';
@@ -9,9 +8,11 @@ import useGroupLoanModals from '@/hooks/useGroupLoanModals';
 
 import Button from '@/components/buttons/Button';
 import ActionButton from '@/components/lib/ActionButton';
+import Member from '@/components/lib/member';
 import Table from '@/components/lib/Table';
 import ActionButtonItem from '@/components/shared/ActionButtonItem';
 import BreadCrumbs from '@/components/shared/BreadCrumbs';
+import GroupLoanModals from '@/components/shared/GroupLoanModals';
 import MainContentLayout from '@/components/shared/MainContentLayout';
 
 import { MAX_GROUP_LENGTH } from '@/constant/constants';
@@ -27,27 +28,35 @@ const SingleGroupLayout = () => {
     handleAddMemberNext,
     handleAddMemberPrevious,
   ] = useGroupLoanModals(['check-bvn', 'add-member']);
-  const GroupLoanModals = dynamic(
-    () => import('@/components/shared/GroupLoanModals')
-  );
-  const Member = dynamic(() => import('@/components/lib/member'));
 
   const router = useRouter();
 
   const memberFetcher = async () => {
     return await groupAPI.getAllMembersInaGroup(router.query.id as string);
   };
+  const groupFetcher = async () => {
+    return await groupAPI.getAnAgentGroup(router.query.id as string);
+  };
 
   const { data: memberData, mutate: mutateMember } = useSWR(
     `/api/group/members/${router.query.id}`,
-    memberFetcher
+    memberFetcher,
+    {
+      revalidateOnFocus: false,
+    }
   );
 
   const handleOnAddMember = async () => {
     await mutateMember();
   };
 
-  const { data: groupData } = useSWR(`/api/group/${router.query.id}`);
+  const { data: groupData } = useSWR(
+    `/api/group/${router.query.id}`,
+    groupFetcher,
+    {
+      revalidateOnFocus: false,
+    }
+  );
 
   const handleAddMember = async () => {
     if (memberData && memberData.data.length === MAX_GROUP_LENGTH) {
@@ -66,7 +75,7 @@ const SingleGroupLayout = () => {
           <section className='hidden lg:block'>
             {groupData && <BreadCrumbs dynamic_text={groupData?.data?.name} />}
             <div className=' flex items-center justify-between'>
-              <h1 className='text-2xl'>{groupData.data?.name}</h1>
+              <h1 className='text-2xl'>{groupData?.data?.name}</h1>
               {groupData && groupData.data.totalMembers < 3 && (
                 <div className='flex items-center gap-3'>
                   <Button

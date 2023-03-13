@@ -90,9 +90,9 @@ const GroupsListTable: GroupListTableProps = () => {
   };
 
   async function fetcher(url: string) {
-    const params: string = getGroupsQuery(query);
+    const resolvedQuery: string = getGroupsQuery(query);
 
-    return await groupAPI.getAllAgentsGroups(url, params.toString());
+    return await groupAPI.getAllAgentsGroups(url, resolvedQuery.toString());
   }
 
   return (
