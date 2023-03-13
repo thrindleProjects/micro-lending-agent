@@ -43,7 +43,6 @@ export const validationSchema = Yup.object({
     )
     .nullable(),
   otherImage: Yup.array()
-    .min(0, 'Please provide at least one image')
     .test(
       'unique',
       'Cannot have duplicate files',

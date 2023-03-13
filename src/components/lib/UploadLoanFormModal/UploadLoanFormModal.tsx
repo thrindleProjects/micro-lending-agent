@@ -139,7 +139,6 @@ const UploadLoanFormModal: UploadLoanFormModalProps = ({
               value={formik.values.otherImage}
               error={formik.errors.otherImage && formik.touched.otherImage}
               errorText={formik.errors.otherImage}
-              required={true}
               extensions='image/*, .doc, .docx, '
               multiple={true}
               showPreview={true}
